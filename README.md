@@ -36,7 +36,7 @@ Deactivate the virtual environment:
 
 Prior to using p3-appliances, ensure the virtual environment is activated:
 
-`venv/bin/activate`
+`source venv/bin/activate`
 
 ### Creating Infrastructure Using the Heat Templates
 
