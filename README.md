@@ -14,10 +14,10 @@ This repo is split into two parts:
 
 It is recommended to install python dependencies in a virtual environment:
 
-`virtualenv venv`
-`source venv/bin/activate`
-`pip install -U pip`
-`pip install -r requirements.txt`
+    virtualenv venv
+    source venv/bin/activate
+    pip install -U pip
+    pip install -r requirements.txt
 
 If SELinux is in use on the ansible control host, enable access to the
 `selinux` python module from the virtualenv:
