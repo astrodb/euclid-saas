@@ -24,7 +24,9 @@
     - role: openhpc_compute
 
 # Cluster setup
-- hosts: cluster
+- hosts: 
+  - cluster_login
+  - cluster_batch
   become: yes
   roles:
     - role: openhpc_runtime
