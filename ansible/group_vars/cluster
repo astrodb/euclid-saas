@@ -1,0 +1,12 @@
+---
+# Cluster infrastructure parameters
+cluster_name: stack
+cluster_groups: []
+cluster_roles: []
+
+# User home directories on a network filesystem
+cluster_homedir: "/cluster_home"
+
+# Distributed scratch space on a parallel filesystem
+cluster_scratchdir: "/scratch"
+
