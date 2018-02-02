@@ -9,7 +9,7 @@
 - import_playbook: users.yml
 
 # Add admin users
-- import_playbook: cluster-users.yml
+- import_playbook: cluster-admins.yml
 
 # Cluster login setup
 - hosts: cluster_login

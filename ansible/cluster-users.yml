@@ -1,7 +1,0 @@
-# This role ensured that cluster_users are configured as defined.
-- hosts: cluster
-  vars:
-  become: yes
-  roles:
-  - role: singleplatform-eng.users
-    users: "{{ cluster_users }}"

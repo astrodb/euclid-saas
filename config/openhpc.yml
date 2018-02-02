@@ -120,7 +120,7 @@ gluster_mnt: /mnt/gluster
 gluster_converged_disks: true
 
 # Admins who can login as centos user
-cluster_users:
+cluster_admins:
 - username: centos
   ssh_key:
   - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDCLva2hRoqcA77XoK0t7aPmip4CmxM6SdsnJdbN4i0l72Rf6HMNH2ZR5p+eZPxaxiJgmtQ5MpquNt775lFSGVIV7oyAKDdYuLA/8KXoKje4EsCMfA9m6Eg8urjrPprelTAl7xsem1eH9c/Jk6TFbJSyMrY7kvgNo1KZ+D24F5cCSSRncy0s5GoPWEJfdnSHdjvxc97vhSPY9KwsaMdbpj+u+1WlUDeoLjMsWLPDsqnIHLwYN74f9jfTvsoQxw9Wq3dmzRvy8sQkJ1OoAeuuM4B4MKel7U6QqrhMYyIUG2pcSBBICtT2Q5V4RhnBIqQrL8w1efq+TeD/ETSuQgFBiq1 sclt100@ilab-gate.ilab.cluster"
@@ -131,4 +131,10 @@ cluster_users:
 ceph_mount_share_name: HomeDirs
 ceph_mount_path: /alaska
 ceph_mount_fuse: true
+
+# BeeGFS Configuration
+beegfs_kmod_preload:
+  - "mlx5_core"
+  - "mlx5_ib"
+  - "ib_ipoib"
 ...

@@ -1,0 +1,72 @@
+---
+- name: Ensure the BeeGFS package repo is defined
+  get_url:
+    url: "{{ beegfs_repo_url }}"
+    dest: /etc/yum.repos.d/beegfs-rhel7.repo
+  become: True
+
+- name: Ensure any required kernel modules are loaded
+  modprobe:
+    name: "{{ item }}"
+    state: present
+  become: True
+  with_items: "{{ beegfs_kmod_preload }}"
+
+- include: mgmt.yml
+  when: beegfs_enable.mgmt
+
+- include: admon.yml
+  when: beegfs_enable.admon
+
+- include: meta.yml
+  when: beegfs_enable.meta
+
+- include: oss.yml
+  when: beegfs_enable.oss
+
+- include: client.yml
+  when: beegfs_enable.client
+
+- name: Enable and start BeeGFS mgmt service
+  service:
+    name: "beegfs-mgmtd"
+    enabled: "yes"
+    state: "restarted"
+  become: True
+  when: beegfs_enable.mgmt
+
+- name: Enable and start BeeGFS meta service
+  service:
+    name: "beegfs-meta"
+    enabled: "yes"
+    state: "restarted"
+  become: True
+  when: beegfs_enable.meta
+
+- name: Enable and start BeeGFS storage service
+  service:
+    name: "beegfs-storage"
+    enabled: "yes"
+    state: "restarted"
+  become: True
+  when: beegfs_enable.oss
+
+- name: Enable and start BeeGFS client service
+  service:
+    name: "{{ item }}"
+    enabled: "yes"
+    state: "restarted"
+  become: True
+  with_items:
+  - "beegfs-helperd"
+  - "beegfs-client"
+  when: beegfs_enable.client
+
+- name: Enable and start BeeGFS admon service
+  service:
+    name: "beegfs-admon"
+    enabled: "yes"
+    state: "restarted"
+  become: True
+  when: beegfs_enable.admon
+

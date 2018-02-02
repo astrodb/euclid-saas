@@ -1,0 +1,45 @@
+---
+- name: Ensures BeeGFS storage service is not running
+  service:
+    name: "beegfs-storage"
+    state: "stopped"
+  become: True
+  ignore_errors: True
+
+- name: Install packages for BeeGFS object storage server
+  package:
+    name: beegfs-storage
+    state: present
+  become: True
+
+- name: Prepare storage devices
+  block:
+  - name: Ensure storage device is not currently mounted
+    mount:
+      path: "{{ item }}"
+      state: unmounted
+    with_items:
+    - "{{ beegfs_path_oss }}"
+  - name: Format filesystem
+    filesystem:
+      dev: "{{ item }}"
+      fstype: "ext4"
+      force: yes
+    with_items:
+    - "{{ beegfs_dev_oss }}"
+  - name: Mount filesystem
+    mount:
+      src: "{{ item.0 }}"
+      path: "{{ item.1 }}"
+      fstype: "ext4"
+      state: mounted
+    with_together:
+    - "{{ beegfs_dev_oss }}"
+    - "{{ beegfs_path_oss }}"
+  become: True
+  when: beegfs_dev_oss is defined
+  
+- name: Run storage service setup script
+  command: "/opt/beegfs/sbin/beegfs-setup-storage -p {{ item }} -m {{ beegfs_host_mgmt }} -f"
+  become: True
+  with_items: "{{ beegfs_path_oss }}"
