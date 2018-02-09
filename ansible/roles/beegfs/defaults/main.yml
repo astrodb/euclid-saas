@@ -4,6 +4,7 @@ beegfs_repo_url: "https://www.beegfs.io/release/latest-stable/dists/beegfs-rhel7
 # Define to enable support for BeeGFS data transport over RDMA (IB, OPA, RoCE)
 beegfs_rdma: True
 
+beegfs_path_client: "/mnt/beegfs"
 beegfs_path_mgmt: "/data/beegfs/beegfs_mgmtd"
 beegfs_path_meta: "/data/beegfs/beegfs_meta"
 beegfs_path_oss:
@@ -24,3 +25,6 @@ beegfs_enable:
   oss: False
   admon: False
   client: False
+
+# Kernel modules to ensure are loaded prior to BeeGFS deploy/startup
+beegfs_kmod_preload: []

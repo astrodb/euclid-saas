@@ -11,12 +11,12 @@
   roles:
     - role: beegfs
       beegfs_enable:
-        rdma: True
         mgmt: "{{ inventory_hostname in groups['cluster_beegfs_mgmt'] }}"
         admon: False
         meta: "{{ inventory_hostname in groups['cluster_beegfs_mds'] }}"
         oss: "{{ inventory_hostname in groups['cluster_beegfs_oss'] }}"
         client: "{{ inventory_hostname in groups['cluster_beegfs_client'] }}"
+      beegfs_rdma: True
       beegfs_host_mgmt: "{{ groups['cluster_beegfs_mgmt'] | first }}"
       beegfs_path_client: "/mnt/beegfs"
       #beegfs_path_client: "{{ cluster_scratchdir }}"
@@ -24,5 +24,4 @@
       beegfs_path_meta: "/data/beegfs/beegfs_meta"
       # Enable to define block devices that should be formatted
       beegfs_dev_oss: [ "/dev/sdb" ]
-      beegfs_path_oss:
-      - "/data/beegfs/beegfs_data_0"
+      beegfs_path_oss: [ "/data/beegfs/beegfs_data_0" ]

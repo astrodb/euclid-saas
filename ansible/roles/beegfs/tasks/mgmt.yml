@@ -1,15 +1,14 @@
 ---
-- name: Ensures BeeGFS mgmt service is not running
-  service:
-    name: "beegfs-mgmtd"
-    state: "stopped"
-  become: True
-  ignore_errors: True
-
 - name: Install packages for BeeGFS management server
   package:
     name: beegfs-mgmtd
     state: present
+  become: True
+
+- name: Ensures BeeGFS mgmt service is not running
+  service:
+    name: "beegfs-mgmtd"
+    state: "stopped"
   become: True
 
 - name: Create directory for BeeGFS management service data

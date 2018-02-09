@@ -1,15 +1,14 @@
 ---
-- name: Ensures BeeGFS storage service is not running
-  service:
-    name: "beegfs-storage"
-    state: "stopped"
-  become: True
-  ignore_errors: True
-
 - name: Install packages for BeeGFS object storage server
   package:
     name: beegfs-storage
     state: present
+  become: True
+
+- name: Ensures BeeGFS storage service is not running
+  service:
+    name: "beegfs-storage"
+    state: "stopped"
   become: True
 
 - name: Prepare storage devices

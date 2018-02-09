@@ -1,15 +1,14 @@
 ---
-- name: Ensures BeeGFS meta service is not running
-  service:
-    name: "beegfs-meta"
-    state: "stopped"
-  become: True
-  ignore_errors: True
-
 - name: Install packages for BeeGFS metadata server
   package:
     name: beegfs-meta
     state: present
+  become: True
+
+- name: Ensures BeeGFS meta service is not running
+  service:
+    name: "beegfs-meta"
+    state: "stopped"
   become: True
 
 - name: Create directory for BeeGFS metadata
