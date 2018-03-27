@@ -40,5 +40,7 @@
   
 - name: Run storage service setup script
   command: "/opt/beegfs/sbin/beegfs-setup-storage -p {{ item }} -m {{ beegfs_host_mgmt }} -f"
+  args:
+    creates: "{{ item }}/nodeNumID"
   become: True
   with_items: "{{ beegfs_path_oss }}"
