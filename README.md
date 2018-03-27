@@ -1,22 +1,22 @@
-P3 Appliances
-=============
+StackHPC Appliances
+===================
 
-A repo of tools for creating software-defined platforms for the ALaSKA P3 project.
+A repo of tools for creating software-defined platforms for OpenStack infrastructure
 
 This repo is split into two parts: 
 
 - An Ansible Galaxy role, stackhpc.cluster-infra, which contains
   OpenStack Heat templates for creating bare metal instances configured
   for execution framework clusters.
-- Ansible playbooks for integrating with OpenStack services, and creating 
-  software middleware platforms on top of ALaSKA infrastructure.
+- Ansible playbooks (including Galaxy roles) for integrating with OpenStack services, and creating 
+  software middleware platforms on top of OpenStack infrastructure.
 
 Creating Infrastructure Using the Heat Templates
 ------------------------------------------------
 
 The Heat templates and stackhpc.cluster-infra role are configured locally
 through YAML environment files, then invoked through the
-`alaska-infra.yml` playbook.
+`cluster-infra.yml` playbook.
 
 First, download and deploy the role from Ansible Galaxy:
 
