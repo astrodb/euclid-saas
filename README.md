@@ -1,7 +1,7 @@
-StackHPC Appliances
-===================
+P3 Appliances
+=============
 
-A repo of tools for creating software-defined platforms for OpenStack infrastructure
+A repo of tools for creating software-defined platforms for the ALaSKA P3 project.
 
 This repo is split into two parts: 
 
