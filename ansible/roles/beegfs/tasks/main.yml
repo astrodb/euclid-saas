@@ -5,11 +5,36 @@
     dest: /etc/yum.repos.d/beegfs-rhel7.repo
   become: True
 
+# Task flow inspired by MichaelRigart.interfaces role - thanks markgoddard
+# Some systems do not support /etc/modules-load.d, in which case we fall back
+# to /etc/modules.
+- name: Check whether /etc/modules-load.d exists
+  stat:
+    path: /etc/modules-load.d
+  register: modules_load_stat
+
 - name: Ensure any required kernel modules are loaded
   modprobe:
     name: "{{ item }}"
     state: present
   become: True
+  with_items: "{{ beegfs_kmod_preload }}"
+
+- name: Make sure required modules are loaded at boot via /etc/modules-load.d
+  lineinfile:
+    dest: /etc/modules-load.d/beegfs.conf
+    line: "{{ item }}"
+    create: True
+  become: True
+  when: modules_load_stat.stat.exists
+  with_items: "{{ beegfs_kmod_preload }}"
+
+- name: Make sure required modules are loaded at boot via /etc/modules
+  lineinfile:
+    dest: /etc/modules
+    line: "{{ item }}"
+  become: True
+  when: not modules_load_stat.stat.exists
   with_items: "{{ beegfs_kmod_preload }}"
 
 - include: mgmt.yml
@@ -25,7 +50,7 @@
   when: beegfs_enable.oss
 
 - include: client.yml
-  when: beegfs_enable.client
+  when: beegfs_enable.client and beegfs_path_client not in ansible_mounts
 
 - name: Enable and start BeeGFS mgmt service
   service:
