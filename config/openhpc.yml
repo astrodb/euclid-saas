@@ -20,11 +20,7 @@ cluster_groups:
 
 slurm_login:
   name: "login"
-<<<<<<< Updated upstream
   flavor: "compute-B"
-=======
-  flavor: "compute-A"
->>>>>>> Stashed changes
   image: "CentOS7.4-OpenHPC"
   num_nodes: 1
 
@@ -32,11 +28,7 @@ slurm_compute:
   name: "compute"
   flavor: "compute-A"
   image: "CentOS7.4-OpenHPC"
-<<<<<<< Updated upstream
   num_nodes: 2
-=======
-  num_nodes: 4
->>>>>>> Stashed changes
 
 # Node group assignments for cluster roles.
 # These group assignments are appended to the cluster inventory file.
