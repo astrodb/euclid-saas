@@ -34,12 +34,14 @@ dlg_data_isl_mgr:
   flavor: "compute-A"
   image: "CentOS7"
   num_nodes: 1
+  user: "centos"
 
 dlg_node_mgr:
   name: "node-mgr"
   flavor: "compute-A"
   image: "CentOS7"
   num_nodes: 2
+  user: "centos"
 
 # Node group assignments for cluster roles.
 # These group assignments are appended to the cluster inventory file.
