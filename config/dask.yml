@@ -24,12 +24,14 @@ dask_scheduler:
   flavor: "compute-A"
   image: "CentOS7-Anaconda3"
   num_nodes: 1
+  user: "centos"
 
 dask_worker:
   name: "worker"
   flavor: "compute-A"
   image: "CentOS7-Anaconda3"
   num_nodes: 2
+  user: "centos"
 
 # Node group assignments for cluster roles.
 # These group assignments are appended to the cluster inventory file.

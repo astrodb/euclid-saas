@@ -28,12 +28,14 @@ slurm_login:
   flavor: "compute-B"
   image: "CentOS7.4-OpenHPC"
   num_nodes: 1
+  user: "centos"
 
 slurm_compute:
   name: "compute"
   flavor: "compute-A"
   image: "CentOS7.4-OpenHPC"
   num_nodes: 2
+  user: "centos"
 
 # Node group assignments for cluster roles.
 # These group assignments are appended to the cluster inventory file.
