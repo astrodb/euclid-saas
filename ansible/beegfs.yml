@@ -7,7 +7,6 @@
 # - beegfs_oss (Object storage server nodes)
 # - beegfs_client (Clients of the BeeGFS storage cluster)
 - hosts: cluster
-  remote_user: centos
   roles:
     - role: beegfs
       beegfs_enable:
