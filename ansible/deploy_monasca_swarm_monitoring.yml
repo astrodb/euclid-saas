@@ -1,0 +1,10 @@
+#
+# Copyright StackHPC, 2018
+#
+---
+- name: Deploy Monasca Swarm monitoring service
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+  - role: monasca_swarm_service

@@ -1,0 +1,44 @@
+# Accept logs from Docker Fluentd log driver
+<source>
+  @type forward
+  port 24224
+  bind 0.0.0.0
+</source>
+
+# Add a timestamp dimension to all logs to record the event time. The
+# event time is the time extracted from the log message in all cases
+# where the time_key is set, and the time the record entered fluentd
+# if no time_key is set.
+# logs.
+<filter *.**>
+  @type record_transformer
+  <record>
+    timestamp ${time}
+  </record>
+</filter>
+
+# Docker saves all logs under the 'log' field. The fluentd-monasca
+# plugin assumes that they are saved under the 'message' field. Here
+# we map the 'log' field to the 'message' field for all logs.
+<filter *.**>
+  @type record_transformer
+  enable_ruby true
+  <record>
+    message ${record["log"]}
+  </record>
+  remove_keys log
+</filter>
+
+<match *.**>
+    type copy
+    <store>
+       @type monasca
+       keystone_url {{ monasca_swarm_service_keystone_uri }}
+       monasca_log_api {{ monasca_swarm_service_log_api_uri }}
+       monasca_log_api_version v3.0
+       username {{ monasca_swarm_service_username }}
+       password {{ monasca_swarm_service_password }}
+       domain_id default
+       project_name {{ monasca_swarm_service_project_name }}
+    </store>
+</match>

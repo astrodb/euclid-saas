@@ -15,7 +15,7 @@ alaska_cloud: alaska
 alaska_homedir: /alaska
 alaska_softiron: 10.4.99.101
 
-# OpenStack fully qualified project name
+# OpenStack fully qualified project name (used for Grafana with domain support)
 project_name: p3@default
 
 # Virtual IP address of the controller node
@@ -27,6 +27,16 @@ alaska_monitoring_server: 10.60.253.3
 # OpenStack credentials for posting logs and metrics for the P3 project
 monasca_agent_p3_username: p3-monasca-agent
 monasca_agent_p3_password: "{{ vault_monasca_agent_password }}"
+
+# Monasca Swarm service config
+monasca_swarm_service_forwarder_port: 17120
+monasca_swarm_service_log_level: INFO
+monasca_swarm_service_api_uri: http://{{ controller_vip }}:8082/v2.0
+monasca_swarm_service_log_api_uri: http://{{ controller_vip }}:5607
+monasca_swarm_service_keystone_uri: http://{{ controller_vip }}:5000/v3
+monasca_swarm_service_username: "{{ monasca_agent_p3_username }}"
+monasca_swarm_service_password: "{{ monasca_agent_p3_password }}"
+monasca_swarm_service_project_name: p3
 
 # Local Grafana admin account for configuring Grafana
 grafana_admin_username: grafana-admin
