@@ -1,0 +1,9 @@
+---
+- name: Deploy Prometheus Swarm service
+   # At the time of writing the docker_compose module doesn't support compose v3
+   # and we want compose v3 for the global deploy mode.
+  command: "docker stack deploy --compose-file {{ role_path }}/files/prometheus_swarm_service.yml prometheus-monitoring-stack"
+  environment:
+    DOCKER_HOST: "{{ lookup('env','DOCKER_HOST') }}"
+    DOCKER_CERT_PATH: "{{ lookup('env','DOCKER_CERT_PATH') }}"
+    DOCKER_TLS_VERIFY: "{{ lookup('env','DOCKER_TLS_VERIFY') }}"
