@@ -1,0 +1,31 @@
+---
+version: "3.6"
+
+networks:
+  hostnet:
+    external: true
+    name: host
+
+services:
+  prom-node-exporter:
+    image: prom/node-exporter
+    networks:
+      hostnet: {}
+    logging:
+      driver: fluentd
+    deploy:
+      mode: global
+  cadvisor:
+    image: google/cadvisor
+    networks:
+      hostnet: {}
+    logging:
+      driver: fluentd
+    deploy:
+      mode: global
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /:/rootfs:ro
+      - /var/run:/var/run
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
