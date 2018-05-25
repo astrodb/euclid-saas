@@ -1,0 +1,37 @@
+---
+- name: Create temporary folder for config files
+  tempfile:
+    state: directory
+    suffix: config
+  register: tmp_folder
+
+- name: Set temporary folder permissions
+  file:
+    path: "{{ tmp_folder.path }}"
+    mode: 0700
+
+- name: Generate Fluentd config
+  template:
+    src: fluentd.conf.j2
+    dest: "{{ tmp_folder.path }}/fluentd.conf"
+    mode: 0600
+
+- name: Generate Monasca Swarm service Docker compose file
+  template:
+    src: monasca_swarm_service.yml.j2
+    dest: "{{ tmp_folder.path }}/monasca_swarm_service.yml"
+    mode: 0600
+
+- name: Deploy Monasca Swarm service
+  # At the time of writing the docker_compose module doesn't support compose v3
+  # and we want compose v3 for the global deploy mode.
+  command: "docker stack deploy --compose-file {{ tmp_folder.path }}/monasca_swarm_service.yml monasca-monitoring-stack"
+  environment:
+    DOCKER_HOST: "{{ lookup('env','DOCKER_HOST') }}"
+    DOCKER_CERT_PATH: "{{ lookup('env','DOCKER_CERT_PATH') }}"
+    DOCKER_TLS_VERIFY: "{{ lookup('env','DOCKER_TLS_VERIFY') }}"
+
+- name: Remove temporary config folder
+  file:
+    state: absent
+    path: "{{ tmp_folder.path }}"

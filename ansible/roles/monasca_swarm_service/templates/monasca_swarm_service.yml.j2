@@ -1,0 +1,83 @@
+---
+version: "3.6"
+
+networks:
+  hostnet:
+    external: true
+    name: host
+
+configs:
+  fluentd:
+      file: {{ tmp_folder.path }}/fluentd.conf
+
+services:
+  fluentd:
+    image: stackhpc/monasca-fluentd
+    networks:
+      hostnet: {}
+    deploy:
+      mode: global
+    configs:
+      - source: fluentd
+        target: "/fluentd/etc/fluent.conf"
+        mode: 0644
+
+  monasca-forwarder:
+    image: stackhpc/agent-forwarder
+    hostname: "{% raw %}{{.Node.Hostname}}{% endraw %}"
+    networks:
+      hostnet: {}
+    deploy:
+      mode: global
+    environment:
+      - "LOG_LEVEL={{ monasca_swarm_service_log_level }}"
+      - "OS_AUTH_URL={{ monasca_swarm_service_keystone_uri }}"
+      - "OS_USERNAME={{ monasca_swarm_service_username }}"
+      - "OS_PASSWORD={{ monasca_swarm_service_password }}"
+      - OS_USER_DOMAIN_NAME=Default
+      - "OS_PROJECT_NAME={{ monasca_swarm_service_project_name }}"
+      - OS_PROJECT_DOMAIN_NAME=Default
+      - "MONASCA_URL={{ monasca_swarm_service_api_uri }}"
+      - SERVICE_TYPE=monitoring
+      - ENDPOINT_TYPE=public
+      - REGION_NAME=RegionOne
+      - "FORWARDER_URL=http://127.0.0.1:{{ monasca_swarm_service_forwarder_port }}"
+      - "FORWARDER_PORT={{ monasca_swarm_service_forwarder_port }}"
+
+  monasca-collector:
+    image: stackhpc/agent-collector
+    hostname: "{% raw %}{{.Node.Hostname}}{% endraw %}"
+    networks:
+      hostnet: {}
+    deploy:
+      mode: global
+    environment:
+      - HOST=true
+      - DOCKER=true
+      - DOCKER_ROOT=/rootfs
+      - DOCKER_SOCKET=unix://var/run/docker.sock
+      - "LOG_LEVEL={{ monasca_swarm_service_log_level }}"
+      - "FORWARDER_URL=http://127.0.0.1:{{ monasca_swarm_service_forwarder_port }}"
+      - "FORWARDER_PORT={{ monasca_swarm_service_forwarder_port }}"
+    volumes:
+      - "/:/rootfs"
+      - "/var/run:/var/run:rw"
+      - "/sys:/sys:ro"
+      - "/var/lib/docker/:/var/lib/docker:ro"
+      - "/dev/disk/:/dev/disk:ro"
+    depends_on:
+      - monasca-forwarder
+
+  monasca-statsd:
+    image: stackhpc/agent-statsd
+    networks:
+      hostnet: {}
+    deploy:
+      mode: global
+    environment:
+      - "LOG_LEVEL={{ monasca_swarm_service_log_level }}"
+      - "FORWARDER_URL=http://127.0.0.1:{{ monasca_swarm_service_forwarder_port }}"
+      - "FORWARDER_PORT={{ monasca_swarm_service_forwarder_port }}"
+    depends_on:
+      - monasca-forwarder
+
