@@ -1,0 +1,20 @@
+---
+ext_name: p3-internal
+bdn_name: p3-bdn-nogateway
+lln_name: p3-lln
+os_container_infra_user: fedora
+os_container_infra_cloud: mycloud
+os_container_infra_state: present
+os_container_infra_cluster_name: swarm-sip
+os_container_infra_cluster_template_name: swarm-fedora-atomic-27
+os_container_infra_keypair: default
+os_container_infra_master_count: 1
+os_container_infra_node_count: 3
+os_container_infra_external_interface: "{{ ext_name }}"
+os_container_infra_interfaces:
+- "{{ lln_name }}"
+- "{{ bdn_name }}"
+gluster_src: 10.3.0.12:/swarm_vol
+gluster_mnt: /mnt/gluster
+public_keys: ../public_keys
+...

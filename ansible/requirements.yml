@@ -4,3 +4,5 @@
 - src: stackhpc.monasca-rsyslog
 - src: stackhpc.grafana-conf
 - src: stackhpc.gluster-cluster
+- src: stackhpc.os-container-infra
+- src: stackhpc.os-config

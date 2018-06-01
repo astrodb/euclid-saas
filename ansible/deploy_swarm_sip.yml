@@ -1,0 +1,7 @@
+---
+- hosts: openstack
+  become: False
+  gather_facts: False
+  roles:
+  - role: stackhpc.os-container-infra
+...

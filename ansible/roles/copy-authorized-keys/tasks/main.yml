@@ -1,0 +1,9 @@
+---
+- name: Additional public keys to be authorized to access the cluster nodes
+  authorized_key:
+    key: "{{ lookup('file', item) }}"
+    user: "{{ ansible_user }}"
+    state: present
+  with_fileglob:
+  - "{{ public_keys }}/*"
+...

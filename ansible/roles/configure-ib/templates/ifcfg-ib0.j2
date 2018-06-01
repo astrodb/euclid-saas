@@ -1,0 +1,10 @@
+# Created by the following Ansible playbook:
+# http://github.com/stackhpc/ansible-cluster-network-setup
+#
+BOOTPROTO=none
+DEVICE=ib0
+IPADDR={{ ib_ip }} 
+NETMASK={{ ib_netmask }}
+ONBOOT=yes
+TYPE=InfiniBand
+USERCTL=no
