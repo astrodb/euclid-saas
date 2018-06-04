@@ -33,12 +33,14 @@ dlg_data_isl_mgr:
   name: "island-mgr"
   flavor: "compute-A"
   image: "CentOS7"
+  user: "centos"
   num_nodes: 1
 
 dlg_node_mgr:
   name: "node-mgr"
   flavor: "compute-A"
   image: "CentOS7"
+  user: "centos"
   num_nodes: 2
 
 # Node group assignments for cluster roles.

@@ -23,18 +23,21 @@ redis_master:
   name: "master"
   flavor: "compute-A"
   image: "Ubuntu16"
+  user: "ubuntu"
   num_nodes: 1
 
 redis_slave:
   name: "slave"
   flavor: "compute-A"
   image: "Ubuntu16"
+  user: "ubuntu"
   num_nodes: 3
 
 redis_sentinel:
   name: "sentinel"
   flavor: "compute-A"
   image: "Ubuntu16"
+  user: "ubuntu"
   num_nodes: 3
 
 # Node group assignments for cluster roles.

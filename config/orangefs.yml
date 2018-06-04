@@ -10,17 +10,20 @@ orangefs_meta:
   name: "meta"
   flavor: "storage-A"
   image: "FedoraCore"
+  user: "fedora"
   num_nodes: 1
 
 orangefs_data:
   name: "data"
   flavor: "storage-B"
   image: "FedoraCore"
+  user: "fedora"
   num_nodes: 2
 
 orangefs_client:
   name: "client"
   flavor: "compute-A"
   image: "FedoraCore"
+  user: "fedora"
   num_nodes: 4
 

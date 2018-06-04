@@ -23,12 +23,14 @@ dask_scheduler:
   name: "control"
   flavor: "compute-A"
   image: "CentOS7-Anaconda3"
+  user: "centos"
   num_nodes: 1
 
 dask_worker:
   name: "worker"
   flavor: "compute-A"
   image: "CentOS7-Anaconda3"
+  user: "centos"
   num_nodes: 2
 
 # Node group assignments for cluster roles.
