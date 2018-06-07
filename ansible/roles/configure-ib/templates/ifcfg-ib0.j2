@@ -1,5 +1,4 @@
-# Created by the following Ansible playbook:
-# http://github.com/stackhpc/ansible-cluster-network-setup
+# {{ ansible_managed }}
 #
 BOOTPROTO=none
 DEVICE=ib0
@@ -8,3 +7,5 @@ NETMASK={{ ib_netmask }}
 ONBOOT=yes
 TYPE=InfiniBand
 USERCTL=no
+CONNECTED_MODE=yes
+MTU=65520

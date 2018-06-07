@@ -1,0 +1,19 @@
+---
+- hosts: container-infra
+  gather_facts: true
+  vars:
+    ib_ip: "{{ hostvars[inventory_hostname]['server_networks'][lln_name] }}"
+  pre_tasks:
+  - name: Enable passwordless sudo for wheel group
+    lineinfile:
+      dest: /etc/sudoers
+      state: present
+      regexp: '^%wheel'
+      line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+      validate: 'visudo -cf %s'    
+    become: yes
+  roles:
+  - configure-ib
+  - mount-glusterfs
+  - { role: singleplatform-eng.users, become: yes }
+...

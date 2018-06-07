@@ -16,5 +16,40 @@ os_container_infra_interfaces:
 - "{{ bdn_name }}"
 gluster_src: 10.3.0.12:/swarm_vol
 gluster_mnt: /mnt/gluster
-public_keys: ../public_keys
+users:
+- username: stig
+  name: Stig Telfer
+  groups: ['wheel','systemd-journal']
+  uid: 1002
+  ssh_key:
+  - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDCLva2hRoqcA77XoK0t7aPmip4CmxM6SdsnJdbN4i0l72Rf6HMNH2ZR5p+eZPxaxiJgmtQ5MpquNt775lFSGVIV7oyAKDdYuLA/8KXoKje4EsCMfA9m6Eg8urjrPprelTAl7xsem1eH9c/Jk6TFbJSyMrY7kvgNo1KZ+D24F5cCSSRncy0s5GoPWEJfdnSHdjvxc97vhSPY9KwsaMdbpj+u+1WlUDeoLjMsWLPDsqnIHLwYN74f9jfTvsoQxw9Wq3dmzRvy8sQkJ1OoAeuuM4B4MKel7U6QqrhMYyIUG2pcSBBICtT2Q5V4RhnBIqQrL8w1efq+TeD/ETSuQgFBiq1 sclt100@ilab-gate.ilab.cluster"
+- username: doug
+  name: Doug Szumski
+  groups: ['wheel','systemd-journal']
+  uid: 1003
+  ssh_key:
+  - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCx6j0X18mPQ6YZSXrO5ZamYH6szsPhHzWxAvATYy3Lj6GEBVuVgM6XAhIfEocBhPgwW1tmA/1N12YpNeBGZwRjtjgCMdnq8rks5x8FI+2Jfvkv5a/XWI86t+LsmQz7gRl/9WwokOHUAKoPJMxEWztx7OHW8OlLU9j9iWe5TEVzcg4ra/9Se9X7Zut4WYnl680Z/BW1nV7O/lgUpimgtsY6cWvX+OHLhc/pPXy3j1vrxA/oRKMxJLwD2b3+az05J4zg8D/HA+pCi4qPvAk9wwSMAkacLS/yy5cGdDrtlWiM+dqFWwI5ypxi83KBekLUql28Yej9UMxLw350diFJkoC7 hpcszum1@ilab-gate.ilab.cluster"
+- username: bharat
+  name: Bharat Kunwar
+  groups: ['wheel','systemd-journal']
+  password:
+  uid: 1004
+  ssh_key:
+  - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDT7FfKdhVmT/HturOK6sLRKcqFYDnfbKWVE8Lv+KntJCBN0pGk5PECCmmA7/5JzAzfba4nmMpI20byJ0VCphzTbYFHtsZNd6Ci4NIKb5GrxP1f9RN3BYlmm1rJ5OgoXjvg0VpUiUnkLsVYkHfzUTx6tDHj8zV2DQYWGg2BtZk8YSEnigK6ppZcBuRwhY1wmKEodeXus6vik20v+PGDAlSmSlhHsYUOe8/GNhs6fZ9a9XEVHw/pPxYa3HmNGgUiJYOxSA0DLq8HzxQDoSgpMMeG2bD36DsHSnnbLNUtH3+DmveX2FxWWHRKG4IgW5O0UdLcGzrakZ6OFi/bUL0bBge7 bharat@dev-director.dev-cluster.hpc.cam.ac.uk"
+- username: ben
+  name: Ben Mort
+  groups: ['wheel','systemd-journal']
+  uid: 1005
+  ssh_key:
+  - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCeGbpm1SHEdEEquMw+xyrZ0TqULQ1aL4LuDsbF3NQedAxyg+1/PvY3/+HwSs8dZUlP/DGVrgPdP7JEfKi14oF4TQ6oIy89bKkH0QUF5DkIP8g6cHTZZjZxw1Gso47N636u1qw46dSKiBrYFMmEzRMbPVOWGzxdYHP6FSryrl6YiDtiegBA6/j6lM3a0DdUHtV10KhU58NyNl4MSVyQrayqYtlqZK05QFQ47lpE8FHU0Ud6AHB4W4D8Hy0lbUeIVN+S9xZWKRvCmyQSeIX9mLL3rAvDgFYLbGxYCQ4GTnG1U/Ky2CpZBh1n5ihtDINuXDN0uk9YWNMtAGjm4YUqhSopgLKC3EY/fXtZ28Nr3AMtggBD+vY+FnemSFegoTzKwExmTDBEAzTjZK40parklOBQYimgy4iBeD7//iVis/RFKw1vAKLUCPKkx/eSkLhr9e1IqzKcPIWF4hYVRTGMdM42ziJZ/DHiGcOWKRxDzdhM/wT8SZ0xN7H5h8g7pn+SAmWQETLX4I2qvY2qXx0RcoXzB/cNvAOqxtXFTYZZi1nhzZ4u4S6hD1zOalxg6r5CT5VgqL5AHoe3EmFcvD5t0loGWO1e7CqHV0KOCj9jzOTju+BlQbZEPo8zcZfWlpE+s807NkRDqr1Obg2Sbc6kPPtGlNJcxlDMQymHTPnxgH4e9Q== hpcmort1@ilab-gate.ilab.cluster"
+- username: mark
+  name: Mark Goddard
+  groups: ['wheel','systemd-journal']
+  uid: 1006
+  ssh_key:
+  - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCUOhekNNoWCVzdyks2ROdW4gjDxKxPXCMc0VetY08i/WkZPFFUZZOhAN13EVzNh2aVtRYIQSGheqbuIW5QvEIBJ4OqmF5Tjw/76JBQ2c8Vhq0wLboYnvscMD4fwyHbcezBZ67eDxz1P7jTJtoBrshm+vaIXP1PEsQqJOc6RN+a9F6Fqfjuxc+yjGkuwC0h61pdkVrvvqBHUa5cSyFo3A4BAkpzwq785uBSkC/jQH3CxzcbeomxG+1nxYM69qCDARxnPBkHPQHjHP5TxrpS/JS1/pPS6GlKDQ0NvZ+5Eo09QFt7kPoY+05TWwkwCOWXESMPKBFUmOowUgThCZyR/YW3 mark@mark-xps15"
+sudoers_sudoers:
+  privileges:
+  - name: "%wheel"
+    entry: "ALL=NOPASSWD:ALL"
 ...

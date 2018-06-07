@@ -14,7 +14,7 @@ This repo is split into two parts:
 Installation
 ------------
 
-Inside a Python 2.7+ virtual environment,
+Initialise a Python 2.7 virtual environment,
 
 ```
 sudo yum install python-virtualenv libselinux-python
@@ -26,7 +26,7 @@ pip install -r requirements.txt
 Then, download and deploy the role from Ansible Galaxy:
 
 ```
-(pushd ansible && ansible-galaxy install -r requirements.yml -p $PWD/roles) || popd
+(cd ansible && ansible-galaxy install -r requirements.yml -p $PWD/roles)
 ```
 
 Creating Infrastructure Using the Heat Templates
@@ -66,7 +66,7 @@ interfaces, first create the cluster and generate cluster inventory and request
 openstack to attach these interfaces:
 
 ```
-ansible-playbook -e @config/swarm-sip.yml -i ansible/inventory --vault-password-file=vault-password ansible/deploy_swarm_sip.yml 
+ansible-playbook -e @config/swarm-sip.yml -i ansible/inventory --vault-password-file=vault-password ansible/deploy_container_infra.yml 
 ```
 
 Then, run the second playbook to:
@@ -77,5 +77,5 @@ Then, run the second playbook to:
   on the instances.
 
 ```
-ansible-playbook -e @config/swarm-sip.yml -i ansible/inventory-swarm-sip --vault-password-file=vault-password ansible/configure_swarm_sip.yml 
+ansible-playbook -e @config/swarm-sip.yml -i ansible/inventory-swarm-sip --vault-password-file=vault-password ansible/configure_container_infra.yml 
 ```
