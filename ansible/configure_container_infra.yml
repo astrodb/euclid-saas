@@ -2,7 +2,7 @@
 - hosts: container-infra
   gather_facts: true
   vars:
-    ib_ip: "{{ hostvars[inventory_hostname]['server_networks'][lln_name] }}"
+    ib_ip: "{{ hostvars[inventory_hostname]['server_networks'][lln_name][0] }}"
   pre_tasks:
   - name: Enable passwordless sudo for wheel group
     lineinfile:
