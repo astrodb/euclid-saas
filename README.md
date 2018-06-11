@@ -66,7 +66,7 @@ interfaces, first create the cluster and generate cluster inventory and request
 openstack to attach these interfaces:
 
 ```
-ansible-playbook -e @config/swarm-sip.yml -i ansible/inventory --vault-password-file=vault-password ansible/deploy_container_infra.yml 
+ansible-playbook -i ansible/inventory --vault-password-file=vault-password ansible/deploy_container_infra.yml 
 ```
 
 Then, run the second playbook to:
@@ -77,5 +77,13 @@ Then, run the second playbook to:
   on the instances.
 
 ```
-ansible-playbook -e @config/swarm-sip.yml -i ansible/inventory-swarm-sip --vault-password-file=vault-password ansible/configure_container_infra.yml 
+ansible-playbook -i ansible/inventory-swarm-sip --vault-password-file=vault-password ansible/configure_container_infra.yml 
 ```
+
+To deploy monasca monitoring on SIP nodes, first activate cluster config:
+
+```
+$(mkdir -p swarm-sip && openstack coe cluster config swarm-sip --force --dir=swarm-sip)
+ansible-playbook -i ansible/inventory --valult-password-file=vault-password ansible/deploy_monasca_swarm_monitoring.yml
+```
+
