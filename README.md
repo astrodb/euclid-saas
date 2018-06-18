@@ -8,19 +8,42 @@ This repo is split into two parts:
 - An Ansible Galaxy role, stackhpc.cluster-infra, which contains
   OpenStack Heat templates for creating bare metal instances configured
   for execution framework clusters.
-- Ansible playbooks for integrating with OpenStack services, and creating 
-  software middleware platforms on top of ALaSKA infrastructure.
+- Ansible playbooks (including Galaxy roles) for integrating with OpenStack services, and creating 
+  software middleware platforms on top of OpenStack infrastructure.
 
-Creating Infrastructure Using the Heat Templates
-------------------------------------------------
+## Installation
+
+It is recommended to install python dependencies in a virtual environment:
+
+    virtualenv venv
+    source venv/bin/activate
+    pip install -U pip
+    pip install -r requirements.txt
+
+If SELinux is in use on the ansible control host, enable access to the
+`selinux` python module from the virtualenv:
+
+`ln -s /usr/lib64/python2.7/site-packages/selinux venv/lib/python2.7/site-packages/selinux`
+
+Download and deploy the role from Ansible Galaxy:
+
+`ansible-galaxy install -r ansible/requirements.yml -p $PWD/ansible/roles`
+
+Deactivate the virtual environment:
+
+`deactivate`
+
+## Usage
+
+Prior to using stackhpc-appliances, ensure the virtual environment is activated:
+
+`source venv/bin/activate`
+
+### Creating Infrastructure Using the Heat Templates
 
 The Heat templates and stackhpc.cluster-infra role are configured locally
 through YAML environment files, then invoked through the
-`alaska-infra.yml` playbook.
-
-First, download and deploy the role from Ansible Galaxy:
-
-`cd ansible ; ansible-galaxy install -r requirements.yml -p $PWD/roles`
+`cluster-infra.yml` playbook.
 
 Some example YAML template configurations are available in the `config/`
 subdirectory.  To use these, some default parameters should first be

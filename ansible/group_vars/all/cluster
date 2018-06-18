@@ -1,0 +1,13 @@
+---
+# Cluster infrastructure parameters
+cluster_name: stack
+cluster_groups: []
+cluster_roles: []
+
+# This keypair should exist in OpenStack.  It will be assigned
+# for the cloud user for the next phase of deployment.
+cluster_keypair: rsa_keypair
+
+# Use a config drive. This is required in order to use the Infiniband network
+# (LLN), which does not currently support DHCP.
+cluster_config_drive: true
