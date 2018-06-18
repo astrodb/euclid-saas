@@ -5,5 +5,6 @@
 - src: stackhpc.grafana-conf
 - src: stackhpc.gluster-cluster
 - src: stackhpc.os-container-infra
+- src: stackhpc.os-manila-mount
 - src: stackhpc.os-config
 - src: singleplatform-eng.users

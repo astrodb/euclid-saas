@@ -29,6 +29,9 @@ ext_name: ilab
 bdn_name: p3-bdn-nogateway
 lln_name: p3-lln
 
+# Swarm SIP: manila mount
+os_manila_mount_os_config_name: mycloud
+
 # Swarm SIP
 os_container_infra_user: fedora
 os_container_infra_cloud: mycloud
