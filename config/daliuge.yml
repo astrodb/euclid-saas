@@ -35,6 +35,7 @@ dlg_data_isl_mgr:
   image: "CentOS7"
   user: "centos"
   num_nodes: 1
+  user: "centos"
 
 dlg_node_mgr:
   name: "node-mgr"
@@ -42,6 +43,7 @@ dlg_node_mgr:
   image: "CentOS7"
   user: "centos"
   num_nodes: 2
+  user: "centos"
 
 # Node group assignments for cluster roles.
 # These group assignments are appended to the cluster inventory file.
