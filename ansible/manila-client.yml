@@ -1,0 +1,27 @@
+---
+# Example module for extracting details about a Manila-managed shared filesystem
+# and mounting it on a group of client compute nodes
+
+# Query OpenStack Manila for details aob
+- hosts: localhost
+  roles:
+    - role: stackhpc.os-manila-mount
+      vars:
+        os_manila_mount_action: "lookup"
+        os_manila_mount_share_name: "HomeDirs"
+        os_manila_mount_share_user: "home"
+
+- hosts: cluster_ceph_client
+  roles:
+    # Perform the mount action on all Ceph client nodes
+    - role: stackhpc.os-manila-mount
+      os_manila_mount_action: "mount"
+      os_manila_mount_host: "{{ hostvars['localhost']['os_manila_mount_host'] }}"
+      os_manila_mount_access_key: "{{ hostvars['localhost']['os_manila_mount_access_key'] }}"
+      os_manila_mount_export: "{{ hostvars['localhost']['os_manila_mount_export'] }}"
+      os_manila_mount_share_user: "home"
+      os_manila_mount_pkgs_install: True
+      os_manila_mount_path: "{{ alaska_homedir }}"
+      os_manila_mount_user: "root"
+      os_manila_mount_group: "root"
+      os_manila_mount_fuse: True
