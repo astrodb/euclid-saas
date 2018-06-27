@@ -8,33 +8,42 @@ This repo is split into two parts:
 - An Ansible Galaxy role, stackhpc.cluster-infra, which contains
   OpenStack Heat templates for creating bare metal instances configured
   for execution framework clusters.
-- Ansible playbooks for integrating with OpenStack services, and creating 
-  software middleware platforms on top of ALaSKA infrastructure.
+- Ansible playbooks (including Galaxy roles) for integrating with OpenStack services, and creating 
+  software middleware platforms on top of OpenStack infrastructure.
 
-Installation
-------------
+## Installation
 
-Initialise a Python 2.7 virtual environment,
+It is recommended to install python dependencies in a virtual environment:
 
-```
-sudo yum install python-virtualenv libselinux-python
-virtualenv --system-site-packages ~/ansible-venv
-source ~/ansible-venv/bin/activate
-pip install -r requirements.txt
-```
+    virtualenv venv
+    source venv/bin/activate
+    pip install -U pip
+    pip install -r requirements.txt
 
-Then, download and deploy the role from Ansible Galaxy:
+If SELinux is in use on the ansible control host, enable access to the
+`selinux` python module from the virtualenv:
 
-```
-(cd ansible && ansible-galaxy install -r requirements.yml -p $PWD/roles)
-```
+`ln -s /usr/lib64/python2.7/site-packages/selinux venv/lib/python2.7/site-packages/selinux`
 
-Creating Infrastructure Using the Heat Templates
-------------------------------------------------
+Download and deploy the role from Ansible Galaxy:
+
+`ansible-galaxy install -r ansible/requirements.yml -p $PWD/ansible/roles`
+
+Deactivate the virtual environment:
+
+`deactivate`
+
+## Usage
+
+Prior to using stackhpc-appliances, ensure the virtual environment is activated:
+
+`source venv/bin/activate`
+
+### Creating Infrastructure Using the Heat Templates
 
 The Heat templates and stackhpc.cluster-infra role are configured locally
 through YAML environment files, then invoked through the
-`alaska-infra.yml` playbook.
+`cluster-infra.yml` playbook.
 
 Some example YAML template configurations are available in the `config/`
 subdirectory.  To use these, some default parameters should first be
@@ -58,16 +67,13 @@ using another playbook (for example):
 
 `ansible-playbook -e @config/openhpc.yml -i ansible/inventory_openhpc --vault-password-file=vault-password ansible/openhpc.yml`
 
-Deploying and configuring Swarm SIP
------------------------------------
+### Deploying and configuring Swarm SIP
 
 To deploy Swarm SIP cluster attached to `p3-bdn` and `p3-lln` network
 interfaces, first create the cluster and generate cluster inventory and request
 openstack to attach these interfaces:
 
-```
-ansible-playbook -i ansible/inventory -e @config/swarm-sip.yml --vault-password-file=vault-password ansible/deploy_container_infra.yml 
-```
+`ansible-playbook -i ansible/inventory -e @config/swarm-sip.yml --vault-password-file=vault-password ansible/deploy_container_infra.yml`
 
 Then, run the second playbook to:
 - Configure IB interface attached to `p3-lln` network as DHCP is not enabled
@@ -76,14 +82,13 @@ Then, run the second playbook to:
 - Adds public keys specified under `public_keys` folder to the authorised keys
   on the instances.
 
-```
-ansible-playbook -i ansible/inventory-swarm-sip -e @config/swarm-sip.yml --vault-password-file=vault-password ansible/configure_container_infra.yml 
-```
+`ansible-playbook -i ansible/inventory-swarm-sip -e @config/swarm-sip.yml --vault-password-file=vault-password ansible/configure_container_infra.yml`
 
-To deploy monasca monitoring on SIP nodes, first activate cluster config:
+To deploy monasca monitoring on Swarm SIP nodes, first activate cluster config:
 
-```
-$(mkdir -p swarm-sip && openstack coe cluster config swarm-sip --force --dir=swarm-sip)
-ansible-playbook -i ansible/inventory -e @config/swarm-sip.yml --vault-password-file=vault-password ansible/deploy_monasca_swarm_monitoring.yml
-```
+`$(mkdir -p swarm-sip && openstack coe cluster config swarm-sip --force --dir=swarm-sip)`
+
+Then, run the monitoring deployment playbook:
+
+`ansible-playbook -i ansible/inventory -e @config/swarm-sip.yml --vault-password-file=vault-password ansible/deploy_monasca_swarm_monitoring.yml`
 

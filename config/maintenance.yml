@@ -25,31 +25,41 @@ compute_A:
   name: "compute-A"
   flavor: "compute-A"
   image: "CentOS7.4-MAINTENANCE"
+  user: "centos"
   num_nodes: 28
+  user: "centos"
 
 compute_B:
   name: "compute-B"
   flavor: "compute-B"
   image: "CentOS7.4-MAINTENANCE"
+  user: "centos"
   num_nodes: 2
+  user: "centos"
 
 compute_GPU:
   name: "compute-GPU"
   flavor: "compute-GPU"
   image: "CentOS7.4-MAINTENANCE"
+  user: "centos"
   num_nodes: 2
+  user: "centos"
 
 storage_A:
   name: "storage-A"
   flavor: "storage-A"
   image: "CentOS7.4-MAINTENANCE"
+  user: "centos"
   num_nodes: 1
+  user: "centos"
 
 storage_B:
   name: "storage-B"
   flavor: "storage-B"
   image: "CentOS7.4-MAINTENANCE"
+  user: "centos"
   num_nodes: 2
+  user: "centos"
 
 # Node group assignments for cluster roles.
 # These group assignments are appended to the cluster inventory file.

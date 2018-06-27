@@ -23,19 +23,25 @@ redis_master:
   name: "master"
   flavor: "compute-A"
   image: "Ubuntu16"
+  user: "ubuntu"
   num_nodes: 1
+  user: "ubuntu"
 
 redis_slave:
   name: "slave"
   flavor: "compute-A"
   image: "Ubuntu16"
+  user: "ubuntu"
   num_nodes: 3
+  user: "ubuntu"
 
 redis_sentinel:
   name: "sentinel"
   flavor: "compute-A"
   image: "Ubuntu16"
+  user: "ubuntu"
   num_nodes: 3
+  user: "ubuntu"
 
 # Node group assignments for cluster roles.
 # These group assignments are appended to the cluster inventory file.
