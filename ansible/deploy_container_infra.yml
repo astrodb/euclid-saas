@@ -1,7 +1,9 @@
+#
+# Copyright StackHPC, 2018
+#
 ---
 - hosts: openstack
-  become: False
-  gather_facts: False
+  gather_facts: no
   roles:
   - role: stackhpc.os-container-infra
 ...
