@@ -10,6 +10,7 @@
         os_manila_mount_action: "lookup"
         os_manila_mount_share_name: "HomeDirs"
         os_manila_mount_share_user: "home"
+        os_manila_mount_auth: "{{ openstack_auth }}"
 
 - hosts: cluster_ceph_client
   roles:
@@ -25,3 +26,4 @@
       os_manila_mount_user: "root"
       os_manila_mount_group: "root"
       os_manila_mount_fuse: True
+      os_manila_mount_auth: "{{ openstack_auth }}"

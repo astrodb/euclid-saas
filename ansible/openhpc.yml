@@ -1,6 +1,6 @@
 ---
 - include: setup.yml
-- include: ceph-client.yml
+- include: manila-client.yml
 - include: users.yml
 
 - hosts: cluster_login
