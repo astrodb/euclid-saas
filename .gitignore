@@ -7,7 +7,7 @@ ansible/*.retry
 ansible/inventory_*
 
 # Ansible roles installed from Galaxy.
-ansible/roles/stackhpc.cluster-infra
+ansible/roles/stackhpc.*
 
 # IntelliJ files
 .idea

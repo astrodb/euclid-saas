@@ -1,0 +1,16 @@
+---
+- name: Bring ib0 down
+  command: ifdown ib0
+  become: True
+
+- name: Bring ib0 up
+  command: ifup ib0
+  become: True
+
+- name: Restart NetworkManager service
+  systemd:
+    name: NetworkManager
+    enabled: True
+    state: restarted
+  become: True
+...
