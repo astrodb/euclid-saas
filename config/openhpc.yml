@@ -13,8 +13,11 @@ cluster_net:
   - { net: "p3-bdn", subnet: "p3-bdn" }
   - { net: "p3-lln", subnet: "p3-lln" }
 
-# Use the 3 port node network resource.
-cluster_environment_nodenet: "{{ role_path }}/files/environments/nodenet-3.yaml"
+# A 3-NIC node resource in the heat templates.
+cluster_nodenet_environment: "nodenet-3.yaml"
+
+# Enable the use of config drive, for managing IP assignment on IPoIB
+cluster_config_drive: True
 
 # Multi-node application topology.  In this case we have a SLURM
 # deployment formed from a login/controller node and a number of
