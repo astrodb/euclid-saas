@@ -1,0 +1,12 @@
+---
+- name: Copy ifcfg-ib0 network script over
+  template:
+    src: ifcfg-ib0.j2
+    dest: /etc/sysconfig/network-scripts/ifcfg-ib0
+  become: True
+  notify:
+    - Bring ib0 down
+    - Bring ib0 up
+    - Restart NetworkManager service
+- meta: flush_handlers
+...

@@ -1,13 +1,4 @@
 ---
-# Cluster infrastructure parameters
-cluster_name: stack
-cluster_groups: []
-cluster_roles: []
-
-# This keypair should exist in OpenStack.  It will be assigned
-# for the cloud user for the next phase of deployment.
-cluster_keypair: rsa_keypair
-
 # Alaska environment configuration parameters
 # Config name of the OpenStack cloud to authenticate against
 alaska_cloud: alaska
@@ -15,8 +6,8 @@ alaska_cloud: alaska
 alaska_homedir: /alaska
 alaska_softiron: 10.4.99.101
 
-# OpenStack fully qualified project name (used for Grafana with domain support)
-project_name: p3@default
+# OpenStack p3 project name
+project_name: p3
 
 # Virtual IP address of the controller node
 controller_vip: 10.60.253.1
@@ -36,7 +27,7 @@ monasca_swarm_service_log_api_uri: http://{{ controller_vip }}:5607
 monasca_swarm_service_keystone_uri: http://{{ controller_vip }}:5000/v3
 monasca_swarm_service_username: "{{ monasca_agent_p3_username }}"
 monasca_swarm_service_password: "{{ monasca_agent_p3_password }}"
-monasca_swarm_service_project_name: p3
+monasca_swarm_service_project_name: "{{ project_name }}"
 
 # Local Grafana admin account for configuring Grafana
 grafana_admin_username: grafana-admin
@@ -107,3 +98,4 @@ alaska_users:
   - name: "Markus Dolensky"
     user: markus
     uid: 2022
+...

@@ -1,5 +1,10 @@
-ansible>=2.3
+ansible>=2.5.0
 os-client-config
 shade
+openstacksdk
 python-barbicanclient
 python-keystoneclient
+python-magnumclient
+python-heatclient
+python-novaclient
+

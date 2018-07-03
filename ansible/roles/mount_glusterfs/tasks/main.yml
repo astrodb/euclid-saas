@@ -1,0 +1,16 @@
+---
+- name: Mount glusterfs volume
+  mount:
+    fstype: glusterfs
+    src: "{{ gluster_src }}"
+    path: "{{ gluster_mnt }}"
+    state: mounted
+  become: True
+
+- name: Set mount path permissions to user
+  file:
+    path: "{{ gluster_mnt }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    state: directory
+...
