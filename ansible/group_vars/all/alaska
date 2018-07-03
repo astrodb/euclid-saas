@@ -1,4 +1,7 @@
 ---
+# Manila mount /etc/openstack/cloud.yaml config name
+os_manila_mount_os_config_name: alaska
+
 # Alaska environment configuration parameters
 # Config name of the OpenStack cloud to authenticate against
 alaska_cloud: alaska
@@ -101,4 +104,7 @@ alaska_users:
   - name: "Charana Nandasena"
     user: charana
     uid: 2023
+  - name: "Bharat Kunwar"
+    user: bharat
+    uid: 2024
 ...
