@@ -12,5 +12,6 @@
         cluster_keypair: "{{ cluster_keypair }}"
         cluster_groups: "{{ cluster_groups }}"
         cluster_net: "{{ cluster_net }}"
+        cluster_config_drive: "{{ cluster_config_drive | default(false) }}"
       cluster_roles: "{{ cluster_roles }}"
       cluster_environment_nodenet: "{{ role_path }}/files/environments/{{ cluster_nodenet_environment | default('nodenet-1.yaml') }}"
