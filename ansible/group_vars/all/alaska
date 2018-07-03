@@ -98,4 +98,7 @@ alaska_users:
   - name: "Markus Dolensky"
     user: markus
     uid: 2022
+  - name: "Charana Nandasena"
+    user: charana
+    uid: 2023
 ...
