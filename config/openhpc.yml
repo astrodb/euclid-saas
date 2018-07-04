@@ -52,6 +52,11 @@ cluster_roles:
     groups: [ "{{ slurm_login }}" ]
   - name: "batch"
     groups: [ "{{ slurm_compute }}" ]
+  - name: "storage"
+    groups: [ "{{ slurm_compute }}" ]
+
+# Config for manila client
+ceph_mount_fuse: False
 
 # Define a list of SLURM partitions to create.
 openhpc_slurm_partitions: 
@@ -101,3 +106,7 @@ openhpc_packages:
   - infiniband-diags
   - emacs
 #  - git-lfs
+
+gluster_volume_name: openhpc_vol
+gluster_src: "localhost:/{{ gluster_volume_name }}"
+gluster_mnt: /mnt/gluster

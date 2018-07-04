@@ -22,7 +22,8 @@ os_container_infra_interfaces:
 - "{{ bdn_name }}"
 
 # Swarm SIP gluster source and mount path
-gluster_src: 10.3.0.12:/swarm_vol
+gluster_volume_name: swarm_vol
+gluster_src: 10.3.0.12:/{{ gluster_volume_name }}
 gluster_mnt: /mnt/gluster
 
 # Swarm SIP config for Ceph mount

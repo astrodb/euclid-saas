@@ -2,7 +2,7 @@
   hosts: storage
   roles:
     - role: stackhpc.gluster-cluster
-      gluster_cluster_volume_name: swarm_vol
+      gluster_cluster_volume_name: "{{ gluster_volume_name }}"
       gluster_cluster_block_devices:
         - sdb
         - sdc
