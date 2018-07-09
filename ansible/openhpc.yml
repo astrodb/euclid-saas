@@ -3,6 +3,8 @@
 - import_playbook: manila-client.yml
 - import_playbook: users.yml
 - import_playbook: cluster-users.yml
+- import_playbook: gluster-cluster.yml
+- import_playbook: mount-glusterfs.yml
 
 - hosts: cluster_login
   remote_user: centos

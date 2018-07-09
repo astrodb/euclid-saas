@@ -2,6 +2,15 @@
 # Copyright StackHPC, 2018
 #
 ---
+- hosts: localhost
+  gather_facts: yes
+  roles:
+    # Query OpenStack Manila for details about the shared disk
+    - role: stackhpc.os-manila-mount
+      os_manila_mount_action: "lookup"
+      os_manila_mount_share_name: "{{ ceph_mount_share_name }}"
+      os_manila_mount_share_user: "home"
+
 - hosts: container-infra
   gather_facts: yes
   vars:
@@ -18,5 +27,19 @@
   roles:
   # Configure infiniband interface on the nodes
   - configure_ib
+  # Mount gluster volume on 
+  - mount_glusterfs
+  # Perform the mount action on all Ceph client nodes
+  - role: stackhpc.os-manila-mount
+    os_manila_mount_host: "{{ hostvars['localhost']['os_manila_mount_host'] }}"
+    os_manila_mount_access_key: "{{ hostvars['localhost']['os_manila_mount_access_key'] }}"
+    os_manila_mount_export: "{{ hostvars['localhost']['os_manila_mount_export'] }}"
+    os_manila_mount_action: "mount"
+    os_manila_mount_share_user: "home"
+    os_manila_mount_pkgs_install: True
+    os_manila_mount_path: "{{ ceph_mount_path }}"
+    os_manila_mount_user: "root"
+    os_manila_mount_group: "root"
+    os_manila_mount_fuse: False
   - { role: singleplatform-eng.users, become: yes }
 ...

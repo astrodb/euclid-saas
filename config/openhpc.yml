@@ -54,9 +54,6 @@ cluster_roles:
   - name: "storage"
     groups: [ "{{ slurm_compute }}" ]
 
-# Config for manila client
-ceph_mount_fuse: False
-
 # Define a list of SLURM partitions to create.
 openhpc_slurm_partitions: 
   - "{{ slurm_compute }}"
