@@ -4,7 +4,7 @@
 - hosts: openstack
   roles:
     - role: alaska_secrets
-      secret_name: "ceph.client.alaska.key"
+      secret_name: "ceph.client.alaska.secret"
       secret_var: "alaska_ceph_key"
   
 # This playbook applies site config for Ceph client support,
@@ -20,3 +20,4 @@
       homedir_client: alaska
       homedir_path: "{{ alaska_homedir }}"
       homedir_server: "{{ alaska_softiron }}:6789"
+...

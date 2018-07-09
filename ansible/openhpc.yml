@@ -1,7 +1,8 @@
 ---
-- include: setup.yml
-- include: ceph-client.yml
-- include: users.yml
+- import_playbook: setup.yml
+- import_playbook: manila-client.yml
+- import_playbook: users.yml
+- import_playbook: cluster-users.yml
 
 - hosts: cluster_login
   remote_user: centos

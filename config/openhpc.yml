@@ -5,7 +5,7 @@ cluster_name: openhpc
 
 # This parameter should be set to the name of an RSA keypair you have
 # uplaoded to OpenStack.
-cluster_keypair: ilab_sclt100
+cluster_keypair: bharat
 
 # Site-specific network configuration.
 cluster_net:
@@ -30,7 +30,6 @@ slurm_login:
   name: "login"
   flavor: "compute-B"
   image: "CentOS7.4-OpenHPC"
-  user: "centos"
   num_nodes: 1
   user: "centos"
 
@@ -107,6 +106,21 @@ openhpc_packages:
   - emacs
 #  - git-lfs
 
+# Gluster config
 gluster_volume_name: openhpc_vol
 gluster_src: "localhost:/{{ gluster_volume_name }}"
 gluster_mnt: /mnt/gluster
+
+# Admins who can login as centos user
+cluster_users:
+- username: centos
+  ssh_key:
+  - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDCLva2hRoqcA77XoK0t7aPmip4CmxM6SdsnJdbN4i0l72Rf6HMNH2ZR5p+eZPxaxiJgmtQ5MpquNt775lFSGVIV7oyAKDdYuLA/8KXoKje4EsCMfA9m6Eg8urjrPprelTAl7xsem1eH9c/Jk6TFbJSyMrY7kvgNo1KZ+D24F5cCSSRncy0s5GoPWEJfdnSHdjvxc97vhSPY9KwsaMdbpj+u+1WlUDeoLjMsWLPDsqnIHLwYN74f9jfTvsoQxw9Wq3dmzRvy8sQkJ1OoAeuuM4B4MKel7U6QqrhMYyIUG2pcSBBICtT2Q5V4RhnBIqQrL8w1efq+TeD/ETSuQgFBiq1 sclt100@ilab-gate.ilab.cluster"
+  - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCoHB+D6iI859Fq4Wg3iWDPf+miX+nXDx8Y8F20C5wMa7uHFYWWp0gfhMslI3ntWvlPf9J7C8AQz/kzPeuvM9oEZUkBuH6oYtYrJ9nA6+IJqT/xbQGUy56hkVVFH8Etff9CzseczzhLPOd/CEj4irLdi4aoj/5V8tqvdAbnOGwixPRPmVKVvEVpFiAlvRi+0MCaWHF2lF4BVWJsRKKGf79DFOrhfI9+BefuD9essaCOuFfhkHSxngBIjicYJKSedMFoWaOSY35820P/6RnmbKjH/mMQ0yuEr7SgLZ3gdTN2crrDj0q8+yz5MHfuxPdtj9dOYb8yP8MahbOl91qIV5BL John@Lenovo-PC"
+  - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDT7FfKdhVmT/HturOK6sLRKcqFYDnfbKWVE8Lv+KntJCBN0pGk5PECCmmA7/5JzAzfba4nmMpI20byJ0VCphzTbYFHtsZNd6Ci4NIKb5GrxP1f9RN3BYlmm1rJ5OgoXjvg0VpUiUnkLsVYkHfzUTx6tDHj8zV2DQYWGg2BtZk8YSEnigK6ppZcBuRwhY1wmKEodeXus6vik20v+PGDAlSmSlhHsYUOe8/GNhs6fZ9a9XEVHw/pPxYa3HmNGgUiJYOxSA0DLq8HzxQDoSgpMMeG2bD36DsHSnnbLNUtH3+DmveX2FxWWHRKG4IgW5O0UdLcGzrakZ6OFi/bUL0bBge7 bharat@dev-director.dev-cluster.hpc.cam.ac.uk"
+
+# Config for Ceph mount
+ceph_mount_share_name: HomeDirs
+ceph_mount_path: /alaska
+ceph_mount_fuse: False
+...
