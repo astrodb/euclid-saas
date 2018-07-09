@@ -67,13 +67,6 @@ using another playbook (for example):
 
 `ansible-playbook -e @config/openhpc.yml -i ansible/inventory_openhpc --vault-password-file=vault-password ansible/openhpc.yml`
 
-To setup and mount hyperconverged glusterfs:
-
-```
-ansible-playbook -e @config/openhpc.yml -i ansible/inventory_openhpc --vault-password-file=vault-password ansible/gluster_cluster.yml
-ansible-playbook -e @config/openhpc.yml -i ansible/inventory_openhpc --vault-password-file=vault-password ansible/mount_gluster.yml
-```
-
 ### Deploying and configuring Swarm SIP
 
 To deploy Swarm SIP cluster attached to `p3-bdn` and `p3-lln` network

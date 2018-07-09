@@ -1,10 +1,19 @@
 ---
+# Prepare cluster
 - import_playbook: setup.yml
+
+# Setup ceph mount
 - import_playbook: manila-client.yml
+
+# Add cluster users
 - import_playbook: users.yml
+
+# Add admin users
 - import_playbook: cluster-users.yml
+
+# Setup hyperconverged glusterfs
 - import_playbook: gluster-cluster.yml
-- import_playbook: mount-glusterfs.yml
+- import_playbook: gluster-client.yml
 
 - hosts: cluster_login
   remote_user: centos
