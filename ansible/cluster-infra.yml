@@ -10,7 +10,6 @@
       cluster_params:
         cluster_prefix: "{{ cluster_name }}"
         cluster_keypair: "{{ cluster_keypair }}"
-        cluster_config_drive: "{{ cluster_config_drive }}"
         cluster_groups: "{{ cluster_groups }}"
         cluster_net: "{{ cluster_net }}"
         cluster_config_drive: "{{ cluster_config_drive | default(false) }}"

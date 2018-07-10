@@ -65,7 +65,7 @@ subdirectory.  This inventory is suffixed with the value set in
 `cluster_name`.  The cluster software can be deployed and configured
 using another playbook (for example):
 
-`ansible-playbook -e @config/openhpc.yml -i ansible/inventory_openhpc --vault-password-file=vault-password ansible/openhpc.yml`
+`ansible-playbook -e @config/openhpc.yml -i ansible/inventory-openhpc --vault-password-file=vault-password ansible/openhpc.yml`
 
 ### Deploying and configuring Swarm SIP
 
