@@ -1,6 +1,6 @@
 ---
 - name: Mount glusterfs
-  hosts: storage
+  hosts: cluster_storage
   roles:
     - mount_glusterfs
 ...

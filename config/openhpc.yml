@@ -17,7 +17,7 @@ cluster_net:
 cluster_nodenet_environment: "nodenet-3.yaml"
 
 # Enable the use of config drive, for managing IP assignment on IPoIB
-cluster_config_drive: True
+cluster_config_drive: true
 
 # Multi-node application topology.  In this case we have a SLURM
 # deployment formed from a login/controller node and a number of
@@ -107,6 +107,7 @@ openhpc_packages:
 gluster_volume_name: openhpc_vol
 gluster_src: "localhost:/{{ gluster_volume_name }}"
 gluster_mnt: /mnt/gluster
+gluster_converged_disks: true
 
 # Admins who can login as centos user
 cluster_users:
@@ -119,5 +120,5 @@ cluster_users:
 # Config for Ceph mount
 ceph_mount_share_name: HomeDirs
 ceph_mount_path: /alaska
-ceph_mount_fuse: False
+ceph_mount_fuse: false
 ...
