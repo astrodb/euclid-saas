@@ -1,7 +1,7 @@
 ---
 # This name is used for the Heat stack and as a prefix for the
 # cluster node hostnames.
-cluster_name: openhpc
+cluster_infra_name: openhpc
 
 # This parameter should be set to the name of an RSA keypair you have
 # uplaoded to OpenStack.
@@ -37,7 +37,7 @@ slurm_compute:
   name: "compute"
   flavor: "compute-A"
   image: "CentOS7.4-OpenHPC"
-  num_nodes: 2
+  num_nodes: 4
   user: "centos"
 
 # Node group assignments for cluster roles.
@@ -53,6 +53,16 @@ cluster_roles:
     groups: [ "{{ slurm_compute }}" ]
   - name: "storage"
     groups: [ "{{ slurm_compute }}" ]
+  - name: "beegfs_mgmt"
+    groups: [ "{{ slurm_login }}" ]
+  - name: "beegfs_mds"
+    groups: [ "{{ slurm_login }}" ]
+  - name: "beegfs_oss"
+    groups: [ "{{ slurm_compute }}" ]
+  - name: "beegfs_client"
+    groups:
+    - "{{ slurm_login }}"
+    - "{{ slurm_compute }}" 
 
 # Define a list of SLURM partitions to create.
 openhpc_slurm_partitions: 
@@ -120,5 +130,5 @@ cluster_users:
 # Config for Ceph mount
 ceph_mount_share_name: HomeDirs
 ceph_mount_path: /alaska
-ceph_mount_fuse: false
+ceph_mount_fuse: true
 ...

@@ -5,12 +5,6 @@
 # Setup ceph mount
 - import_playbook: manila-client.yml
 
-# Setup hyperconverged glusterfs cluster
-- import_playbook: gluster-cluster.yml
-
-# Mount hyperconverged glusterfs volume
-- import_playbook: gluster-client.yml
-
 # Add cluster users
 - import_playbook: users.yml
 
@@ -19,22 +13,29 @@
 
 # Cluster login setup
 - hosts: cluster_login
-  remote_user: centos
   become: yes
   roles:
     - role: openhpc_control
 
 # Cluster batch setup
 - hosts: cluster_batch
-  remote_user: centos
   become: yes
   roles:
     - role: openhpc_compute
 
 # Cluster setup
 - hosts: cluster
-  remote_user: centos
   become: yes
   roles:
     - role: openhpc_runtime
       slurm_partitions: "{{ openhpc_slurm_partitions }}"
+
+# Setup hyperconverged glusterfs cluster
+#- import_playbook: gluster-cluster.yml
+
+# Mount hyperconverged glusterfs volume
+#- import_playbook: gluster-client.yml
+
+# Mount hyperconverged glusterfs volume
+#- import_playbook: beegfs.yml
+
