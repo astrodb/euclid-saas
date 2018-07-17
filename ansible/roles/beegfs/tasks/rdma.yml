@@ -10,6 +10,7 @@
     - "libibverbs-utils"
     state: present
   become: True
+  when: False
 
 - name: Ensure RDMA kernel modules are loaded
   modprobe:
@@ -20,4 +21,5 @@
   - "ib_umad"
   - "ib_uverbs"
   - "rdma_ucm"
+  when: False
 

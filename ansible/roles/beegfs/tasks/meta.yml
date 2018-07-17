@@ -26,17 +26,24 @@
   - name: Format filesystem
     filesystem:
       dev: "{{ beegfs_dev_meta }}"
-      fstype: "ext4"
-      force: yes
+      fstype: "{{ beegfs_fstype }}"
+      force: "{{ beegfs_force_format }}"
   - name: Mount filesystem
     mount:
       src: "{{ beegfs_dev_meta }}"
       path: "{{ beegfs_path_meta }}"
-      fstype: "ext4"
+      fstype: "{{ beegfs_fstype }}"
       state: mounted
   become: True
   when: beegfs_dev_meta is defined
 
 - name: Run metadata service setup script
   command: "/opt/beegfs/sbin/beegfs-setup-meta -p {{ beegfs_path_meta }} -m {{ beegfs_host_mgmt }} -f"
+  become: True
+
+- name: Specify connInterfacesFile
+  lineinfile:
+    path: /etc/beegfs/beegfs-meta.conf
+    regexp: "^connInterfacesFile"
+    line: "connInterfacesFile           = /etc/beegfs/connInterfacesFile"
   become: True

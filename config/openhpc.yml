@@ -1,7 +1,7 @@
 ---
 # This name is used for the Heat stack and as a prefix for the
 # cluster node hostnames.
-cluster_infra_name: openhpc
+cluster_name: openhpc
 
 # This parameter should be set to the name of an RSA keypair you have
 # uplaoded to OpenStack.
@@ -29,14 +29,14 @@ cluster_groups:
 slurm_login:
   name: "login"
   flavor: "compute-B"
-  image: "CentOS7.4-OpenHPC"
+  image: "CentOS7.5-OpenHPC"
   num_nodes: 1
   user: "centos"
 
 slurm_compute:
   name: "compute"
   flavor: "compute-A"
-  image: "CentOS7.4-OpenHPC"
+  image: "CentOS7.5-OpenHPC"
   num_nodes: 4
   user: "centos"
 
@@ -51,7 +51,11 @@ cluster_roles:
     groups: [ "{{ slurm_login }}" ]
   - name: "batch"
     groups: [ "{{ slurm_compute }}" ]
-  - name: "storage"
+  - name: "mdadm"
+    groups: [ "{{ slurm_compute }}" ]
+  - name: "glusterfs_server"
+    groups: [ "{{ slurm_compute }}" ]
+  - name: "glusterfs_client"
     groups: [ "{{ slurm_compute }}" ]
   - name: "beegfs_mgmt"
     groups: [ "{{ slurm_login }}" ]
@@ -137,4 +141,23 @@ beegfs_kmod_preload:
   - "mlx5_core"
   - "mlx5_ib"
   - "ib_ipoib"
+
+# Software defined raid config
+mdadm_array:
+  # Define array name
+  name: 'md0'
+  # Define disk devices to assign to array
+  devices:
+    - '/dev/sdb'
+    - '/dev/sdc'
+    - '/dev/sdd'
+  # Define filesystem to partition array with
+  filesystem: 'xfs'
+  # Define the array raid level
+  # 0|1|4|5|6|10
+  level: '0'
+  # Define mountpoint for array device
+  mountpoint: '/data/beegfs/beegfs_data_0'
+  # Define if array should be present or absent
+  state: 'present'
 ...

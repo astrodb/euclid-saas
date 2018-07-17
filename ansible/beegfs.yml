@@ -18,9 +18,18 @@
       beegfs_rdma: True
       beegfs_host_mgmt: "{{ groups['cluster_beegfs_mgmt'] | first }}"
       beegfs_path_client: "/mnt/beegfs"
+      beegfs_fstype: "xfs"
+      beegfs_force_format: no
+      beegfs_interfaces:
+      - "ib0"
       #beegfs_path_client: "{{ cluster_scratchdir }}"
       #beegfs_dev_meta: "/dev/sdb"
       beegfs_path_meta: "/data/beegfs/beegfs_meta"
       # Enable to define block devices that should be formatted
-      beegfs_dev_oss: [ "/dev/sdb" ]
+      beegfs_dev_oss: [ "/dev/md0" ]
       beegfs_path_oss: [ "/data/beegfs/beegfs_data_0" ]
+  pre_tasks:
+    - name: Change p3p2 interface to 9000
+      command: ip link set enp3s0f1 mtu 9000
+      become: yes
+      when: false

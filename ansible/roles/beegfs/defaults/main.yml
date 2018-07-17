@@ -28,3 +28,13 @@ beegfs_enable:
 
 # Kernel modules to ensure are loaded prior to BeeGFS deploy/startup
 beegfs_kmod_preload: []
+
+# Force format of filesystem
+beegfs_force_format: false
+
+# File system type
+beegfs_fstype: "xfs"
+
+# Network interfaces in order of preference
+# (leaving empty prefers infiniband and RDMA devices first)
+beegfs_interfaces: []

@@ -4,9 +4,13 @@
     src: ifcfg-ib0.j2
     dest: /etc/sysconfig/network-scripts/ifcfg-ib0
   become: True
-  notify:
-    - Bring ib0 down
-    - Bring ib0 up
-    - Restart NetworkManager service
-- meta: flush_handlers
+
+- name: Bring ib0 down
+  command: ifdown ib0
+  become: True
+
+- name: Bring ib0 up
+  command: ifup ib0
+  become: True
+
 ...

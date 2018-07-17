@@ -32,12 +32,12 @@
     - role: openhpc_runtime
       slurm_partitions: "{{ openhpc_slurm_partitions }}"
 
-# Setup hyperconverged glusterfs cluster
-#- import_playbook: gluster-cluster.yml
+# Use mdadm to create software defined raid
+#- import_playbook: mdadm-adm.yml
 
-# Mount hyperconverged glusterfs volume
-#- import_playbook: gluster-client.yml
+# Setup hyperconverged glusterfs cluster
+#- import_playbook: glusterfs.yml
 
 # Mount hyperconverged glusterfs volume
 #- import_playbook: beegfs.yml
-
+...

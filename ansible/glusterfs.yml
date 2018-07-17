@@ -1,0 +1,20 @@
+- name: Deploy a Gluster cluster with monitoring
+  hosts: cluster_glusterfs_server
+  roles:
+  - role: stackhpc.gluster-cluster
+    gluster_cluster_volume_name: "{{ gluster_volume_name }}"
+    gluster_cluster_block_devices:
+      - sdb
+      - sdc
+      - sdd
+    gluster_cluster_transport_interface: ib0
+    gluster_cluster_transport_mode: rdma
+    gluster_cluster_volume_options:
+      cluster.nufa: 'on'
+      performance.cache-size: '10GB'
+
+- name: Mount glusterfs
+  hosts: cluster_glusterfs_client
+  roles:
+  - mount_glusterfs
+...
