@@ -1,0 +1,12 @@
+- hosts: cluster
+  tasks:
+  - command: cat /sys/class/net/ib0/address
+    register: address
+  - debug: var=address['stdout']
+  - lineinfile:
+      path: /etc/sysconfig/network-scripts/ifcfg-ib0
+      regexp: "^HWADDR"
+      line: "HWADDR={{ address['stdout'] }}"
+    become: yes
+  - shell: ifdown ib0 && ifup ib0
+    become: yes
