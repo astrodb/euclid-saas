@@ -1,0 +1,4 @@
+- hosts: cluster
+  roles:
+  - configure_ib
+  become: yes

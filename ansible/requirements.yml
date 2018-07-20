@@ -7,6 +7,7 @@
 - src: stackhpc.os-container-infra
 - src: stackhpc.os-manila-mount
 - src: stackhpc.os-config
+- src: stackhpc.beegfs
 - src: singleplatform-eng.users
 - src: mrlesmithjr.mdadm
 ...

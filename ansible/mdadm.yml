@@ -1,0 +1,5 @@
+- hosts: cluster_mdadm
+  vars:
+    mdadm_arrays: ["{{ mdadm_array }}"]
+  roles:
+  - { role: mrlesmithjr.mdadm, become: yes }
