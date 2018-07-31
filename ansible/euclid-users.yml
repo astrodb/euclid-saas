@@ -1,0 +1,9 @@
+- hosts:
+    - cluster_login
+    - cluster_batch
+  become: yes
+  roles:
+    - role: singleplatform-eng.users
+      users: "{{ euclid_users }}"
+      groups_to_create: "{{ euclid_groups }}"
+

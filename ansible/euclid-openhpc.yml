@@ -1,0 +1,37 @@
+
+# Gather data on RAM resource per flavor in use
+# A dict called flavor_ram is returned by this play
+#- hosts: openstack
+#  tasks:
+#    - include_tasks: flavor_ram.yml
+#      with_items: "{{ cluster_groups | map(attribute='flavor') | unique | list }}"
+
+# Generate a dict mapping slurm partition to the minimum physical ram 
+# available for members of that partition
+# we have a group
+- hosts: 
+    - slurm_compute_bare
+
+- hosts: cluster_login
+  become: yes
+  roles:
+    - role: openhpc_control
+
+- hosts: cluster_batch
+  become: yes
+  roles:
+    - role: openhpc_compute
+
+- hosts:
+    - cluster_login
+    - cluster_batch
+  become: yes
+  pre_tasks:
+    - name: Bodge to ensure latest python is present
+      yum:
+        name: python
+        state: latest
+
+  roles:
+    - role: openhpc_runtime
+      slurm_partitions: "{{ openhpc_slurm_partitions }}"

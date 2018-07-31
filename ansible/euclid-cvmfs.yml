@@ -1,0 +1,102 @@
+
+- hosts: cluster_cvmfs_proxy
+  become: yes
+  roles:
+    - role: mrlesmithjr.squid
+      squid_pri_domain_name: 'novalocal'
+
+# Once the CERNVMFS proxy server is set up, also use it for Yum cacheing
+- hosts:
+    - cluster_login
+    - cluster_batch
+  become: yes
+  tasks:
+    - name: Select a proxy server for this host
+      set_fact:
+        http_proxy: "{{ groups['cluster_cvmfs_proxy'] | random}}"
+
+    - name: Enable use of the proxy server for Yum caching
+      ini_file:
+        path: /etc/yum.conf
+        section: main
+        option: "proxy"
+        value: "http://{{ http_proxy }}:3128"
+
+    - name: Install the CVMFS package repo
+      yum:
+        name: "https://ecsft.cern.ch/dist/cvmfs/cvmfs-release/cvmfs-release-latest.noarch.rpm"
+        state: "present"
+
+    - name: Install the CVMFS packages
+      yum:
+        name:
+          - "cvmfs"
+          - "cvmfs-config-none"
+        enablerepo: "cernvm-config"
+        state: "present"
+
+    - name: Write local configuration
+      copy:
+        dest: "/etc/cvmfs/default.local"
+        content: "{{ cvmfs_conf_local }}"
+        mode: 0644
+
+    - name: Ensure the CVMVFS keys directory exists
+      file:
+        dest: "/etc/cvmfs/keys"
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Write pub key for euclid.in2p3.fr 
+      copy:
+        dest: "/etc/cvmfs/keys/euclid.in2p3.fr.pub"
+        content: |
+                -----BEGIN PUBLIC KEY-----
+                MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvjpP8QC484ybRTGp3U0q
+                hfI5FoGoGSk5/F0ZXlyeq82QTj387XQi2t9+6XHPh/57gjD8OMkkrar/OpqQN6bK
+                GLVl03TWGK1goYldw+UhlTTSF2snuj8W7Ccq5cqzdtyc8xK4ps22v4RUigOMtNdo
+                AcqPilPIk4T+q4HWDW5m5TnoMJdHtnxbJEhaSGmPvdHWxyqxfX1arddW6v/MSNLd
+                ZEUIMPAlXLda6s6jpVieFqYVhqwig0+e1kES/M1jKJ97jZwRBT9RJQuO2XSvzeid
+                HsTv5CREaOUsrBKF/PKqjuQ9aUjTmptAOdNoBa//Yqv2wr/Pot9yQCpj8Yma2/9R
+                NwIDAQAB
+                -----END PUBLIC KEY-----
+        mode: 0444
+
+    - name: Write pub key for euclid-dev.in2p3.fr.pub
+      copy:
+        dest: "/etc/cvmfs/keys/euclid-dev.in2p3.fr.pub"
+        content: |
+                -----BEGIN PUBLIC KEY-----
+                MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA6lqdbCekVAfZAa2Z+7eh
+                b7Ej6Jw8CNppUhdTQij5JWN2tSA91LNKZCt0D3tr9Be4iRU5oJFDkWKqpMNb4Vin
+                YO0QRH8eCQ7O0Gvffn6mUHpH2HHxttccspp6Uz+XKwYxSVBd8Qb3cOamZIiOHIws
+                Fh/fG4j1Bms2/G/qoZmAUmm6AXeV8g+dA8Z8VU5UR3nqMMaeZcrQz9tj8HTTXals
+                k2LG/mcpxiEhznfyaqb8XkivrzpuZErN+BeBVfiUZClK4cWpuxGWTuXo2eEgeL70
+                uuvVehDBLum+9bgGCVPqilMqvHuo1Gf7hxL+srDjHvzkqLL5KjFDjJ7aqLEzGDCB
+                pwIDAQAB
+                -----END PUBLIC KEY-----
+        mode: 0444
+
+    - name: Write config for euclid.in2p3.fr.conf
+      copy:
+        dest: "/etc/cvmfs/config.d/euclid.in2p3.fr.conf"
+        content: |
+                CVMFS_SERVER_URL="http://129.215.175.41/cvmfs/euclid.in2p3.fr;http://cceuclids1.in2p3.fr/cvmfs/euclid.in2p3.fr" 
+                CVMFS_HTTP_PROXY="http://{{http_proxy}}:3128" 
+                CVMFS_PUBLIC_KEY=/etc/cvmfs/keys/euclid.in2p3.fr.pub
+        mode: 0444
+
+    - name: Write config for euclid-dev.in2p3.fr.conf
+      copy:
+        dest: "/etc/cvmfs/config.d/euclid-dev.in2p3.fr.conf"
+        content: |
+                CVMFS_SERVER_URL="http://129.215.175.41/cvmfs/euclid-dev.in2p3.fr;http://cceuclids1.in2p3.fr/cvmfs/euclid-dev.in2p3.fr" 
+                CVMFS_HTTP_PROXY="http://{{http_proxy}}:3128" 
+                CVMFS_PUBLIC_KEY=/etc/cvmfs/keys/euclid-dev.in2p3.fr.pub
+        mode: 0444
+
+    - name: Reload CVMFS config
+      command: cvmfs_config reload -c
+

@@ -1,0 +1,65 @@
+
+- hosts:
+    - cluster_login
+
+  tasks:
+    - name: Install CNRS2-Standard CA CERT
+      copy:
+        dest: "/etc/pki/tls/certs/CNRS2-Standard.pem"
+        content: |
+                -----BEGIN CERTIFICATE-----
+                MIIDtjCCAp6gAwIBAgIBAzANBgkqhkiG9w0BAQUFADAsMQswCQYDVQQGEwJGUjEN
+                MAsGA1UEChMEQ05SUzEOMAwGA1UEAxMFQ05SUzIwHhcNMDkwMTIxMDkwMzUyWhcN
+                MjkwMTIwMDkwMzUyWjA1MQswCQYDVQQGEwJGUjENMAsGA1UEChMEQ05SUzEXMBUG
+                A1UEAxMOQ05SUzItU3RhbmRhcmQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK
+                AoIBAQCcqWRqtAcjGcO+CAjE4ipd7dQo3v4/oO2SRGsWRzUTN410qfVNg+QFG48I
+                YUzed1vXqf+7ZZ3JrDwP8Yl7kyKgRw9fBr6OeKALeddCZWFyY5JAiltnEPrWJz7Y
+                d00eedtvSxIAUlji2EIFsjM3d+CNbB28+PbylFgl94LZhtlc89guzf1wiQSH7znR
+                KtiSjGkvHFJl+mCPEH/Mj/lcLhTtTIvgnTe40jyUylD9QXre9jzsruy9XBbdsPBz
+                mXqB/zsz0gCeTYzGWzguM8N2hspyVNst4hD9klBok4Ttd6mJaVGF6+CUo/mXCBGM
+                JPAPuji0LNbXbE5j/rQxn++PplqlAgMBAAGjgdkwgdYwDwYDVR0TAQH/BAUwAwEB
+                /zAdBgNVHQ4EFgQUEePZ0VJHG1mxPBt4Zmv0oYjtClswVAYDVR0jBE0wS4AUUJe2
+                DfesMxev8R1GPGs7/wCg5eWhMKQuMCwxCzAJBgNVBAYTAkZSMQ0wCwYDVQQKEwRD
+                TlJTMQ4wDAYDVQQDEwVDTlJTMoIBADAOBgNVHQ8BAf8EBAMCAQYwPgYDVR0fBDcw
+                NTAzoDGgL4YtaHR0cDovL2NybHMuc2VydmljZXMuY25ycy5mci9DTlJTMi9nZXRk
+                ZXIuY3JsMA0GCSqGSIb3DQEBBQUAA4IBAQBP6eMX5kwn9RdqUFXq7s9Mqr3uLN12
+                PlmgLwtoidpD0B4dLGsS+WcTnmUrpITSMc+CoMrvIugQbOnPF3ysrYeFTIrh1XtM
+                5tkOsqHkKZ4grw8+e7l/JEwy4Ij+etqsFmChda6JnIpmnZS6fqsOICPt98eEXYJI
+                FN7E1LDFTiyH1I0DES821SlvrplnGQyNbVog39GfxsuvVe4LyrFbD+9cdPTzRolj
+                R34szr/IMA0ARvYY5mw/MH6QbhCNHzlJz5Np68iewmdzr0qL9nxCKN2l3e2vyVUb
+                ZD9UvGEmEOuR1en37tD2Cwv6ppDdYPRAnQunnPjOLyE4/qsGv9oNd/pn
+                -----END CERTIFICATE-----
+        mode: 0444
+        owner: root
+        group: root
+      become: true
+
+    - name: Install the SGSservices repo
+      yum_repository:
+        name: "SGSservices"
+        description: "Edinburgh/EUCLID SGS services"
+        state: "present"
+        baseurl: "https://userread:password@apceuclidrepo.in2p3.fr/nexus/content/repositories/el7.sgsservices"
+        enabled: yes
+        protect: no
+        gpgcheck: no
+        metadata_expire: 10
+        sslcacert: "/etc/pki/tls/certs/CNRS2-Standard.pem"
+      become: true
+
+    - name: Install the IAL Packages
+      yum:
+        name:
+          - "euclid-ial-drm"
+          - "euclid-ial-wfm"
+        state: present
+      become: true
+
+    - name: Enable and start the EUCLID IAL service
+      systemd:
+        name: "euclid-ial-wfm"
+        enabled: true
+        state: started
+      become: true
+
+

@@ -99,6 +99,9 @@ AccountingStorageType=accounting_storage/filetxt
 Epilog=/etc/slurm/slurm.epilog.clean
 {% for group in slurm_partitions %}
 NodeName={{cluster_name}}-{{group.name}}-[0-{{group.num_nodes-1}}] \
+{% if 'ram_mb' in group %}
+    RealMemory={{group.ram_mb}} \
+{% endif %}
     Sockets={{hostvars[groups[cluster_name ~ '_' ~ group.name]|first]['ansible_processor_count']}} \
     CoresPerSocket={{hostvars[groups[cluster_name ~ '_' ~ group.name]|first]['ansible_processor_cores']}} \
     ThreadsPerCore={{hostvars[groups[cluster_name ~ '_' ~ group.name]|first]['ansible_processor_threads_per_core']}} State=UNKNOWN

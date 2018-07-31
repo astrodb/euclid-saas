@@ -12,7 +12,7 @@ cluster_keypair: rsa_keypair
 # Config name of the OpenStack cloud to authenticate against
 alaska_cloud: alaska
 # Mount point for home directories (nb, /home will upset cloud user)
-alaska_homedir: /alaska
+alaska_homedir: /euclid
 alaska_softiron: 10.4.99.101
 
 # OpenStack fully qualified project name (used for Grafana with domain support)

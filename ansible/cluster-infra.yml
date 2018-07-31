@@ -12,4 +12,6 @@
         cluster_keypair: "{{ cluster_keypair }}"
         cluster_groups: "{{ cluster_groups }}"
         cluster_net: "{{ cluster_net }}"
+#       node_resource: "instance.yaml"
+        node_resource: "Cluster::Instance"
       cluster_roles: "{{ cluster_roles }}"
