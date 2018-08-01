@@ -11,7 +11,7 @@
       os_manila_mount_share_name: "{{ ceph_mount_share_name }}"
       os_manila_mount_share_user: "home"
 
-- hosts: container-infra
+- hosts: cluster
   gather_facts: yes
   vars:
     ib_ip: "{{ hostvars[inventory_hostname]['server_networks'][lln_name][0] }}"
