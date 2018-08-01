@@ -1,17 +1,19 @@
 ---
 # This name is used for the Heat stack and as a prefix for the
 # cluster node hostnames.
-cluster_name: euclid
+cluster_name: euc
 
 # This parameter should be set to the name of an RSA keypair you have
 # uplaoded to OpenStack.
-cluster_keypair: sclt100
+cluster_keypair: wendy
 
 # Site-specific network configuration.
 # NOTE: the order of this list is significant in the Heat resources.
 cluster_net:
-  - { net: "euclid-data", subnet: "euclid-data", floating_net: "ilab", security_groups: ["ssh"] }
-  - { net: "euclid-vlan", subnet: "euclid-vlan", floating_net: "ilab", security_groups: ["ssh"] }
+# - { net: "ilab", subnet: "ilab" }
+# - { net: "infiniband", subnet: "infiniband" }
+ - { net: "euclid-data", subnet: "euclid-data", floating_net: "ilab", security_groups: ["ssh"] }
+# - { net: "euclid-vlan", subnet: "euclid-vlan", floating_net: "ilab", security_groups: ["ssh"] }
 # - { net: "euclid-vlan", subnet: "euclid-vlan" }
 
 # Multi-node application topology.  In this case we have a SLURM
@@ -29,7 +31,7 @@ slurm_login:
   image: "CentOS7.5-OpenHPC"
   user: "centos"
   num_nodes: 1
-  nodenet_resource: "Cluster::NodeNet1WithFIP"
+  nodenet_resource: "Cluster::NodeNet1"
 
 slurm_compute_virt:
   name: "virt"
@@ -37,7 +39,7 @@ slurm_compute_virt:
   image: "CentOS7.5-OpenHPC"
   user: "centos"
   num_nodes: 1
-  nodenet_resource: "Cluster::NodeNet1WithFIP"
+  nodenet_resource: "Cluster::NodeNet1"
   ram_mb: 15885
 
 slurm_compute_bare:
@@ -45,8 +47,8 @@ slurm_compute_bare:
   flavor: "baremetal-A"
   image: "CentOS7.5-OpenHPC"
   user: "centos"
-  num_nodes: 53
-  nodenet_resource: "Cluster::NodeNet1WithFIP"
+  num_nodes: 224
+  nodenet_resource: "Cluster::NodeNet2"
   ram_mb: 64200
 
 cvmfs_proxy:
@@ -54,9 +56,9 @@ cvmfs_proxy:
   flavor: "m1.large"
   image: "CentOS7.5"
   user: "centos"
-  num_nodes: 1
+  num_nodes: 2
   node_resource: "Cluster::InstanceWithVolume"
-  nodenet_resource: "Cluster::NodeNet1WithFIP"
+  nodenet_resource: "Cluster::NodeNet1"
   volume_size: 60
   volume_type: "ceph"
 
@@ -222,6 +224,13 @@ euclid_users:
     ssh_key:
       - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDCLva2hRoqcA77XoK0t7aPmip4CmxM6SdsnJdbN4i0l72Rf6HMNH2ZR5p+eZPxaxiJgmtQ5MpquNt775lFSGVIV7oyAKDdYuLA/8KXoKje4EsCMfA9m6Eg8urjrPprelTAl7xsem1eH9c/Jk6TFbJSyMrY7kvgNo1KZ+D24F5cCSSRncy0s5GoPWEJfdnSHdjvxc97vhSPY9KwsaMdbpj+u+1WlUDeoLjMsWLPDsqnIHLwYN74f9jfTvsoQxw9Wq3dmzRvy8sQkJ1OoAeuuM4B4MKel7U6QqrhMYyIUG2pcSBBICtT2Q5V4RhnBIqQrL8w1efq+TeD/ETSuQgFBiq1 sclt100@ilab-gate.ilab.cluster"
       - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCqySju7sKVGV8muTQ3KL7ZN/b4FQ3Sbm3vuUMEjO7lShmb7QeeXcQnJLkqiUD+VOC7WtBDwlMtvtC9KQHixpBohBrV/0fJ4zBElQ5ijpnLmwmKN/lEcoquvpL37LVAH7PxpnY2ElhhdgJxxYqruhJJZSwxTYC3XGoY1YosYY5SqZM1ZpTfEVHuN7VCzCiggcDHJAd+zG+1XRlYUHqPB3f29ymXTSG1C3EwaezrTY6+nUM5+Kcw7bOutxPfSev5Vk9densyQg9tsfjWBC0fbobOltWsycDMvlhT/Otc8XMFaHw1BZKjVkrcDQ2t364h9RmLGs6k777ECiE1IphSbXST sclt100@eod-control"
+  - username: "pfb29"
+    name: "Paul Browne <pfb29@cam.ac.uk>"
+    home: "{{euclid_homedir}}/pfb29"
+    uid: 15080
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC4gcLMvI8rOXZsuIAp2Dza2TalJGQyRzvYl0kQKBxeNNu700wn3aFoZA7AXexN/3wIhXZbueXEX+rlXKQRPm2pGHqKBhaAM1k9+vol5kYtMeSLBR5zVdUxpOCcBZeObCjNdk6Ul2JacETSd56/Dr/rjuaPe8uGeC0THz9Om55qwgpY0meTaptE3FezX8juZiSV9afH1G/ktOCA/G0xTaxUOAOzZXJLtbmqPWdPQ//1p+60pOLJBVkiwERcoWspcWem236hNrb1xtItbxYGalZXqUaDUpXsh5E4QrJGIh4J3hXQ8sVelDXx+RSiOl867xv/LkAPs8iZ0oSVCXrTIrhz pfb29"
+
 
 manila_mount_point: "{{ euclid_homedir }}"
 

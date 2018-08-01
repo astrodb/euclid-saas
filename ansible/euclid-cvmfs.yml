@@ -13,7 +13,9 @@
   tasks:
     - name: Select a proxy server for this host
       set_fact:
-        http_proxy: "{{ groups['cluster_cvmfs_proxy'] | random}}"
+        http_proxy: "{{ groups['cluster_cvmfs_proxy'][proxy_index | int] }}"
+      vars:
+        proxy_index: "{{ play_hosts.index(inventory_hostname) % (groups['cluster_cvmfs_proxy'] | length) }}"
 
     - name: Enable use of the proxy server for Yum caching
       ini_file:
