@@ -73,7 +73,7 @@ To deploy Swarm SIP cluster attached to `p3-bdn` and `p3-lln` network
 interfaces, first create the cluster and generate cluster inventory and request
 openstack to attach these interfaces:
 
-`ansible-playbook -i ansible/inventory -e @config/swarm-sip.yml --vault-password-file=vault-password ansible/deploy_container_infra.yml`
+`ansible-playbook -i ansible/inventory -e @config/swarm-sip.yml --vault-password-file=vault-password ansible/container-infra.yml`
 
 Then, run the second playbook to:
 - Configure IB interface attached to `p3-lln` network as DHCP is not enabled
@@ -82,7 +82,7 @@ Then, run the second playbook to:
 - Adds public keys specified under `public_keys` folder to the authorised keys
   on the instances.
 
-`ansible-playbook -i ansible/inventory-swarm-sip -e @config/swarm-sip.yml --vault-password-file=vault-password ansible/configure_container_infra.yml`
+`ansible-playbook -i ansible/inventory-swarm-sip -e @config/swarm-sip.yml --vault-password-file=vault-password ansible/container-infra-configure.yml`
 
 To deploy monasca monitoring on Swarm SIP nodes, first activate cluster config:
 
@@ -90,5 +90,5 @@ To deploy monasca monitoring on Swarm SIP nodes, first activate cluster config:
 
 Then, run the monitoring deployment playbook:
 
-`ansible-playbook -i ansible/inventory -e @config/swarm-sip.yml --vault-password-file=vault-password ansible/deploy_monasca_swarm_monitoring.yml`
+`ansible-playbook -i ansible/inventory -e @config/swarm-sip.yml --vault-password-file=vault-password ansible/monitoring-monasca-container.yml`
 
