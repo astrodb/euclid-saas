@@ -122,6 +122,8 @@ gluster_volume_name: openhpc_vol
 gluster_src: "localhost:/{{ gluster_volume_name }}"
 gluster_mnt: /mnt/gluster
 gluster_converged_disks: true
+gluster_block_devices:
+- md0
 
 # Admins who can login as centos user
 cluster_admins:
@@ -160,4 +162,7 @@ mdadm_array:
   mountpoint: '/data/beegfs/beegfs_data_0'
   # Define if array should be present or absent
   state: 'present'
+
+# Infiniband connected mode variable for configure_ib role
+ib_connected_mode: "no"
 ...

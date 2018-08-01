@@ -1,16 +1,42 @@
 ---
+- name: Make config drive mount directory
+  mount:
+    path: /mnt/config
+    src: /dev/disk/by-label/config-2
+    state: mounted
+    fstype: auto
+  become: yes
+
+- name: Read config from network_data.json
+  command: cat /mnt/config/openstack/latest/network_data.json
+  register: result
+
+- name: Parse config json
+  set_fact:
+    network_data: "{{ result.stdout | from_json }}"
+- debug: var=network_data.networks[2]
+
+- name: Set ipaddr fact
+  set_fact:
+    ib_ipaddr: "{{ network_data.networks[2].ip_address }}"
+- debug: var=ib_ipaddr
+
+- name: Obtain hardware address
+  command: cat /sys/class/net/ib0/address
+  register: result
+
+- name: Set hardware address fact
+  set_fact:
+    ib_hwaddr: "{{ result.stdout }}"
+- debug: var=ib_hwaddr
+
 - name: Copy ifcfg-ib0 network script over
   template:
     src: ifcfg-ib0.j2
     dest: /etc/sysconfig/network-scripts/ifcfg-ib0
-  become: True
+  become: yes
 
-- name: Bring ib0 down
-  command: ifdown ib0
-  become: True
-
-- name: Bring ib0 up
-  command: ifup ib0
-  become: True
-
+- name: Reset interface
+  shell: ifdown ib0 && ifup ib0
+  become: yes
 ...
