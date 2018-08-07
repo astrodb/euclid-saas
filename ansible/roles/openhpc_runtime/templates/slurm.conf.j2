@@ -60,16 +60,19 @@ SchedulerType=sched/backfill
 #SchedulerAuth=
 #SchedulerPort=
 #SchedulerRootFilter=
-SelectType=select/linear
-FastSchedule=1
-#PriorityType=priority/multifactor
+SelectType=select/cons_res
+SelectTypeParameters=CR_Core
+FastSchedule=0
+PriorityType=priority/multifactor
 #PriorityDecayHalfLife=14-0
 #PriorityUsageResetPeriod=14-0
 #PriorityWeightFairshare=100000
 #PriorityWeightAge=1000
-#PriorityWeightPartition=10000
+PriorityWeightPartition=1000
 #PriorityWeightJobSize=1000
 #PriorityMaxAge=1-0
+PreemptType=preempt/partition_prio
+PreemptMode=SUSPEND,GANG
 #
 # LOGGING
 SlurmctldDebug=3
