@@ -1,0 +1,9 @@
+---
+- name: Configure IP over InfiniBand
+  hosts: euc_bare
+  roles:
+    - name: configure_ib
+      # Use the same lower 16 bits as the server's default IPv4 address.
+      ib_subnet: "10.102."
+      ib_ipaddr: "{{ ansible_default_ipv4.address | regex_replace('^[0-9]+\\.[0-9]+\\.', ib_subnet) }}"
+      ib_netmask: "255.255.0.0"

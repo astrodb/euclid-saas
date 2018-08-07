@@ -1,0 +1,18 @@
+---
+- name: Obtain hardware address
+  command: "cat /sys/class/net/{{ ib_interface }}/address"
+  register: result
+  changed_when: false
+
+- name: Set hardware address fact
+  set_fact:
+    ib_hwaddr: "{{ result.stdout }}"
+
+- name: Copy ifcfg network script over
+  template:
+    src: ifcfg-ib0.j2
+    dest: "/etc/sysconfig/network-scripts/ifcfg-{{ ib_interface }}"
+  become: yes
+  notify:
+    - Reset interface
+...

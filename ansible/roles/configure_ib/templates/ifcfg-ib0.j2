@@ -1,0 +1,12 @@
+# {{ ansible_managed }}
+#
+BOOTPROTO=none
+DEVICE=ib0
+IPADDR={{ ib_ipaddr }} 
+HWADDR={{ ib_hwaddr }}
+NETMASK={{ ib_netmask }}
+ONBOOT=yes
+TYPE=InfiniBand
+USERCTL=no
+CONNECTED_MODE={{ ib_connected_mode }}
+MTU=65520
