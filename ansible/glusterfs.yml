@@ -10,6 +10,7 @@
     gluster_cluster_volume_options:
       cluster.nufa: 'on'
       performance.cache-size: '10GB'
+      diagnostics.brick-log-level: 'WARNING'
 
 - name: Mount glusterfs
   hosts: cluster_glusterfs_client
