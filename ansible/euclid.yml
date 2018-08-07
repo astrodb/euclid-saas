@@ -1,4 +1,5 @@
 ---
+- include: ssh-known-hosts.yml
 - include: setup.yml
 - include: manila-client.yml
 - include: euclid-users.yml
