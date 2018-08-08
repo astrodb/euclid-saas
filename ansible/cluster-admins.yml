@@ -1,4 +1,4 @@
-# This role ensured that cluster_users are configured as defined.
+# This role ensured that cluster_admins are configured as defined.
 - hosts: cluster
   vars:
   become: yes
