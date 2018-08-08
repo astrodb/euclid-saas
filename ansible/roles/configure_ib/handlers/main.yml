@@ -5,4 +5,8 @@
     enabled: True
     state: restarted
   become: True
+
+- name: Reset interface
+  shell: ifdown ib0; ifup ib0
+  become: yes
 ...

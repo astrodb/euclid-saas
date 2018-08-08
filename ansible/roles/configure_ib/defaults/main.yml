@@ -1,5 +1,6 @@
 ---
-ib_ip:
+ib_ipaddr:
+ib_hwaddr:
 ib_netmask: 255.255.255.0
 ib_connected_mode: "yes"
 ...

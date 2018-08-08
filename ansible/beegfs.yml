@@ -1,11 +1,11 @@
 ---
 # Deploy BeeGFS on an HPC appliance.
 # The following groups must be defined in the appliance inventory:
-# - beegfs_mgmt (Management server - must have one host in this group)
-# - beegfs_admon (zero or one hosts in this group - optional)
-# - beegfs_mds (Metadata storage server nodes)
-# - beegfs_oss (Object storage server nodes)
-# - beegfs_client (Clients of the BeeGFS storage cluster)
+# - cluster_beegfs_mgmt (Management server - must have one host in this group)
+# - cluster_beegfs_admon (zero or one hosts in this group - optional - NOT IMPLEMENTED)
+# - cluster_beegfs_mds (Metadata storage server nodes)
+# - cluster_beegfs_oss (Object storage server nodes)
+# - cluster_beegfs_client (Clients of the BeeGFS storage cluster)
 - hosts: cluster
   roles:
     - role: beegfs

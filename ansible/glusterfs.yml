@@ -1,4 +1,5 @@
-- name: Deploy a Gluster cluster with monitoring
+---
+- name: Deploy glusterfs server
   hosts: cluster_glusterfs_server
   roles:
   - role: stackhpc.gluster-cluster
@@ -12,7 +13,7 @@
       performance.cache-size: '10GB'
       diagnostics.brick-log-level: 'WARNING'
 
-- name: Mount glusterfs
+- name: Deploy glusterfs client
   hosts: cluster_glusterfs_client
   roles:
   - mount_glusterfs

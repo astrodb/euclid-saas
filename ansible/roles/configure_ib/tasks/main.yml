@@ -35,12 +35,5 @@
     src: ifcfg-ib0.j2
     dest: /etc/sysconfig/network-scripts/ifcfg-ib0
   become: yes
-
-- name: Reset interface
-  shell: ifdown ib0 && ifup ib0
-  become: yes
-  retry: 3
-  delay: 5
-  register: result
-  until: result.rc == 0
+  notify: Reset interface
 ...

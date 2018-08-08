@@ -14,7 +14,7 @@
 - hosts: cluster
   gather_facts: yes
   vars:
-    ib_ip: "{{ hostvars[inventory_hostname]['server_networks'][lln_name][0] }}"
+    ib_ipaddr: "{{ hostvars[inventory_hostname]['server_networks'][lln_name][0] }}"
   pre_tasks:
   - name: Enable passwordless sudo for wheel group
     lineinfile:
