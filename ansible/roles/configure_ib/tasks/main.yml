@@ -1,34 +1,32 @@
 ---
-- name: Make config drive mount directory
-  mount:
-    path: /mnt/config
-    src: /dev/disk/by-label/config-2
-    state: mounted
-    fstype: auto
-  become: yes
-
-- name: Read config from network_data.json
-  command: cat /mnt/config/openstack/latest/network_data.json
-  register: result
-
-- name: Parse config json
-  set_fact:
-    network_data: "{{ result.stdout | from_json }}"
-- debug: var=network_data.networks[2]
-
-- name: Set ipaddr fact
-  set_fact:
-    ib_ipaddr: "{{ network_data.networks[2].ip_address }}"
-- debug: var=ib_ipaddr
-
-- name: Obtain hardware address
-  command: cat /sys/class/net/ib0/address
-  register: result
-
-- name: Set hardware address fact
-  set_fact:
-    ib_hwaddr: "{{ result.stdout }}"
-- debug: var=ib_hwaddr
+- name: Read from config drive
+  block:
+  - name: Make config drive mount directory
+    mount:
+      path: /mnt/config
+      src: /dev/disk/by-label/config-2
+      state: mounted
+      fstype: auto
+    become: yes
+  - name: Read config from network_data.json
+    command: cat /mnt/config/openstack/latest/network_data.json
+    register: result
+  - name: Parse config json
+    set_fact:
+      network_data: "{{ result.stdout | from_json }}"
+  - debug: var=network_data.networks[2]
+  - name: Set ipaddr fact
+    set_fact:
+      ib_ipaddr: "{{ network_data.networks[2].ip_address }}"
+  - debug: var=ib_ipaddr
+  - name: Obtain hardware address
+    command: cat /sys/class/net/ib0/address
+    register: result
+  - name: Set hardware address fact
+    set_fact:
+      ib_hwaddr: "{{ result.stdout }}"
+  - debug: var=ib_hwaddr
+  when: ib_use_config_drive | bool
 
 - name: Copy ifcfg-ib0 network script over
   template:

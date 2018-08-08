@@ -12,6 +12,8 @@
       os_manila_mount_share_user: "home"
 
 - hosts: cluster
+  vars:
+    ib_ipaddr: "{{ hostvars[inventory_hostname]['server_networks'][lln_name][0] }}"
   gather_facts: yes
   pre_tasks:
   - name: Enable passwordless sudo for wheel group
@@ -23,6 +25,8 @@
       validate: 'visudo -cf %s'    
     become: yes
   roles:
+  # Configure infiniband interface
+  - configure_ib
   # Mount gluster volume on 
   - mount_glusterfs
   # Perform the mount action on all Ceph client nodes

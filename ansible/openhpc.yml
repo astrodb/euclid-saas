@@ -14,11 +14,8 @@
 # Install monitoring services
 - import_playbook: monitoring.yml
 
-# When config drive does not enable ib interface
-#- import_playbook: configure-ib.yml
-#
 # Use mdadm to create software defined raid
-#- import_playbook: mdadm.yml
+- import_playbook: mdadm.yml
 
 # Setup hyperconverged glusterfs cluster
 #- import_playbook: glusterfs.yml
