@@ -1,11 +1,18 @@
 # {{ ansible_managed }}
 #
 BOOTPROTO=none
-DEVICE=ib0
-IPADDR={{ ib_ip }} 
-NETMASK={{ ib_netmask }}
-ONBOOT=yes
 TYPE=InfiniBand
+DEVICE=ib0
+ONBOOT=yes
 USERCTL=no
-CONNECTED_MODE=yes
-MTU=65520
+IPADDR={{ ib_ipaddr }}
+NETMASK={{ ib_netmask }}
+{% if ib_hwaddr != None %}
+HWADDR={{ ib_hwaddr }}
+{% endif %}
+{% if ib_mtu != None %}
+MTU={{ ib_mtu }}
+{% endif %}
+{% if ib_connected_mode != None %}
+CONNECTED_MODE={{ ib_connected_mode }}
+{% endif %}

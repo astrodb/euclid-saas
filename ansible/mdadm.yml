@@ -1,0 +1,15 @@
+---
+- hosts: cluster_mdadm
+  roles:
+  - { role: mrlesmithjr.mdadm, become: yes }
+  tasks:
+  # NOTE (brtknr): The mdadm role currently mounts the multidisk mountpoint by
+  # default. We do not want this behaviour as the subsequent roles will decide
+  # where to mount this.
+  - mount:
+      name: "{{ item.mountpoint }}"
+      src: "/dev/{{ item.name }}"
+      state: absent
+    with_items: "{{ mdadm_arrays }}"
+    become: yes
+...

@@ -11,10 +11,10 @@
       os_manila_mount_share_name: "{{ ceph_mount_share_name }}"
       os_manila_mount_share_user: "home"
 
-- hosts: container-infra
-  gather_facts: yes
+- hosts: cluster
   vars:
-    ib_ip: "{{ hostvars[inventory_hostname]['server_networks'][lln_name][0] }}"
+    ib_ipaddr: "{{ hostvars[inventory_hostname]['server_networks'][lln_name][0] }}"
+  gather_facts: yes
   pre_tasks:
   - name: Enable passwordless sudo for wheel group
     lineinfile:
@@ -25,7 +25,7 @@
       validate: 'visudo -cf %s'    
     become: yes
   roles:
-  # Configure infiniband interface on the nodes
+  # Configure infiniband interface
   - configure_ib
   # Mount gluster volume on 
   - mount_glusterfs

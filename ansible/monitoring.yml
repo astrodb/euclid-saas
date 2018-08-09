@@ -14,6 +14,7 @@
     monasca_agent_password: "{{ monasca_agent_p3_password }}"
     monasca_agent_project: "{{ project_name }}"
     monasca_agent_branch: stable/pike
+    monasca_pip_extra_args: "-c https://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt?h=stable/pike"
     monasca_endpoint_type: public
     monasca_project_domain_name: Default
     monasca_user_domain_name: Default
