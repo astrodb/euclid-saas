@@ -13,3 +13,6 @@ HWADDR={{ ib_hwaddr }}
 {% if ib_mtu != None %}
 MTU={{ ib_mtu }}
 {% endif %}
+{% if ib_connected_mode != None %}
+CONNECTED_MODE={{ ib_connected_mode }}
+{% endif %}
