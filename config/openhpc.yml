@@ -117,6 +117,9 @@ openhpc_packages:
   - emacs
 #  - git-lfs
 
+# Choose between glusterfs and beegfs
+cluster_fs: glusterfs
+
 # Gluster config
 gluster_volume_name: openhpc_vol
 gluster_src: "localhost:/{{ gluster_volume_name }}"
@@ -151,8 +154,6 @@ md0:
   # Define the array raid level
   # 0|1|4|5|6|10
   level: '0'
-  # Define mountpoint for array device
-  mountpoint: '/data/md0'
   # Define if array should be present or absent
   state: 'present'
 

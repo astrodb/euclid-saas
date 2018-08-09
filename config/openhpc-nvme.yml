@@ -93,6 +93,9 @@ openhpc_packages:
   - emacs
 #  - git-lfs
 
+# Choose between glusterfs and beegfs
+cluster_fs: glusterfs
+
 # Gluster config
 gluster_volume_name: openhpc_nvme
 gluster_src: "localhost:/{{ gluster_volume_name }}"
