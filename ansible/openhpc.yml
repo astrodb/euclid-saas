@@ -17,11 +17,10 @@
 # Use mdadm to create software defined raid
 - import_playbook: mdadm.yml
 
-# Setup hyperconverged glusterfs cluster
-#- import_playbook: glusterfs.yml
-
-# Mount hyperconverged glusterfs volume
-#- import_playbook: beegfs.yml
+# Setup hyperconverged storage. Current clusterfs options are:
+# - glusterfs
+# - beegfs
+- import_playbook: '{{ cluster_fs }}.yml'
 
 # Cluster login setup
 - hosts: cluster_login
