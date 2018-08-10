@@ -92,3 +92,12 @@ Then, run the monitoring deployment playbook:
 
 `ansible-playbook -i ansible/inventory -e @config/swarm-sip.yml --vault-password-file=vault-password ansible/monitoring-monasca-container.yml`
 
+### Gluster Storage
+
+Creating gluster storage clusters using storage-A (nvme) and storage-B (ssdarr) flavours:
+
+`ansible-playbook -e @config/openhpc-[nvme|ssdarr].yml -i ansible/inventory ansible/cluster-infra.yml --vault-password-file vault-password`
+
+Configuring gluster storage:
+
+`ansible-playbook -i ansible/inventory-openhpc-[nvme|ssdarr] ansible/openhpc.yml --vault-password-file vault-password` 

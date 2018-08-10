@@ -1,7 +1,7 @@
 ---
 # This name is used for the Heat stack and as a prefix for the
 # cluster node hostnames.
-cluster_name: openhpc-nvme
+cluster_name: openhpc-ssdarr
 
 # This parameter should be set to the name of an RSA keypair you have
 # uplaoded to OpenStack.
@@ -26,10 +26,10 @@ cluster_groups:
   - "{{ storage }}"
 
 storage:
-  name: "storage"
-  flavor: "storage-A"
+  name: "storage-B"
+  flavor: "storage-B"
   image: "CentOS7.5-OpenHPC"
-  num_nodes: 1
+  num_nodes: 2
   user: "centos"
 
 # Node group assignments for cluster roles.
@@ -39,8 +39,6 @@ storage:
 cluster_roles:
   - name: "ceph_client"
     groups: "{{ cluster_groups }}"
-  - name: "mdadm"
-    groups: [ "{{ storage }}" ]
   - name: "glusterfs_server"
     groups: [ "{{ storage }}" ]
   - name: "glusterfs_client"
@@ -99,19 +97,18 @@ openhpc_packages:
 cluster_fs: glusterfs
 
 # Gluster config
-gluster_cluster_volume_name: openhpc_nvme
+gluster_cluster_volume_name: openhpc_ssdarr
 gluster_cluster_block_devices:
-- md0
-- md1
-gluster_cluster_transport_interface: ib0
+- sdb
+gluster_cluster_transport_interface: p3p2
 gluster_cluster_transport_mode: rdma
-gluster_cluster_force_format: yes
+gluster_cluster_force_format: no
 gluster_cluster_volume_options:
   performance.cache-size: '10GB'
   diagnostics.brick-log-level: 'WARNING'
 
 gluster_src: "localhost:/{{ gluster_cluster_volume_name }}"
-gluster_mnt: /mnt/gluster_nvme
+gluster_mnt: /mnt/gluster_ssdarr
 
 # Config for Ceph mount
 ceph_mount_share_name: HomeDirs
@@ -123,41 +120,4 @@ beegfs_kmod_preload:
   - "mlx5_core"
   - "mlx5_ib"
   - "ib_ipoib"
-
-# Software defined raid config
-md0:
-  # Define array name
-  name: 'md0'
-  # Define disk devices to assign to array
-  devices:
-    - '/dev/nvme0n1'
-    - '/dev/nvme2n1'
-  # Define filesystem to partition array with
-  filesystem: 'xfs'
-  filesystem_opts: '-K'
-  # Define the array raid level
-  # 0|1|4|5|6|10
-  level: '0'
-  # Define if array should be present or absent
-  state: 'present'
-
-md1:
-  # Define array name
-  name: 'md1'
-  # Define disk devices to assign to array
-  devices:
-    - '/dev/nvme1n1'
-    - '/dev/nvme3n1'
-  # Define filesystem to partition array with
-  filesystem: 'xfs'
-  filesystem_opts: '-K'
-  # Define the array raid level
-  # 0|1|4|5|6|10
-  level: '0'
-  # Define if array should be present or absent
-  state: 'present'
-
-mdadm_arrays:
-  - "{{ md0 }}"
-  - "{{ md1 }}"
 ...

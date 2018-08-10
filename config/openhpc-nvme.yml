@@ -97,15 +97,21 @@ openhpc_packages:
 cluster_fs: glusterfs
 
 # Gluster config
-gluster_volume_name: openhpc_nvme
-gluster_src: "localhost:/{{ gluster_volume_name }}"
-gluster_mnt: /mnt/gluster_nvme
-gluster_converged_disks: true
-gluster_block_devices:
+gluster_cluster_volume_name: openhpc_nvme
+gluster_cluster_block_devices:
 - nvme0n1
 - nvme1n1
 - nvme2n1
 - nvme3n1
+gluster_cluster_transport_interface: ib0
+gluster_cluster_transport_mode: rdma
+gluster_cluster_force_format: yes
+gluster_cluster_volume_options:
+  performance.cache-size: '10GB'
+  diagnostics.brick-log-level: 'WARNING'
+
+gluster_src: "localhost:/{{ gluster_cluster_volume_name }}"
+gluster_mnt: /mnt/gluster_nvme
 
 # Config for Ceph mount
 ceph_mount_share_name: HomeDirs

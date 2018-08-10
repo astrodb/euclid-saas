@@ -3,15 +3,6 @@
   hosts: cluster_glusterfs_server
   roles:
   - role: stackhpc.gluster-cluster
-    gluster_cluster_volume_name: "{{ gluster_volume_name }}"
-    gluster_cluster_block_devices: "{{ gluster_block_devices }}"
-    gluster_cluster_transport_interface: ib0
-    gluster_cluster_transport_mode: rdma
-    gluster_cluster_force_format: yes
-    gluster_cluster_volume_options:
-      cluster.nufa: 'on'
-      performance.cache-size: '10GB'
-      diagnostics.brick-log-level: 'WARNING'
 
 - name: Deploy glusterfs client
   hosts: cluster_glusterfs_client
