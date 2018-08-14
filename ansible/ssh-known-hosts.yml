@@ -23,11 +23,13 @@
       blockinfile:
         block: |
           {% for host in groups['cluster'] %}
+          {% if 'keyscan_result' in hostvars[host] %}
           {% for result in hostvars[host].keyscan_result.results %}
           {% for key in result.stdout_lines %}
           {{ key }}
           {% endfor %}
           {% endfor %}
+          {% endif %}
           {% endfor %}
         create: true
         marker: "# {mark} P3-APPLIANCES MANAGED BLOCK FOR {{ cluster_name }}"
