@@ -12,7 +12,7 @@
 - hosts: 
     - slurm_compute_bare
 
-- hosts: cluster_login
+- hosts: cluster_control
   become: yes
   roles:
     - role: openhpc_control
@@ -23,6 +23,7 @@
     - role: openhpc_compute
 
 - hosts:
+    - cluster_control
     - cluster_login
     - cluster_batch
   become: yes
@@ -35,3 +36,4 @@
   roles:
     - role: openhpc_runtime
       slurm_partitions: "{{ openhpc_slurm_partitions }}"
+      slurm_control_host: "{{ groups['cluster_control'] | first }}"

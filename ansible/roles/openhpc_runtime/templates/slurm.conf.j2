@@ -100,17 +100,25 @@ PropagateResourceLimitsExcept=MEMLOCK
 #SlurmctldLogFile=/var/log/slurmctld.log
 AccountingStorageType=accounting_storage/filetxt
 Epilog=/etc/slurm/slurm.epilog.clean
-{% for group in slurm_partitions %}
-NodeName={{cluster_name}}-{{group.name}}-[0-{{group.num_nodes-1}}] \
+{% for part in slurm_partitions %}
+{% for group in part.get('groups', [part]) %}
+NodeName={{group.cluster_name|default(cluster_name)}}-{{group.name}}-[0-{{group.num_nodes-1}}] \
 {% if 'ram_mb' in group %}
     RealMemory={{group.ram_mb}} \
 {% endif %}
-    Sockets={{hostvars[groups[cluster_name ~ '_' ~ group.name]|first]['ansible_processor_count']}} \
-    CoresPerSocket={{hostvars[groups[cluster_name ~ '_' ~ group.name]|first]['ansible_processor_cores']}} \
-    ThreadsPerCore={{hostvars[groups[cluster_name ~ '_' ~ group.name]|first]['ansible_processor_threads_per_core']}} State=UNKNOWN
+{% set group_name = group.cluster_name|default(cluster_name) ~ '_' ~ group.name %}
+{# If using --limit, the first host in each group may not have facts available. Find one that does. #}
+{% set group_hosts = groups[group_name] | intersect(play_hosts) %}
+{% if group_hosts | length > 0 %}
+{% set first_host_hv = hostvars[group_hosts | first] %}
+    Sockets={{first_host_hv['ansible_processor_count']}} \
+    CoresPerSocket={{first_host_hv['ansible_processor_cores']}} \
+    ThreadsPerCore={{first_host_hv['ansible_processor_threads_per_core']}} State=UNKNOWN
+{% endif %}
 {% endfor %}
-{% for group in slurm_partitions %}
-PartitionName={{group.name}} Nodes={{cluster_name}}-{{group.name}}-[0-{{group.num_nodes-1}}] Default=YES MaxTime=24:00:00 State=UP
+{% endfor %}
+{% for part in slurm_partitions %}
+PartitionName={{part.name}} Nodes={% for group in part.get('groups', [part]) %}{{group.cluster_name|default(cluster_name)}}-{{group.name}}-[0-{{group.num_nodes-1}}]{% if not loop.last %},{% endif %}{% endfor %} Default=YES MaxTime=24:00:00 State=UP
 {% endfor %}
 # Want nodes that drop out of SLURM's configuration to be automatically 
 # returned to service when they come back.

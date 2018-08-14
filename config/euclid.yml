@@ -25,7 +25,18 @@ cluster_groups:
   - "{{ slurm_compute_bare }}"
   - "{{ cvmfs_proxy }}"
 
+# For historical reasons the login node is running on euc-2-bare-43.
 slurm_login:
+  name: "login"
+  flavor: "baremetal-A"
+  image: "CentOS7.5-OpenHPC"
+  user: "centos"
+  num_nodes: 1
+  nodenet_resource: "Cluster::NodeNet2"
+
+slurm_control:
+  # For historical reasons the controller is running on euc-login-0. Ideally
+  # this name will change to control at some point.
   name: "login"
   flavor: "m1.large"
   image: "CentOS7.5-OpenHPC"
@@ -43,11 +54,23 @@ slurm_compute_virt:
   ram_mb: 15885
 
 slurm_compute_bare:
+  cluster_name: "{{ cluster_name }}"
   name: "bare"
   flavor: "baremetal-A"
   image: "CentOS7.5-OpenHPC"
   user: "centos"
-  num_nodes: 224
+  num_nodes: 389
+  nodenet_resource: "Cluster::NodeNet2"
+  ram_mb: 64200
+
+slurm_compute_bare_2:
+  cluster_name: euc-2
+  name: "bare"
+  flavor: "baremetal-A"
+  image: "CentOS7.5-OpenHPC"
+  user: "centos"
+  # euc-bare-43 is used as a login node since it has access to lustre.
+  num_nodes: 43
   nodenet_resource: "Cluster::NodeNet2"
   ram_mb: 64200
 
@@ -70,8 +93,12 @@ cluster_roles:
   - name: "ceph_client"
     groups: 
       - "{{ slurm_login }}"
+      - "{{ slurm_control }}"
       - "{{ slurm_compute_virt }}"
       - "{{ slurm_compute_bare }}"
+  - name: "control"
+    groups: 
+      - "{{ slurm_control }}"
   - name: "login"
     groups: 
       - "{{ slurm_login }}"
@@ -89,7 +116,10 @@ cluster_roles:
 # Define a list of SLURM partitions to create.
 openhpc_slurm_partitions: 
   - "{{ slurm_compute_virt }}"
-  - "{{ slurm_compute_bare }}"
+  - name: bare
+    groups:
+      - "{{ slurm_compute_bare }}"
+      - "{{ slurm_compute_bare_2 }}"
 
 # A list of OpenHPC runtime libraries to install on compute and control nodes
 openhpc_packages:
@@ -240,3 +270,15 @@ manila_mount_point: "{{ euclid_homedir }}"
 cvmfs_conf_local: |
   CVMFS_REPOSITORIES=euclid.in2p3.fr,euclid-dev.in2p3.fr
   CVMFS_HTTP_PROXY="http://euclid-proxy-0:3128"
+
+# FIXME: The following nodes from the PoC rack do not have access to IB
+# currently.
+no_ib_connectivity:
+  - euc-bare-9
+  - euc-bare-92
+  - euc-bare-298
+
+# The login node is running on a repurposed bare metal compute node.
+slurm_login_node_with_ib: euc-2-bare-43
+
+slurm_service_enabled: "{{ inventory_hostname not in (no_ib_connectivity + [slurm_login_node_with_ib]) }}"

@@ -1,0 +1,47 @@
+---
+# This cluster is used as an overflow since the euc stack grew too large for
+# heat to handle.
+
+# This name is used for the Heat stack and as a prefix for the
+# cluster node hostnames.
+cluster_name: euc-2
+
+# This parameter should be set to the name of an RSA keypair you have
+# uplaoded to OpenStack.
+cluster_keypair: wendy
+
+# Site-specific network configuration.
+# NOTE: the order of this list is significant in the Heat resources.
+cluster_net:
+ - { net: "euclid-data", subnet: "euclid-data", floating_net: "ilab", security_groups: ["ssh"] }
+
+# Multi-node application topology.  In this case we have a SLURM
+# deployment formed from a login/controller node and a number of
+# batch compute nodes.
+cluster_groups:
+  - "{{ slurm_compute_bare }}"
+
+slurm_compute_bare:
+  name: "bare"
+  flavor: "baremetal-A"
+  image: "CentOS7.5-OpenHPC"
+  user: "centos"
+  # Note: one of these is repurposed as a login node.
+  num_nodes: 44
+  nodenet_resource: "Cluster::NodeNet2"
+  ram_mb: 64200
+
+# Node group assignments for cluster roles.
+# These group assignments are appended to the cluster inventory file.
+# The names of these roles are cross-referenced to groups referred to
+# in playbooks in the ansible/ directory.
+cluster_roles:
+  - name: "ceph_client"
+    groups: 
+      - "{{ slurm_compute_bare }}"
+  - name: "batch"
+    groups: 
+      - "{{ slurm_compute_bare }}" 
+  - name: "infiniband"
+    groups: 
+      - "{{ slurm_compute_bare }}" 
