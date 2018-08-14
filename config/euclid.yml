@@ -79,6 +79,9 @@ cluster_roles:
     groups: 
       - "{{ slurm_compute_virt }}" 
       - "{{ slurm_compute_bare }}" 
+  - name: "infiniband"
+    groups:
+      - "{{ slurm_compute_bare }}"
   - name: "cvmfs_proxy"
     groups:
       - "{{ cvmfs_proxy }}"

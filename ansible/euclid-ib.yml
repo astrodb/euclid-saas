@@ -1,6 +1,6 @@
 ---
 - name: Configure IP over InfiniBand
-  hosts: euc_bare
+  hosts: cluster_infiniband
   roles:
     - name: configure_ib
       # Use the same lower 16 bits as the server's default IPv4 address.
