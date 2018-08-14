@@ -7,3 +7,5 @@
       ib_subnet: "10.102."
       ib_ipaddr: "{{ ansible_default_ipv4.address | regex_replace('^[0-9]+\\.[0-9]+\\.', ib_subnet) }}"
       ib_netmask: "255.255.0.0"
+      ib_ping_host: "{{ hostvars[ping_inventory_host].ansible_default_ipv4.address | regex_replace('^[0-9]+\\.[0-9]+\\.', ib_subnet) }}"
+      ping_inventory_host: "{{ play_hosts[(play_hosts.index(inventory_hostname) + 1) % (play_hosts | length)] }}"
