@@ -23,23 +23,5 @@
 - import_playbook: '{{ cluster_fs }}.yml'
 
 # Cluster login setup
-- hosts: cluster_login
-  become: yes
-  roles:
-    - role: openhpc_control
-
-# Cluster batch setup
-- hosts: cluster_batch
-  become: yes
-  roles:
-    - role: openhpc_compute
-
-# Cluster setup
-- hosts: 
-  - cluster_login
-  - cluster_batch
-  become: yes
-  roles:
-    - role: openhpc_runtime
-      slurm_partitions: "{{ openhpc_slurm_partitions }}"
+- import_playbook: slurm.yml
 ...
