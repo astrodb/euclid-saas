@@ -3,4 +3,4 @@
   service:
     name: "{{slurm_service}}"
     state: restarted
-  
+  when: slurm_service_enabled | bool

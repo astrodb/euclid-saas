@@ -10,7 +10,7 @@
 - name: Ensure SLURM services are enabled
   service:
     name: "{{slurm_service}}"
-    enabled: yes
+    enabled: "{{slurm_service_enabled|bool}}"
   notify:
     - Restart SLURM service
 
@@ -32,4 +32,4 @@
 - name: Ensure SLURM services are running
   service:
     name: "{{slurm_service}}"
-    state: started
+    state: "{{'started' if slurm_service_enabled|bool else 'stopped'}}"
