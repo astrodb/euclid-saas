@@ -5,6 +5,7 @@
 - include: manila-client.yml
 - include: euclid-users.yml
 - include: euclid-cvmfs.yml
+- include: euclid-lustre.yml
 - include: euclid-openhpc.yml
 - include: euclid-ial.yml
 
