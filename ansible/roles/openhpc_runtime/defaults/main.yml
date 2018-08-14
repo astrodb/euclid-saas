@@ -1,0 +1,2 @@
+---
+slurm_control_host: "{{ groups['cluster_login'] | first }}"

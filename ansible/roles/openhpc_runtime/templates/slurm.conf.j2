@@ -9,7 +9,7 @@
 # See the slurm.conf man page for more information.
 #
 ClusterName={{ cluster_name }}
-ControlMachine={{ groups['cluster_login'] | first }}
+ControlMachine={{ slurm_control_host }}
 #ControlAddr=
 #BackupController=
 #BackupAddr=
