@@ -15,4 +15,16 @@
   become: yes
   notify:
     - Reset interface
+
+- name: Flush handlers
+  meta: flush_handlers
+
+- block:
+    - name: Display ping host
+      debug:
+        msg: "Pinging {{ ib_ping_host }}"
+
+    - name: Ping another host
+      command: "ping -c1 {{ ib_ping_host }}"
+  when: ib_ping_host is not none
 ...
