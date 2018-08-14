@@ -8,4 +8,5 @@
 - include: euclid-lustre.yml
 - include: euclid-openhpc.yml
 - include: euclid-ial.yml
+- include: euclid-limits.yml
 
