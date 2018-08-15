@@ -47,20 +47,23 @@ using another playbook (for example):
 Creating the EUCLID Appliance
 -----------------------------
 
-The EUCLID appliance is split into two heat stacks, to avoid scaling issues in
-heat. There are two config files that define the infrastructure - `euclid.yml`
-and `euclid-2.yml`. The infrastructure is created in two steps:
+The EUCLID appliance is split into three heat stacks, to avoid scaling issues
+in heat. There are three config files that define the infrastructure -
+`euclid.yml`, `euclid-2.yml` and `euclid-3.yml`. The infrastructure is created
+in three steps:
 
 `ansible-playbook -i ansible/inventory ansible/cluster-infra.yml -e @config/euclid.yml -e ansible_ssh_private_key_file=~/wendy_house/id_wendy`
 `ansible-playbook -i ansible/inventory ansible/cluster-infra.yml -e @config/euclid-2.yml -e ansible_ssh_private_key_file=~/wendy_house/id_wendy`
+`ansible-playbook -i ansible/inventory ansible/cluster-infra.yml -e @config/euclid-3.yml -e ansible_ssh_private_key_file=~/wendy_house/id_wendy`
 
 The inventories for these stacks have been committed to this repo at
-`ansible/inventory_euc` and `ansible/inventory_euc-2`.
+`ansible/inventory_euc`, `ansible/inventory_euc-2` and
+`ansible/inventory_euc-3`.
 
-The appliance is created in a single step using both inventories, and the
+The appliance is created in a single step using all inventories, and the
 `euclid.yml` playbook, but only the `euclid.yml` configuration file.
 
-`ansible-playbook -i ansible/inventory_euc -i ansible/inventory_euc-2 ansible/euclid.yml -e @config/euclid.yml -e ansible_ssh_private_key_file=~/wendy_house/id_wendy --forks <forks>`
+`ansible-playbook -i ansible/inventory_euc -i ansible/inventory_euc-2 -i ansible/inventory_euc-3 ansible/euclid.yml -e @config/euclid.yml -e ansible_ssh_private_key_file=~/wendy_house/id_wendy --forks <forks>`
 
 Use a number of forks that your control host can handle. Using 250 on a bare
 metal node (`operator`) has worked well so far.

@@ -1,0 +1,92 @@
+# Ansible Shade uses OpenStack clients running locally
+[openstack]
+localhost ansible_connection=local ansible_python_interpreter=python
+
+[cluster:children]
+euc-3_bare
+
+[euc-3_bare]
+euc-3-bare-0 ansible_host=10.60.3.190 ansible_user=centos
+euc-3-bare-1 ansible_host=10.60.3.175 ansible_user=centos
+euc-3-bare-2 ansible_host=10.60.3.226 ansible_user=centos
+euc-3-bare-3 ansible_host=10.60.3.163 ansible_user=centos
+euc-3-bare-4 ansible_host=10.60.3.179 ansible_user=centos
+euc-3-bare-5 ansible_host=10.60.3.220 ansible_user=centos
+euc-3-bare-6 ansible_host=10.60.3.164 ansible_user=centos
+euc-3-bare-7 ansible_host=10.60.3.187 ansible_user=centos
+euc-3-bare-8 ansible_host=10.60.3.233 ansible_user=centos
+euc-3-bare-9 ansible_host=10.60.3.204 ansible_user=centos
+euc-3-bare-10 ansible_host=10.60.3.215 ansible_user=centos
+euc-3-bare-11 ansible_host=10.60.3.237 ansible_user=centos
+euc-3-bare-12 ansible_host=10.60.3.145 ansible_user=centos
+euc-3-bare-13 ansible_host=10.60.3.178 ansible_user=centos
+euc-3-bare-14 ansible_host=10.60.3.199 ansible_user=centos
+euc-3-bare-15 ansible_host=10.60.3.229 ansible_user=centos
+euc-3-bare-16 ansible_host=10.60.3.186 ansible_user=centos
+euc-3-bare-17 ansible_host=10.60.3.181 ansible_user=centos
+euc-3-bare-18 ansible_host=10.60.3.238 ansible_user=centos
+euc-3-bare-19 ansible_host=10.60.3.216 ansible_user=centos
+euc-3-bare-20 ansible_host=10.60.3.176 ansible_user=centos
+euc-3-bare-21 ansible_host=10.60.3.183 ansible_user=centos
+euc-3-bare-22 ansible_host=10.60.3.235 ansible_user=centos
+euc-3-bare-23 ansible_host=10.60.3.236 ansible_user=centos
+euc-3-bare-24 ansible_host=10.60.3.191 ansible_user=centos
+euc-3-bare-25 ansible_host=10.60.3.203 ansible_user=centos
+euc-3-bare-26 ansible_host=10.60.3.225 ansible_user=centos
+euc-3-bare-27 ansible_host=10.60.3.223 ansible_user=centos
+euc-3-bare-28 ansible_host=10.60.3.231 ansible_user=centos
+euc-3-bare-29 ansible_host=10.60.3.205 ansible_user=centos
+euc-3-bare-30 ansible_host=10.60.3.194 ansible_user=centos
+euc-3-bare-31 ansible_host=10.60.3.185 ansible_user=centos
+euc-3-bare-32 ansible_host=10.60.3.197 ansible_user=centos
+euc-3-bare-33 ansible_host=10.60.3.246 ansible_user=centos
+euc-3-bare-34 ansible_host=10.60.3.182 ansible_user=centos
+euc-3-bare-35 ansible_host=10.60.3.243 ansible_user=centos
+euc-3-bare-36 ansible_host=10.60.3.198 ansible_user=centos
+euc-3-bare-37 ansible_host=10.60.3.170 ansible_user=centos
+euc-3-bare-38 ansible_host=10.60.3.230 ansible_user=centos
+euc-3-bare-39 ansible_host=10.60.3.193 ansible_user=centos
+euc-3-bare-40 ansible_host=10.60.3.212 ansible_user=centos
+euc-3-bare-41 ansible_host=10.60.3.218 ansible_user=centos
+euc-3-bare-42 ansible_host=10.60.3.200 ansible_user=centos
+euc-3-bare-43 ansible_host=10.60.3.166 ansible_user=centos
+euc-3-bare-44 ansible_host=10.60.3.177 ansible_user=centos
+euc-3-bare-45 ansible_host=10.60.3.228 ansible_user=centos
+euc-3-bare-46 ansible_host=10.60.3.234 ansible_user=centos
+euc-3-bare-47 ansible_host=10.60.3.210 ansible_user=centos
+euc-3-bare-48 ansible_host=10.60.3.174 ansible_user=centos
+euc-3-bare-49 ansible_host=10.60.3.219 ansible_user=centos
+euc-3-bare-50 ansible_host=10.60.3.208 ansible_user=centos
+euc-3-bare-51 ansible_host=10.60.3.184 ansible_user=centos
+euc-3-bare-52 ansible_host=10.60.3.206 ansible_user=centos
+euc-3-bare-53 ansible_host=10.60.3.149 ansible_user=centos
+euc-3-bare-54 ansible_host=10.60.3.209 ansible_user=centos
+euc-3-bare-55 ansible_host=10.60.3.221 ansible_user=centos
+euc-3-bare-56 ansible_host=10.60.3.192 ansible_user=centos
+euc-3-bare-57 ansible_host=10.60.3.201 ansible_user=centos
+euc-3-bare-58 ansible_host=10.60.3.213 ansible_user=centos
+euc-3-bare-59 ansible_host=10.60.3.196 ansible_user=centos
+euc-3-bare-60 ansible_host=10.60.3.202 ansible_user=centos
+euc-3-bare-61 ansible_host=10.60.3.188 ansible_user=centos
+euc-3-bare-62 ansible_host=10.60.3.240 ansible_user=centos
+euc-3-bare-63 ansible_host=10.60.3.211 ansible_user=centos
+euc-3-bare-64 ansible_host=10.60.3.217 ansible_user=centos
+euc-3-bare-65 ansible_host=10.60.3.195 ansible_user=centos
+euc-3-bare-66 ansible_host=10.60.3.189 ansible_user=centos
+euc-3-bare-67 ansible_host=10.60.3.180 ansible_user=centos
+euc-3-bare-68 ansible_host=10.60.3.227 ansible_user=centos
+euc-3-bare-69 ansible_host=10.60.3.214 ansible_user=centos
+euc-3-bare-70 ansible_host=10.60.3.232 ansible_user=centos
+euc-3-bare-71 ansible_host=10.60.3.207 ansible_user=centos
+
+# Specific roles for cluster deployment assignments
+[cluster_ceph_client:children]
+euc-3_bare
+
+[cluster_batch:children]
+euc-3_bare
+
+[cluster_infiniband:children]
+euc-3_bare
+
+

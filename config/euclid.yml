@@ -74,6 +74,16 @@ slurm_compute_bare_2:
   nodenet_resource: "Cluster::NodeNet2"
   ram_mb: 64200
 
+slurm_compute_bare_3:
+  cluster_name: euc-3
+  name: "bare"
+  flavor: "baremetal-A"
+  image: "CentOS7.5-OpenHPC"
+  user: "centos"
+  num_nodes: 72
+  nodenet_resource: "Cluster::NodeNet2"
+  ram_mb: 64200
+
 cvmfs_proxy:
   name: "proxy"
   flavor: "m1.large"
@@ -120,6 +130,7 @@ openhpc_slurm_partitions:
     groups:
       - "{{ slurm_compute_bare }}"
       - "{{ slurm_compute_bare_2 }}"
+      - "{{ slurm_compute_bare_3 }}"
 
 # A list of OpenHPC runtime libraries to install on compute and control nodes
 openhpc_packages:
