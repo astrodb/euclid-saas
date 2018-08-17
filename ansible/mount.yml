@@ -1,6 +1,7 @@
 # Example usage:
 # ansible-playbook -i ansible/inventory-openhpc --vault-password-file=vault-password -e src="10.3.0.27:/openhpc_vol" -e path="/mnt/gluster" -e state="mounted" -e fstype="glusterfs" ansible/mount.yml
 - hosts: cluster
+  gather_facts: no
   tasks:
   - name: Mount given path
     mount:
