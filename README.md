@@ -52,9 +52,9 @@ in heat. There are three config files that define the infrastructure -
 `euclid.yml`, `euclid-2.yml` and `euclid-3.yml`. The infrastructure is created
 in three steps:
 
-`ansible-playbook -i ansible/inventory ansible/cluster-infra.yml -e @config/euclid.yml -e ansible_ssh_private_key_file=~/wendy_house/id_wendy`
-`ansible-playbook -i ansible/inventory ansible/cluster-infra.yml -e @config/euclid-2.yml -e ansible_ssh_private_key_file=~/wendy_house/id_wendy`
-`ansible-playbook -i ansible/inventory ansible/cluster-infra.yml -e @config/euclid-3.yml -e ansible_ssh_private_key_file=~/wendy_house/id_wendy`
+    ansible-playbook -i ansible/inventory ansible/cluster-infra.yml -e @config/euclid.yml -e ansible_ssh_private_key_file=~/wendy_house/id_wendy
+    ansible-playbook -i ansible/inventory ansible/cluster-infra.yml -e @config/euclid-2.yml -e ansible_ssh_private_key_file=~/wendy_house/id_wendy
+    ansible-playbook -i ansible/inventory ansible/cluster-infra.yml -e @config/euclid-3.yml -e ansible_ssh_private_key_file=~/wendy_house/id_wendy
 
 The inventories for these stacks have been committed to this repo at
 `ansible/inventory_euc`, `ansible/inventory_euc-2` and
