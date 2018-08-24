@@ -36,8 +36,6 @@
           - "cvmfs-config-none"
         enablerepo: "cernvm-config"
         state: "present"
-      notify:
-        - Setup CVMFS
 
     - name: Write local configuration
       copy:
@@ -109,11 +107,31 @@
       notify:
         - Reload CVMFS config
 
-  handlers:
-    - name: Setup CVMFS
-      command: cvmfs_config setup
-      register: ran_setup
+    - name: Ensure the automounter is installed
+      yum:
+        name: "autofs"
+        state: "present"
 
+    - name: Ensure the automounter service is enabled and started
+      service:
+        name: "autofs"
+        enabled: yes
+        state: started
+
+    - name: Local setup for CVMFS
+      command: cvmfs_config setup
+      args:
+        creates: "/etc/auto.master.d/cvmfs.autofs"
+      register: ran_setup
+      notify:
+        - Reload automounter
+
+  handlers:
     - name: Reload CVMFS config
       command: cvmfs_config reload -c
       when: ran_setup is not defined
+
+    - name: Reload automounter
+      service:
+        name: "autofs"
+        state: reloaded
