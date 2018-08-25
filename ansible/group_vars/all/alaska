@@ -107,6 +107,9 @@ alaska_users:
   - name: "Bharat Kunwar"
     user: bharat
     uid: 2024
+  - name: "Peter Wortmann"
+    user: peter
+    uid: 2025
 
 cluster_admins:
   - username: centos
