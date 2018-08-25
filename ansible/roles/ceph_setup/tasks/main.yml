@@ -6,7 +6,7 @@
 
 - name: Ensure Ceph repo package is installed
   yum:
-    name: https://download.ceph.com/rpm/el7/noarch/ceph-release-1-1.el7.noarch.rpm
+    name: https://download.ceph.com/rpm-mimic/el7/noarch/ceph-release-1-1.el7.noarch.rpm
     state: present
 
 - name: Ensure Ceph client packages are installed
