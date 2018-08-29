@@ -73,10 +73,10 @@ openhpc_slurm_partitions:
   - "{{ slurm_compute }}"
 
 # Choose between glusterfs and beegfs
-cluster_fs: glusterfs
+cluster_fs: beegfs
 
-# Gluster config
-gluster_cluster_volume_name: gluster
+# Gluster server config
+gluster_cluster_volume_name: "{{ cluster_name }}"
 gluster_cluster_block_devices:
 - md0
 gluster_cluster_transport_interface: ib0
@@ -87,6 +87,7 @@ gluster_cluster_volume_options:
   performance.cache-size: '10GB'
   diagnostics.brick-log-level: 'WARNING'
 
+# Gluster client config
 gluster_src: "localhost:/{{ gluster_cluster_volume_name }}"
 gluster_mnt: "/mnt/{{ gluster_cluster_volume_name }}"
 
@@ -95,11 +96,18 @@ ceph_mount_share_name: HomeDirs
 ceph_mount_path: /alaska
 ceph_mount_fuse: true
 
-# BeeGFS Configuration
-beegfs_kmod_preload:
-  - "mlx5_core"
-  - "mlx5_ib"
-  - "ib_ipoib"
+# BeegFS config
+beegfs_block_devices: ["md0"]
+beegfs_dev_oss: "{{ (['/dev/'] * beegfs_block_devices|length) | zip(beegfs_block_devices) | map('join') | list }}"
+beegfs_path_oss: "{{ (['/data/beegfs/beegfs_oss/'] * beegfs_block_devices|length) | zip(beegfs_block_devices) | map('join') | list }}"
+beegfs_fstype: "xfs"
+beegfs_force_format: no
+beegfs_host_mgmt: "{{ groups['cluster_beegfs_mgmt'] | first }}"
+beegfs_path_client: "/mnt/{{ cluster_name }}"
+beegfs_interfaces: ["ib0"]
+beegfs_path_meta: "/data/beegfs/beegfs_meta"
+beegfs_rdma: yes
+beegfs_state: present
 
 # Software defined raid config
 md0:
@@ -121,4 +129,49 @@ md0:
 
 mdadm_arrays:
   - "{{ md0 }}"
+
+# A list of OpenHPC runtime libraries to install on compute and control nodes
+openhpc_packages:
+  - strace
+  - flex
+  - bison
+  - blas
+  - blas-devel
+  - lapack
+  - lapack-devel
+  - cfitsio
+  - cfitsio-devel
+  - wcslib
+  - wcslib-utils
+  - wcslib-devel
+  - gcc-gfortran 
+  - gcc-c++
+  - ncurses
+  - ncurses-devel
+  - readline
+  - readline-devel
+  - python-devel
+  - boost
+  - boost-devel
+  - fftw
+  - fftw-devel
+  - hdf5
+  - hdf5-devel
+  - numpy
+  - boost-python
+  - hdf5-gnu7-ohpc
+  - phdf5-gnu7-mvapich2-ohpc
+  - gnu7-compilers-ohpc
+  - mvapich2-gnu7-ohpc
+  - openmpi3-gnu7-ohpc
+  - imb-gnu-mvapich2-ohpc
+  - imb-gnu7-openmpi3-ohpc
+  - openblas-gnu7-ohpc
+  - scalapack-gnu7-mvapich2-ohpc
+  - python34
+  - python34-devel
+  - python-virtualenv
+  - infiniband-diags
+  - emacs
+#  - git-lfs
 ...

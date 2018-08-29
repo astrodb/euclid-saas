@@ -9,4 +9,5 @@
       path: "{{ path }}"
       fstype: "{{ fstype }}"
       state: "{{ state }}"
+      opts: "{{ opts }}"
     become: yes
