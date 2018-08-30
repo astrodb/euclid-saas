@@ -23,21 +23,21 @@ It is recommended to install python dependencies in a virtual environment:
 If SELinux is in use on the ansible control host, enable access to the
 `selinux` python module from the virtualenv:
 
-`ln -s /usr/lib64/python2.7/site-packages/selinux venv/lib/python2.7/site-packages/selinux`
+    ln -s /usr/lib64/python2.7/site-packages/selinux venv/lib/python2.7/site-packages/selinux
 
 Download and deploy the role from Ansible Galaxy:
 
-`ansible-galaxy install -r ansible/requirements.yml -p $PWD/ansible/roles`
+    ansible-galaxy install -r ansible/requirements.yml -p $PWD/ansible/roles
 
 Deactivate the virtual environment:
 
-`deactivate`
+    deactivate
 
 ## Usage
 
 Prior to using stackhpc-appliances, ensure the virtual environment is activated:
 
-`source venv/bin/activate`
+    source venv/bin/activate
 
 ### Creating Infrastructure Using the Heat Templates
 
@@ -57,7 +57,7 @@ modified:
 
 Infrastructure invocation then takes the form (for example): 
 
-`ansible-playbook -e @config/openhpc.yml -i ansible/inventory --vault-password-file=vault-password ansible/cluster-infra.yml`
+    ansible-playbook --vault-password-file vault-password -e @config/openhpc.yml -i ansible/inventory ansible/cluster-infra.yml
 
 Once the infrastructure playbook has run to completion, an inventory
 for the newly-created nodes will have been generated in the `ansible/`
@@ -65,7 +65,7 @@ subdirectory.  This inventory is suffixed with the value set in
 `cluster_name`.  The cluster software can be deployed and configured
 using another playbook (for example):
 
-`ansible-playbook -e @config/openhpc.yml -i ansible/inventory-openhpc --vault-password-file=vault-password ansible/openhpc.yml`
+    ansible-playbook --vault-password-file vault-password -e @config/openhpc.yml -i ansible/inventory-openhpc ansible/openhpc.yml
 
 ### Deploying and configuring Swarm SIP
 
@@ -73,7 +73,7 @@ To deploy Swarm SIP cluster attached to `p3-bdn` and `p3-lln` network
 interfaces, first create the cluster and generate cluster inventory and request
 openstack to attach these interfaces:
 
-`ansible-playbook -i ansible/inventory -e @config/swarm-sip.yml --vault-password-file=vault-password ansible/container-infra.yml`
+    ansible-playbook --vault-password-file vault-password -i ansible/inventory -e @config/swarm-sip.yml ansible/container-infra.yml`
 
 Then, run the second playbook to:
 - Configure IB interface attached to `p3-lln` network as DHCP is not enabled
@@ -82,22 +82,41 @@ Then, run the second playbook to:
 - Adds public keys specified under `public_keys` folder to the authorised keys
   on the instances.
 
-`ansible-playbook -i ansible/inventory-swarm-sip -e @config/swarm-sip.yml --vault-password-file=vault-password ansible/container-infra-configure.yml`
+    ansible-playbook --vault-password-file=vault-password -i ansible/inventory-swarm-sip -e @config/swarm-sip.yml ansible/container-infra-configure.yml
 
 To deploy monasca monitoring on Swarm SIP nodes, first activate cluster config:
 
-`$(mkdir -p swarm-sip && openstack coe cluster config swarm-sip --force --dir=swarm-sip)`
+    $(mkdir -p swarm-sip && openstack coe cluster config swarm-sip --force --dir=swarm-sip)
 
 Then, run the monitoring deployment playbook:
 
-`ansible-playbook -i ansible/inventory -e @config/swarm-sip.yml --vault-password-file=vault-password ansible/monitoring-monasca-container.yml`
+    ansible-playbook --vault-password-file vault-password -i ansible/inventory -e @config/swarm-sip.yml ansible/monitoring-monasca-container.yml`
 
-### Gluster Storage
+### Dedicated GlusterFS/BeeGFS Storage
 
-Creating gluster storage clusters using storage-A (nvme) and storage-B (ssdarr) flavours:
+Creating gluster storage cluster infrastructure using storage-A (nvme) and storage-B (ssd) flavours:
 
-`ansible-playbook -e @config/openhpc-[nvme|ssdarr].yml -i ansible/inventory ansible/cluster-infra.yml --vault-password-file vault-password`
+    ansible-playbook --vault-password-file vault-password -e @config/storage-ssd.yml -i ansible/inventory ansible/cluster-infra.yml
+    ansible-playbook --vault-password-file vault-password -e @config/storage-nvme.yml -i ansible/inventory ansible/cluster-infra.yml
 
-Configuring gluster storage:
+Configuring openhpc and storage nodes to share common hostname namespace:
 
-`ansible-playbook -i ansible/inventory-openhpc-[nvme|ssdarr] ansible/openhpc.yml --vault-password-file vault-password` 
+    ansible-playbook --vault-password-file vault-password -i ansible/inventory-openhpc -i ansible/inventory-storage-nvme -i ansible/inventory-storage-ssd ansible/setup.yml
+
+To setup BeeGFS server:
+
+    ansible-playbook --vault-password-file vault-password -e @config/storage-ssd.yml -i ansible/inventory-storage-ssd ansible/beegfs.yml
+    ansible-playbook --vault-password-file vault-password -e @config/storage-nvme.yml -i ansible/inventory-storage-nvme ansible/beegfs.yml
+
+NOTES:
+- Add `-e beegfs_force_format=yes` option to force disk to be formatted if it is being used for something else or not empty
+- Add `-e beegfs_state=absent` option to destroy node
+
+To setup GlusterFS server:
+
+    ansible-playbook --vault-password-file vault-password -e @config/storage-ssd.yml -i ansible/inventory-storage-ssd ansible/glusterfs.yml
+    ansible-playbook --vault-password-file vault-password -e @config/storage-nvme.yml -i ansible/inventory-storage-nvme ansible/glusterfs.yml
+
+To setup hyperconverged storage and mount storage on OpenHPC node:
+
+    ansible-playbook --vault-password-file vault-password -e @config/openhpc.yml -i ansible/inventory-openhpc ansible/openhpc.yml

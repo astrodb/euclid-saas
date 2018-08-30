@@ -2,7 +2,7 @@
 - name: Deploy glusterfs server
   hosts: cluster_glusterfs_server
   roles:
-  - role: stackhpc.gluster-cluster
+  - stackhpc.gluster-cluster
 
 - name: Deploy glusterfs client
   hosts: cluster_glusterfs_client
