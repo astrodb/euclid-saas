@@ -41,7 +41,11 @@ cluster_roles:
     groups: [ "{{ storage }}" ]
   - name: "glusterfs_client"
     groups: [ "{{ storage }}" ]
+  - name: "beegfs_mgmt"
+    groups: [ "{{ storage }}" ]
   - name: "beegfs_oss"
+    groups: [ "{{ storage }}" ]
+  - name: "beegfs_mds"
     groups: [ "{{ storage }}" ]
   - name: "beegfs_client"
     groups: ["{{ storage }}" ]
@@ -63,7 +67,7 @@ gluster_cluster_volume_options:
 gluster_src: "localhost:/{{ gluster_cluster_volume_name }}"
 gluster_mnt: "/mnt/{{ gluster_cluster_volume_name }}"
 
-# BeegFS config
+# BeegFS server config
 beegfs_block_devices:
 - sdb
 beegfs_dev_oss: "{{ (['/dev/'] * beegfs_block_devices|length) | zip(beegfs_block_devices) | map('join') | list }}"
@@ -71,9 +75,14 @@ beegfs_path_oss: "{{ (['/data/beegfs/beegfs_oss/'] * beegfs_block_devices|length
 beegfs_fstype: "xfs"
 beegfs_force_format: no
 beegfs_host_mgmt: "{{ groups['cluster_beegfs_mgmt'] | first }}"
-beegfs_path_client: "/mnt/{{ cluster_name }}"
 beegfs_interfaces: ["ib0"]
 beegfs_path_meta: "/data/beegfs/beegfs_meta"
-beegfs_rdma: yes
 beegfs_state: present
+beegfs_rdma: yes
+
+# BeegFS client config
+beegfs_client_confs:
+- beegfs_path_client: "/mnt/{{ cluster_name }}"
+  beegfs_host_mgmt: "{{ groups['cluster_beegfs_mgmt'] | first }}"
+  beegfs_port_client: 28004
 ...

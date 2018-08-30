@@ -1,5 +1,5 @@
 ---
-- hosts: cluster
+- hosts: cluster_beegfs_client
   roles:
   - role: stackhpc.beegfs
     beegfs_enable:
@@ -7,5 +7,5 @@
       admon: no
       meta: no
       oss: no
-      client: "{{ inventory_hostname in groups['cluster_beegfs_client'] }}"
+      client: yes
 ...
