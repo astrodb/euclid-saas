@@ -83,6 +83,6 @@ beegfs_rdma: yes
 # BeegFS client config
 beegfs_client_confs:
 - beegfs_path_client: "/mnt/{{ cluster_name }}"
-  beegfs_host_mgmt: "{{ groups['cluster_beegfs_mgmt'] | first }}"
+  beegfs_host_mgmt: "{{ beegfs_host_mgmt }}"
   beegfs_port_client: 28004
 ...
