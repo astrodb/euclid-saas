@@ -1,0 +1,17 @@
+---
+# daliuge_arl/tasks/runtime.yml
+- name: Install developments tools envrironment group
+  yum:
+    name: "@Development Tools"
+    state: installed
+
+- name: Ensure selected packages are installed
+  yum:
+    name: python36-devel, git-lfs, http://rpmfind.net/linux/centos/7.5.1804/os/x86_64/Packages/graphviz-2.30.1-21.el7.x86_64.rpm
+    state: installed
+
+- name: Ensure selected packages are installed
+  yum:
+    name: "{{item}}"
+    state: installed
+  with_items: "{{daliuge_packages}}"
