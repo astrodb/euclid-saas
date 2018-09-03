@@ -1,0 +1,99 @@
+---
+# daliuge_arl/tasks/daliuge.yml
+#
+# NOTE: Defaults are loaded from daliuge_arl/defaults/main.yml
+#
+# Update and/or install pip packages
+- pip:
+    name: pip setuptools
+    state: latest
+
+# Remove any old copy of DALiuGE
+- file:
+    path: "{{ VIRTENV_LOC }}"
+    state: absent
+
+## Setup virtualenv -- COULDN'T GET THIS TO WORK
+##- name: Initiate virtualenv
+#  pip: name=dal_arl_venv
+#       virtualenv=dal_arl_venv
+#       extra_args="-m venv"
+#       virtualenv_command=python36
+#       virtualenv_python=python3.6
+
+# Create a virtualenv
+- name: Manually create the initial virtualenv
+  command: python36 -m venv "{{ VIRTENV_LOC }}"
+
+# Install DALiuGE into the virtualenv
+- pip:
+    name: daliuge
+    virtualenv: "{{ VIRTENV_LOC }}"
+    version: 0.5.1
+
+# Install pytest into the virtualenv
+- pip:
+    name: pytest
+    virtualenv: "{{ VIRTENV_LOC }}"
+
+- name: Manually install git lfs for user
+  command: git lfs install
+
+# Clone the updated ARL version that includes the DALiuGE support test
+- git:
+    repo: https://github.com/rtobar/algorithm-reference-library.git
+    dest: "{{ ARL_LOC }}"
+    version: dlg_delayed
+    force: yes
+
+# Add the lfs stuff otherwise tests will fail
+- name: Manually pull from lfs
+  command: git lfs install
+  args:
+    chdir: "{{ ARL_LOC }}"
+
+# Must install the ARL python requirements into the virtualenv
+- pip:
+    virtualenv: "{{ VIRTENV_LOC }}"
+    requirements: "{{ ARL_REQUIREMENTS_LOC }}"
+
+# Need this specific version of dask othersie ARL fails to run correctly
+- pip:
+    name: dask
+    virtualenv: "{{ VIRTENV_LOC }}"
+    version: 0.18.0
+
+- name: Make sure DALiuGE node manager is not running
+  shell: "{{VIRTENV_BIN_LOC}}/dlg nm -s"
+  args:
+    chdir: "{{ ARL_LOC }}"
+
+- name: Run ARL test using DASK
+  shell: "{{VIRTENV_BIN_LOC}}/pytest tests/test_graphs.py::TestDaskGraphs::test_predict_graph"
+  args:
+    chdir: "{{ ARL_LOC }}"
+  register: DASK
+
+- name: Start the DALiuGE node manger
+  shell: "{{VIRTENV_BIN_LOC}}/dlg nm -d --host 0.0.0.0 --port 8000 -v --no-dlm --dlg-path . --cwd"
+  args:
+    chdir: "{{ ARL_LOC }}"
+
+- name: Run ARL test using DALiuGE
+  shell: "{{VIRTENV_BIN_LOC}}/pytest tests/test_graphs.py::TestDaskGraphs::test_predict_graph"
+  args:
+    chdir: "{{ ARL_LOC }}"
+  environment:
+    ARL_USE_DLG_DELAYED: 1
+  register: DALiuGE
+
+- name: Stop the DALiuGE node manager
+  shell: "{{VIRTENV_BIN_LOC}}/dlg nm -s"
+  args:
+    chdir: "{{ ARL_LOC }}"
+
+- name: Output from test using DASK
+  debug: var=DASK.stdout
+
+- name: Output from test using DALiuGE
+  debug: var=DALiuGE.stdout
