@@ -20,6 +20,7 @@
 # Setup hyperconverged storage. Current clusterfs options are:
 # - glusterfs
 # - beegfs
+# - none
 - import_playbook: '{{ cluster_fs }}.yml'
 
 # Cluster login setup
