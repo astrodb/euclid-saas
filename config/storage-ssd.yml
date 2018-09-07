@@ -1,7 +1,7 @@
 ---
 # This name is used for the Heat stack and as a prefix for the
 # cluster node hostnames.
-cluster_name: openhpc-nvme
+cluster_name: storage-ssd
 
 # This parameter should be set to the name of an RSA keypair you have
 # uplaoded to OpenStack.
@@ -26,10 +26,10 @@ cluster_groups:
   - "{{ storage }}"
 
 storage:
-  name: "storage"
-  flavor: "storage-A"
+  name: "node"
+  flavor: "storage-B"
   image: "CentOS7.5-OpenHPC"
-  num_nodes: 1
+  num_nodes: 2
   user: "centos"
 
 # Node group assignments for cluster roles.
@@ -37,84 +37,52 @@ storage:
 # The names of these roles are cross-referenced to groups referred to
 # in playbooks in the ansible/ directory.
 cluster_roles:
-  - name: "ceph_client"
-    groups: "{{ cluster_groups }}"
   - name: "glusterfs_server"
     groups: [ "{{ storage }}" ]
   - name: "glusterfs_client"
     groups: [ "{{ storage }}" ]
+  - name: "beegfs_mgmt"
+    groups: [ "{{ storage }}" ]
   - name: "beegfs_oss"
+    groups: [ "{{ storage }}" ]
+  - name: "beegfs_mds"
     groups: [ "{{ storage }}" ]
   - name: "beegfs_client"
     groups: ["{{ storage }}" ]
 
-# A list of OpenHPC runtime libraries to install on compute and control nodes
-openhpc_packages:
-  - strace
-  - flex
-  - bison
-  - blas
-  - blas-devel
-  - lapack
-  - lapack-devel
-  - cfitsio
-  - cfitsio-devel
-  - wcslib
-  - wcslib-utils
-  - wcslib-devel
-  - gcc-gfortran 
-  - gcc-c++
-  - ncurses
-  - ncurses-devel
-  - readline
-  - readline-devel
-  - python-devel
-  - boost
-  - boost-devel
-  - fftw
-  - fftw-devel
-  - hdf5
-  - hdf5-devel
-  - numpy
-  - boost-python
-  - hdf5-gnu-ohpc
-  - phdf5-gnu-mvapich2-ohpc
-  - gnu-compilers-ohpc
-  - mvapich2-gnu-ohpc
-  - openmpi-gnu-ohpc
-  - imb-gnu-mvapich2-ohpc
-  - imb-gnu-openmpi-ohpc
-  - openblas-gnu-ohpc
-  - scalapack-gnu-mvapich2-ohpc
-  - python34
-  - python34-devel
-  - python-virtualenv
-  - infiniband-diags
-  - emacs
-#  - git-lfs
-
 # Choose between glusterfs and beegfs
-cluster_fs: glusterfs
+cluster_fs: beegfs
 
 # Gluster config
-gluster_volume_name: openhpc_nvme
-gluster_src: "localhost:/{{ gluster_volume_name }}"
-gluster_mnt: /mnt/gluster_nvme
-gluster_converged_disks: true
-gluster_block_devices:
-- nvme0n1
-- nvme1n1
-- nvme2n1
-- nvme3n1
+gluster_cluster_volume_name: "{{ cluster_name }}"
+gluster_cluster_block_devices:
+- sdb
+gluster_cluster_transport_interface: ib0
+gluster_cluster_transport_mode: rdma
+gluster_cluster_force_format: no
+gluster_cluster_volume_options:
+  performance.cache-size: '10GB'
+  diagnostics.brick-log-level: 'WARNING'
 
-# Config for Ceph mount
-ceph_mount_share_name: HomeDirs
-ceph_mount_path: /alaska
-ceph_mount_fuse: true
+gluster_src: "localhost:/{{ gluster_cluster_volume_name }}"
+gluster_mnt: "/mnt/{{ gluster_cluster_volume_name }}"
 
-# BeeGFS Configuration
-beegfs_kmod_preload:
-  - "mlx5_core"
-  - "mlx5_ib"
-  - "ib_ipoib"
+# BeegFS server config
+beegfs_block_devices:
+- sdb
+beegfs_dev_oss: "{{ (['/dev/'] * beegfs_block_devices|length) | zip(beegfs_block_devices) | map('join') | list }}"
+beegfs_path_oss: "{{ (['/data/beegfs/beegfs_oss/'] * beegfs_block_devices|length) | zip(beegfs_block_devices) | map('join') | list }}"
+beegfs_fstype: "xfs"
+beegfs_force_format: no
+beegfs_host_mgmt: "{{ groups['cluster_beegfs_mgmt'] | first }}"
+beegfs_interfaces: ["ib0"]
+beegfs_path_meta: "/data/beegfs/beegfs_meta"
+beegfs_state: present
+beegfs_rdma: yes
+
+# BeegFS client config
+beegfs_client_confs:
+- beegfs_path_client: "/mnt/{{ cluster_name }}"
+  beegfs_host_mgmt: "{{ beegfs_host_mgmt }}"
+  beegfs_port_client: 28004
 ...

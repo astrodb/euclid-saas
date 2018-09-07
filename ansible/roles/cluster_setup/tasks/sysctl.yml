@@ -1,0 +1,10 @@
+---
+# This is to ensure that the nodes reboot automatically if there is a kernel
+# panic since this brings the OpenStack API down due to pause frame throttles
+- name: Set kernel.panic timeout in sysctl
+  sysctl:
+    name: kernel.panic
+    value: 5
+    state: present
+    reload: yes
+    sysctl_set: yes
