@@ -1,14 +1,4 @@
 ---
-- name: Add OpenHPC updates repository
-  yum_repository:
-    name: OpenHPC-updates
-    description: "OpenHPC-1.3-udpates"
-    baseurl: http://build.openhpc.community/OpenHPC:/1.3/updates/CentOS_7/
-    gpgcheck: yes
-    gpgkey: http://build.openhpc.community/OpenHPC:/1.3/updates/CentOS_7/repodata/repomd.xml.key
-    enabled: yes
-    state: present
-
 - name: Ensure selected OpenHPC packages are installed
   yum:
     name: "{{item}}"
