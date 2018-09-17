@@ -97,9 +97,8 @@ ceph_mount_path: /alaska
 ceph_mount_fuse: true
 
 # BeegFS config
-beegfs_block_devices: ["md0"]
-beegfs_dev_oss: "{{ (['/dev/'] * beegfs_block_devices|length) | zip(beegfs_block_devices) | map('join') | list }}"
-beegfs_path_oss: "{{ (['/data/beegfs/beegfs_oss/'] * beegfs_block_devices|length) | zip(beegfs_block_devices) | map('join') | list }}"
+beegfs_block_devices:
+- md0
 beegfs_fstype: "xfs"
 beegfs_force_format: no
 beegfs_host_mgmt: "{{ groups['cluster_beegfs_mgmt'] | first }}"
