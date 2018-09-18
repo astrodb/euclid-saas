@@ -99,6 +99,7 @@ ceph_mount_fuse: true
 # BeegFS config
 beegfs_block_devices:
 - md0
+beegfs_port_oss: [8003]
 beegfs_fstype: "xfs"
 beegfs_force_format: no
 beegfs_host_mgmt: "{{ groups['cluster_beegfs_mgmt'] | first }}"
