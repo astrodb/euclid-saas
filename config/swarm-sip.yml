@@ -1,7 +1,7 @@
 ---
 # Swarm SIP network interface names
 ext_name: ilab
-bdn_name: p3-bdn-nogateway
+bdn_name: p3-bdn
 lln_name: p3-lln
 
 # Swarm SIP: manila mount
@@ -12,7 +12,7 @@ os_container_infra_cloud: alaska
 os_container_infra_user: fedora
 os_container_infra_state: present
 os_container_infra_cluster_name: swarm-sip
-os_container_infra_cluster_template_name: swarm-fa27-fip-off
+os_container_infra_cluster_template_name: swarm-fedora-atomic-27
 os_container_infra_keypair: default
 os_container_infra_master_count: 1
 os_container_infra_node_count: 6
