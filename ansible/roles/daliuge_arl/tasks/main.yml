@@ -1,0 +1,5 @@
+---
+# daliuge_arl/tasks/main.yml
+#
+- include: runtime.yml
+- include: daliuge.yml

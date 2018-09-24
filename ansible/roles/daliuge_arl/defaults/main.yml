@@ -1,0 +1,5 @@
+---
+VIRTENV_LOC: '/root/dlg-arl'
+VIRTENV_BIN_LOC: '{{VIRTENV_LOC}}/bin'
+ARL_LOC: '{{VIRTENV_LOC}}/arl'
+ARL_REQUIREMENTS_LOC: '{{ARL_LOC}}/requirements.txt'
