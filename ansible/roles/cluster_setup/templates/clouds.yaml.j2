@@ -2,12 +2,12 @@
 clouds:
   alaska:
     auth:
-      auth_url: http://10.60.253.1:5000
+      auth_url: http://{{ controller_vip }}:5000
       project_name: p3
       domain_name: default
   alaska-monasca:
     auth:
-      auth_url: http://10.60.253.1:5000
+      auth_url: http://{{ controller_vip }}:5000
       project_name: p3
       domain_name: default
       username: p3-monitor
