@@ -72,7 +72,7 @@ cluster_roles:
 openhpc_slurm_partitions: 
   - "{{ slurm_compute }}"
 
-# Choose between glusterfs and beegfs
+# Choose between glusterfs, beegfs and none.
 cluster_fs: beegfs
 
 # Gluster server config
