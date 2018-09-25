@@ -1,0 +1,11 @@
+---
+- name: Deploy glusterfs server
+  hosts: cluster_glusterfs_server
+  roles:
+  - stackhpc.gluster-cluster
+
+- name: Deploy glusterfs client
+  hosts: cluster_glusterfs_client
+  roles:
+  - mount_glusterfs
+...

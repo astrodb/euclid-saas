@@ -1,4 +1,16 @@
 ---
+- name: Relax limits on memory locking
+  copy:
+    dest: "/etc/security/limits.d/44-infiniband.conf"
+    owner: root
+    group: root
+    mode: 0644
+    content: |
+      # Relax limits on memory locking for Infiniband purposes
+      * hard memlock unlimited
+      * soft memlock unlimited
+
+# NB: should be applied persistently
 - name: Load Infiniband kernel drivers
   modprobe:
     name: "{{ item }}"

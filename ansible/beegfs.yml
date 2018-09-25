@@ -1,0 +1,15 @@
+---
+- hosts:
+  - cluster_beegfs_mgmt
+  - cluster_beegfs_mds
+  - cluster_beegfs_oss
+  - cluster_beegfs_client
+  roles:
+    - role: stackhpc.beegfs
+      beegfs_enable:
+        mgmt: "{{ inventory_hostname in groups['cluster_beegfs_mgmt'] }}"
+        admon: no
+        meta: "{{ inventory_hostname in groups['cluster_beegfs_mds'] }}"
+        oss: "{{ inventory_hostname in groups['cluster_beegfs_oss'] }}"
+        client: "{{ inventory_hostname in groups['cluster_beegfs_client'] }}"
+...

@@ -20,3 +20,4 @@
       homedir_client: alaska
       homedir_path: "{{ alaska_homedir }}"
       homedir_server: "{{ alaska_softiron }}:6789"
+...

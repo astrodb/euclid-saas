@@ -1,7 +1,7 @@
 ---
 # This name is used for the Heat stack and as a prefix for the
 # cluster node hostnames.
-cluster_name: openhpc
+cluster_name: storage-ssd
 
 # This parameter should be set to the name of an RSA keypair you have
 # uplaoded to OpenStack.
@@ -23,21 +23,13 @@ cluster_config_drive: true
 # deployment formed from a login/controller node and a number of
 # batch compute nodes.
 cluster_groups:
-  - "{{ slurm_login }}"
-  - "{{ slurm_compute }}"
+  - "{{ storage }}"
 
-slurm_login:
-  name: "login"
-  flavor: "compute-B"
+storage:
+  name: "node"
+  flavor: "storage-B"
   image: "CentOS7.5-OpenHPC"
-  num_nodes: 1
-  user: "centos"
-
-slurm_compute:
-  name: "compute"
-  flavor: "compute-A"
-  image: "CentOS7.5-OpenHPC"
-  num_nodes: 8
+  num_nodes: 2
   user: "centos"
 
 # Node group assignments for cluster roles.
@@ -45,59 +37,39 @@ slurm_compute:
 # The names of these roles are cross-referenced to groups referred to
 # in playbooks in the ansible/ directory.
 cluster_roles:
-  - name: "ceph_client"
-    groups: "{{ cluster_groups }}"
-  - name: "login"
-    groups: [ "{{ slurm_login }}" ]
-  - name: "batch"
-    groups: [ "{{ slurm_compute }}" ]
-  - name: "mdadm"
-    groups: [ "{{ slurm_compute }}" ]
   - name: "glusterfs_server"
-    groups: [ "{{ slurm_compute }}" ]
+    groups: [ "{{ storage }}" ]
   - name: "glusterfs_client"
-    groups: [ "{{ slurm_compute }}" ]
+    groups: [ "{{ storage }}" ]
   - name: "beegfs_mgmt"
-    groups: [ "{{ slurm_login }}" ]
-  - name: "beegfs_mds"
-    groups: [ "{{ slurm_login }}" ]
+    groups: [ "{{ storage }}" ]
   - name: "beegfs_oss"
-    groups: [ "{{ slurm_compute }}" ]
+    groups: [ "{{ storage }}" ]
+  - name: "beegfs_mds"
+    groups: [ "{{ storage }}" ]
   - name: "beegfs_client"
-    groups:
-    - "{{ slurm_login }}"
-    - "{{ slurm_compute }}" 
+    groups: ["{{ storage }}" ]
 
-# Define a list of SLURM partitions to create.
-openhpc_slurm_partitions: 
-  - "{{ slurm_compute }}"
-
-# Choose between glusterfs, beegfs and none.
+# Choose between glusterfs and beegfs
 cluster_fs: beegfs
 
-# Gluster server config
+# Gluster config
 gluster_cluster_volume_name: "{{ cluster_name }}"
 gluster_cluster_block_devices:
-- md0
+- sdb
 gluster_cluster_transport_interface: ib0
 gluster_cluster_transport_mode: rdma
 gluster_cluster_force_format: no
 gluster_cluster_volume_options:
-  cluster.nufa: 'on'
   performance.cache-size: '10GB'
   diagnostics.brick-log-level: 'WARNING'
 
-# Gluster client config
 gluster_src: "localhost:/{{ gluster_cluster_volume_name }}"
 gluster_mnt: "/mnt/{{ gluster_cluster_volume_name }}"
 
-# Config for Ceph mount
-ceph_mount_share_name: HomeDirs
-ceph_mount_path: /alaska
-ceph_mount_fuse: true
-
-# BeegFS config
-beegfs_block_devices: ["md0"]
+# BeegFS server config
+beegfs_block_devices:
+- sdb
 beegfs_dev_oss: "{{ (['/dev/'] * beegfs_block_devices|length) | zip(beegfs_block_devices) | map('join') | list }}"
 beegfs_path_oss: "{{ (['/data/beegfs/beegfs_oss/'] * beegfs_block_devices|length) | zip(beegfs_block_devices) | map('join') | list }}"
 beegfs_fstype: "xfs"
@@ -105,55 +77,12 @@ beegfs_force_format: no
 beegfs_host_mgmt: "{{ groups['cluster_beegfs_mgmt'] | first }}"
 beegfs_interfaces: ["ib0"]
 beegfs_path_meta: "/data/beegfs/beegfs_meta"
-beegfs_rdma: yes
 beegfs_state: present
+beegfs_rdma: yes
 
 # BeegFS client config
 beegfs_client_confs:
 - beegfs_path_client: "/mnt/{{ cluster_name }}"
   beegfs_host_mgmt: "{{ beegfs_host_mgmt }}"
-  beegfs_port_client: 8004
-- beegfs_path_client: /mnt/storage-ssd
-  beegfs_host_mgmt: storage-ssd-node-0
-  beegfs_port_client: 18004
-- beegfs_path_client: /mnt/storage-nvme
-  beegfs_host_mgmt: storage-nvme-node-0
   beegfs_port_client: 28004
-
-# Software defined raid config
-md0:
-  # Define array name
-  name: 'md0'
-  # Define disk devices to assign to array
-  devices:
-    - '/dev/sdb'
-    - '/dev/sdc'
-    - '/dev/sdd'
-  # Define filesystem to partition array with
-  filesystem: 'xfs'
-  filesystem_opts: ''
-  # Define the array raid level
-  # 0|1|4|5|6|10
-  level: '0'
-  # Define if array should be present or absent
-  state: 'present'
-
-mdadm_arrays:
-  - "{{ md0 }}"
-
-# A list of OpenHPC runtime libraries to install on compute and control nodes
-openhpc_packages:
-  - cfitsio
-  - cfitsio-devel
-  - wcslib
-  - wcslib-utils
-  - wcslib-devel
-  - gcc-gfortran 
-  - gcc-c++
-  - ncurses
-  - ncurses-devel
-  - readline
-  - readline-devel
-  - python-devel
-  - git-lfs
 ...

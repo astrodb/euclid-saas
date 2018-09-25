@@ -37,7 +37,7 @@ def main():
     secret_key = module.params['key']
     secret_list = barbican.secrets.list(name=secret_key)
     if secret_list:
-	retrieved_secret = secret_list[0].payload
+        retrieved_secret = secret_list[0].payload
         module.exit_json(changed=True, secret=retrieved_secret)
 
 

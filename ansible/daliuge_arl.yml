@@ -1,0 +1,15 @@
+---
+# This playbook uses the Ansible OpenStack modules to create a DALiuGE
+# cluster using a number of baremetal compute node instances, and
+# deploys the DALiuGE Delayed test platforms and runs the required
+# test.
+#
+# NOTE: Uses the same config files as daliuge.yml.
+#
+- include: setup.yml
+
+- hosts: cluster_node_mgr
+  remote_user: centos
+  become: yes
+  roles:
+    - role: daliuge_arl

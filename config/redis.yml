@@ -25,6 +25,7 @@ redis_master:
   image: "Ubuntu16"
   user: "ubuntu"
   num_nodes: 1
+  user: "ubuntu"
 
 redis_slave:
   name: "slave"
@@ -32,6 +33,7 @@ redis_slave:
   image: "Ubuntu16"
   user: "ubuntu"
   num_nodes: 3
+  user: "ubuntu"
 
 redis_sentinel:
   name: "sentinel"
@@ -39,6 +41,7 @@ redis_sentinel:
   image: "Ubuntu16"
   user: "ubuntu"
   num_nodes: 3
+  user: "ubuntu"
 
 # Node group assignments for cluster roles.
 # These group assignments are appended to the cluster inventory file.

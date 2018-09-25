@@ -1,12 +1,6 @@
 ---
-# Cluster infrastructure parameters
-cluster_name: stack
-cluster_groups: []
-cluster_roles: []
-
-# This keypair should exist in OpenStack.  It will be assigned
-# for the cloud user for the next phase of deployment.
-cluster_keypair: rsa_keypair
+# Manila mount /etc/openstack/cloud.yaml config name
+os_manila_mount_os_config_name: alaska
 
 # Alaska environment configuration parameters
 # Config name of the OpenStack cloud to authenticate against
@@ -15,8 +9,8 @@ alaska_cloud: alaska
 alaska_homedir: /euclid
 alaska_softiron: 10.4.99.101
 
-# OpenStack fully qualified project name (used for Grafana with domain support)
-project_name: p3@default
+# OpenStack p3 project name
+project_name: p3
 
 # Virtual IP address of the controller node
 controller_vip: 10.60.253.1
@@ -36,7 +30,7 @@ monasca_swarm_service_log_api_uri: http://{{ controller_vip }}:5607
 monasca_swarm_service_keystone_uri: http://{{ controller_vip }}:5000/v3
 monasca_swarm_service_username: "{{ monasca_agent_p3_username }}"
 monasca_swarm_service_password: "{{ monasca_agent_p3_password }}"
-monasca_swarm_service_project_name: p3
+monasca_swarm_service_project_name: "{{ project_name }}"
 
 # Local Grafana admin account for configuring Grafana
 grafana_admin_username: grafana-admin
@@ -107,3 +101,20 @@ alaska_users:
   - name: "Markus Dolensky"
     user: markus
     uid: 2022
+  - name: "Charana Nandasena"
+    user: charana
+    uid: 2023
+  - name: "Bharat Kunwar"
+    user: bharat
+    uid: 2024
+  - name: "Peter Wortmann"
+    user: peter
+    uid: 2025
+
+cluster_admins:
+  - username: centos
+    ssh_key:
+    - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDCLva2hRoqcA77XoK0t7aPmip4CmxM6SdsnJdbN4i0l72Rf6HMNH2ZR5p+eZPxaxiJgmtQ5MpquNt775lFSGVIV7oyAKDdYuLA/8KXoKje4EsCMfA9m6Eg8urjrPprelTAl7xsem1eH9c/Jk6TFbJSyMrY7kvgNo1KZ+D24F5cCSSRncy0s5GoPWEJfdnSHdjvxc97vhSPY9KwsaMdbpj+u+1WlUDeoLjMsWLPDsqnIHLwYN74f9jfTvsoQxw9Wq3dmzRvy8sQkJ1OoAeuuM4B4MKel7U6QqrhMYyIUG2pcSBBICtT2Q5V4RhnBIqQrL8w1efq+TeD/ETSuQgFBiq1 sclt100@ilab-gate.ilab.cluster"
+    - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCoHB+D6iI859Fq4Wg3iWDPf+miX+nXDx8Y8F20C5wMa7uHFYWWp0gfhMslI3ntWvlPf9J7C8AQz/kzPeuvM9oEZUkBuH6oYtYrJ9nA6+IJqT/xbQGUy56hkVVFH8Etff9CzseczzhLPOd/CEj4irLdi4aoj/5V8tqvdAbnOGwixPRPmVKVvEVpFiAlvRi+0MCaWHF2lF4BVWJsRKKGf79DFOrhfI9+BefuD9essaCOuFfhkHSxngBIjicYJKSedMFoWaOSY35820P/6RnmbKjH/mMQ0yuEr7SgLZ3gdTN2crrDj0q8+yz5MHfuxPdtj9dOYb8yP8MahbOl91qIV5BL John@Lenovo-PC"
+    - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDT7FfKdhVmT/HturOK6sLRKcqFYDnfbKWVE8Lv+KntJCBN0pGk5PECCmmA7/5JzAzfba4nmMpI20byJ0VCphzTbYFHtsZNd6Ci4NIKb5GrxP1f9RN3BYlmm1rJ5OgoXjvg0VpUiUnkLsVYkHfzUTx6tDHj8zV2DQYWGg2BtZk8YSEnigK6ppZcBuRwhY1wmKEodeXus6vik20v+PGDAlSmSlhHsYUOe8/GNhs6fZ9a9XEVHw/pPxYa3HmNGgUiJYOxSA0DLq8HzxQDoSgpMMeG2bD36DsHSnnbLNUtH3+DmveX2FxWWHRKG4IgW5O0UdLcGzrakZ6OFi/bUL0bBge7 bharat@dev-director.dev-cluster.hpc.cam.ac.uk"
+...

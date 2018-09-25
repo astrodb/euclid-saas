@@ -25,5 +25,4 @@
       os_manila_mount_path: "{{ manila_mount_point }}"
       os_manila_mount_user: "root"
       os_manila_mount_group: "root"
-      os_manila_mount_fuse: True
-#     os_manila_mount_auth: "{{ openstack_auth }}"
+      os_manila_mount_fuse: "{{ ceph_mount_fuse | default(True) }}"

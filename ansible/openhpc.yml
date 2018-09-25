@@ -1,23 +1,28 @@
 ---
-- include: setup.yml
-- include: manila-client.yml
-- include: users.yml
+# Prepare cluster
+- import_playbook: setup.yml
 
-- hosts: cluster_login
-  remote_user: centos
-  become: yes
-  roles:
-    - role: openhpc_control
+# Setup ceph mount
+- import_playbook: manila-client.yml
 
-- hosts: cluster_batch
-  remote_user: centos
-  become: yes
-  roles:
-    - role: openhpc_compute
+# Add cluster users
+- import_playbook: users.yml
 
-- hosts: cluster
-  remote_user: centos
-  become: yes
-  roles:
-    - role: openhpc_runtime
-      slurm_partitions: "{{ openhpc_slurm_partitions }}"
+# Add admin users
+- import_playbook: cluster-admins.yml
+
+# Install monitoring services
+- import_playbook: monitoring.yml
+
+# Use mdadm to create software defined raid
+- import_playbook: mdadm.yml
+
+# Setup hyperconverged storage. Current clusterfs options are:
+# - glusterfs
+# - beegfs
+# - none
+- import_playbook: '{{ cluster_fs }}.yml'
+
+# Cluster login setup
+- import_playbook: slurm.yml
+...

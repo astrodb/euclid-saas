@@ -1,0 +1,5 @@
+---
+- hosts: cluster_mdadm
+  roles:
+  - { role: mrlesmithjr.mdadm, become: yes }
+...

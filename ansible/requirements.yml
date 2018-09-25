@@ -7,6 +7,11 @@
 - src: stackhpc.monasca-rsyslog
 - src: stackhpc.grafana-conf
 - src: stackhpc.gluster-cluster
+- src: stackhpc.os-container-infra
 - src: stackhpc.os-manila-mount
-- src: singleplatform-eng.users
+- src: stackhpc.os-config
+- src: stackhpc.beegfs
 - src: mrlesmithjr.squid
+- src: mrlesmithjr.mdadm
+- src: singleplatform-eng.users
+...
