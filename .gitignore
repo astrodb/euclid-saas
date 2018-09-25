@@ -8,6 +8,8 @@ ansible/inventory_*
 
 # Ansible roles installed from Galaxy.
 ansible/roles/stackhpc.*
+ansible/roles/mrlesmithjr.*
+ansible/roles/singleplatform-eng.*
 
 # IntelliJ files
 .idea
