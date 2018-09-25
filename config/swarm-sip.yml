@@ -4,11 +4,7 @@ ext_name: ilab
 bdn_name: p3-bdn
 lln_name: p3-lln
 
-# Swarm SIP: manila mount
-os_manila_mount_os_config_name: alaska
-
 # Swarm SIP
-os_container_infra_cloud: alaska
 os_container_infra_user: fedora
 os_container_infra_state: present
 os_container_infra_cluster_name: swarm-sip
@@ -20,6 +16,7 @@ os_container_infra_external_interface: "{{ ext_name }}"
 os_container_infra_interfaces:
 - "{{ lln_name }}"
 - "{{ bdn_name }}"
+os_container_infra_environment_group: "{{ alaska_environment }}"
 
 # Swarm SIP gluster source and mount path
 gluster_src: 10.3.0.12:/swarm_vol
