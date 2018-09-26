@@ -1,5 +1,9 @@
 ---
 - hosts: cluster_mdadm
+  tags:
+    - mdadm
   roles:
-  - { role: mrlesmithjr.mdadm, become: yes }
+  - role: mrlesmithjr.mdadm
+    become: yes
+    when: mdadm_arrays | length > 0
 ...
