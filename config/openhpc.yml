@@ -26,18 +26,28 @@ cluster_groups:
   - "{{ slurm_login }}"
   - "{{ slurm_compute }}"
 
+# Login node configuration.
+slurm_login_flavor: "compute-B"
+slurm_login_image: "CentOS7.5-OpenHPC"
+slurm_login_num_nodes: 1
+
 slurm_login:
   name: "login"
-  flavor: "compute-B"
-  image: "CentOS7.5-OpenHPC"
-  num_nodes: 1
+  flavor: "{{ slurm_login_flavor }}"
+  image: "{{ slurm_login_image}}"
+  num_nodes: "{{ slurm_login_num_nodes }}"
   user: "centos"
+
+# Compute node configuration.
+slurm_compute_flavor: "compute-A"
+slurm_compute_image: "CentOS7.5-OpenHPC"
+slurm_compute_num_nodes: 8
 
 slurm_compute:
   name: "compute"
-  flavor: "compute-A"
-  image: "CentOS7.5-OpenHPC"
-  num_nodes: 8
+  flavor: "{{ slurm_compute_flavor }}"
+  image: "{{ slurm_compute_image}}"
+  num_nodes: "{{ slurm_compute_num_nodes }}"
   user: "centos"
 
 # Node group assignments for cluster roles.
@@ -72,7 +82,7 @@ cluster_roles:
 openhpc_slurm_partitions: 
   - "{{ slurm_compute }}"
 
-# Choose between glusterfs and beegfs
+# Choose between glusterfs, beegfs and none.
 cluster_fs: beegfs
 
 # Gluster server config
@@ -97,9 +107,9 @@ ceph_mount_path: /alaska
 ceph_mount_fuse: true
 
 # BeegFS config
-beegfs_block_devices: ["md0"]
-beegfs_dev_oss: "{{ (['/dev/'] * beegfs_block_devices|length) | zip(beegfs_block_devices) | map('join') | list }}"
-beegfs_path_oss: "{{ (['/data/beegfs/beegfs_oss/'] * beegfs_block_devices|length) | zip(beegfs_block_devices) | map('join') | list }}"
+beegfs_block_devices:
+- md0
+beegfs_port_oss: [8003]
 beegfs_fstype: "xfs"
 beegfs_force_format: no
 beegfs_host_mgmt: "{{ groups['cluster_beegfs_mgmt'] | first }}"

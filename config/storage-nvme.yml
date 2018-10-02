@@ -78,8 +78,7 @@ beegfs_block_devices:
 - nvme1n1
 - nvme2n1
 - nvme3n1
-beegfs_dev_oss: "{{ (['/dev/'] * beegfs_block_devices|length) | zip(beegfs_block_devices) | map('join') | list }}"
-beegfs_path_oss: "{{ (['/data/beegfs/beegfs_oss/'] * beegfs_block_devices|length) | zip(beegfs_block_devices) | map('join') | list }}"
+beegfs_port_oss: [8003, 8103, 8203, 8303]
 beegfs_fstype: "xfs"
 beegfs_force_format: no
 beegfs_host_mgmt: "{{ groups['cluster_beegfs_mgmt'] | first }}"

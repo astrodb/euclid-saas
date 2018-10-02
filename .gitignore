@@ -5,9 +5,10 @@ ansible/*.retry
 
 # Auto-generated inventory files.
 ansible/inventory_*
+ansible/inventory-*
 
 # Ansible roles installed from Galaxy.
-ansible/roles/stackhpc.*
+ansible/roles/*\.*/
 
 # IntelliJ files
 .idea
