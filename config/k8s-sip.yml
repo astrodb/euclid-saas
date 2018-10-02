@@ -1,13 +1,13 @@
 ---
-# Swarm SIP network interface names
+# SIP network interface names
 ext_name: ilab
 bdn_name: p3-bdn
 lln_name: p3-lln
 
-# Swarm SIP
+# SIP configuration
 os_container_infra_user: fedora
 os_container_infra_state: present
-os_container_infra_cluster_name: k8s-sip
+os_container_infra_cluster_name: k8s-fa27
 os_container_infra_cluster_template_name: k8s-fedora-atomic-27
 os_container_infra_keypair: wendy
 os_container_infra_master_count: 1
@@ -17,11 +17,11 @@ os_container_infra_interfaces:
 - "{{ lln_name }}"
 - "{{ bdn_name }}"
 
-# Swarm SIP config for Ceph mount
+# SIP config for Ceph mount
 ceph_mount_share_name: HomeDirs
 ceph_mount_path: /mnt/ceph
 
-# Swarm SIP users 
+# SIP users 
 users:
 - username: stig
   name: Stig Telfer
@@ -55,7 +55,7 @@ users:
   ssh_key:
   - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCUOhekNNoWCVzdyks2ROdW4gjDxKxPXCMc0VetY08i/WkZPFFUZZOhAN13EVzNh2aVtRYIQSGheqbuIW5QvEIBJ4OqmF5Tjw/76JBQ2c8Vhq0wLboYnvscMD4fwyHbcezBZ67eDxz1P7jTJtoBrshm+vaIXP1PEsQqJOc6RN+a9F6Fqfjuxc+yjGkuwC0h61pdkVrvvqBHUa5cSyFo3A4BAkpzwq785uBSkC/jQH3CxzcbeomxG+1nxYM69qCDARxnPBkHPQHjHP5TxrpS/JS1/pPS6GlKDQ0NvZ+5Eo09QFt7kPoY+05TWwkwCOWXESMPKBFUmOowUgThCZyR/YW3 mark@mark-xps15"
 
-# Swarm SIP sudoers
+# SIP sudoers
 sudoers_sudoers:
   privileges:
   - name: "%wheel"
