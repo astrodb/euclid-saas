@@ -27,8 +27,6 @@
   roles:
   # Configure infiniband interface
   - configure_ib
-  # Mount gluster volume on 
-  - mount_glusterfs
   # Perform the mount action on all Ceph client nodes
   - role: stackhpc.os-manila-mount
     os_manila_mount_host: "{{ hostvars['localhost']['os_manila_mount_host'] }}"
