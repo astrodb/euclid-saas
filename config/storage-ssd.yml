@@ -67,21 +67,15 @@ gluster_cluster_volume_options:
 gluster_src: "localhost:/{{ gluster_cluster_volume_name }}"
 gluster_mnt: "/mnt/{{ gluster_cluster_volume_name }}"
 
-# BeegFS server config
-beegfs_block_devices:
-- sdb
-beegfs_port_oss: [8003]
-beegfs_fstype: "xfs"
-beegfs_force_format: no
-beegfs_host_mgmt: "{{ groups['cluster_beegfs_mgmt'] | first }}"
-beegfs_interfaces: ["ib0"]
-beegfs_path_meta: "/data/beegfs/beegfs_meta"
+# BeeGFS config
 beegfs_state: present
-beegfs_rdma: yes
-
-# BeegFS client config
-beegfs_client_confs:
-- beegfs_path_client: "/mnt/{{ cluster_name }}"
-  beegfs_host_mgmt: "{{ beegfs_host_mgmt }}"
-  beegfs_port_client: 28004
+beegfs_force_format: no
+beegfs_interfaces:
+- ib0
+beegfs_oss:
+- dev: sdb
+  port: 8003
+beegfs_client:
+- path: "/mnt/{{ cluster_name }}"
+  port: 28004
 ...
