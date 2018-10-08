@@ -1,0 +1,73 @@
+- hosts:
+  - minion
+  vars:
+    minion_services:
+    - name: kubernetes-kubelet
+      service: kubelet
+    - name: kubernetes-proxy
+      service: kube-proxy
+  tasks:
+  - name: pull images
+    # command: "atomic pull --storage ostree docker.io/openstackmagnum/{{ item.name }}:{{ item.version | default(version) }}"
+    atomic_image:
+      name: "docker.io/openstackmagnum/{{ item.name }}:{{ item.version | default(version) }}"
+      state: latest
+      backend: ostree
+      started: yes
+    with_items: "{{ minion_services }}"
+    become: yes
+  - name: apply images
+    # command: "atomic containers update --rebase docker.io/openstackmagnum/{{ item.name }}:{{ item.version | default(version) }} {{ item.service }}"
+    atomic_container:
+      name: "{{ item.service }}"
+      backend: ostree
+      state: latest
+      mode: system
+      image: "docker.io/openstackmagnum/{{ item.name }}:{{ item.version | default(version) }}"
+    with_items: "{{ minion_services }}"
+    become: yes 
+  - name: start service
+    service:
+      name: "{{ item.service }}"
+      state: started
+    become: yes
+    with_items: "{{ minion_services }}"
+
+- hosts:
+  - master
+  vars:
+    master_services:
+    - name: kubernetes-controller-manager
+      service: kube-controller-manager
+    - name: kubernetes-proxy
+      service: kube-proxy
+    - name: kubernetes-apiserver
+      service: kube-apiserver
+    - name: kubernetes-scheduler
+      service: kube-scheduler
+  tasks:
+  - name: pull images
+    # command: "atomic pull --storage ostree docker.io/openstackmagnum/{{ item.name }}:{{ item.version | default(version) }}"
+    atomic_image:
+      name: "docker.io/openstackmagnum/{{ item.name }}:{{ item.version | default(version) }}"
+      state: latest
+      backend: ostree
+      started: yes
+    with_items: "{{ master_services }}"
+    become: yes 
+  - name: apply images
+    # command: "atomic containers update --rebase docker.io/openstackmagnum/{{ item.name }}:{{ item.version | default(version) }} {{ item.service }}"
+    atomic_container:
+      name: "{{ item.service }}"
+      backend: ostree
+      state: latest
+      mode: system
+      image: "docker.io/openstackmagnum/{{ item.name }}:{{ item.version | default(version) }}"
+    with_items: "{{ master_services }}"
+    become: yes
+  - name: start service
+    service:
+      name: "{{ item.service }}"
+      state: started
+    become: yes
+    with_items: "{{ master_services }}"
