@@ -1,0 +1,23 @@
+---
+# Site-specific network configuration.
+cluster_net:
+  - net: "euclid-data"
+    subnet: "euclid-data"
+    floating_net: "ilab"
+    security_groups:
+      - "default"
+      - "ssh"
+
+cluster_config_drive: false
+
+# OpenStack project name at RAL
+euclid_project_name: "euclid"
+
+# EUCLID external network name at RAL
+euclid_network_external_name: "external"
+
+# EUCLID internal network name at RAL.
+euclid_network_internal_name: "euclid-data"
+
+# Security group to use
+euclid_secgroup_openstack_name: "ssh"

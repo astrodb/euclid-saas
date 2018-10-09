@@ -1,0 +1,22 @@
+---
+# Site-specific network configuration.
+cluster_net:
+  - net: "euclid-private"
+    subnet: "euclid-private"
+    floating_net: "External"
+    security_groups:
+      - "default"
+
+cluster_config_drive: false
+
+# OpenStack project name at RAL
+euclid_project_name: "EUCLID"
+
+# EUCLID external network name at RAL
+euclid_network_external_name: "external"
+
+# EUCLID internal network name at RAL.
+euclid_network_internal_name: "euclid-private"
+
+# Security group to use
+euclid_secgroup_openstack_name: "default"
