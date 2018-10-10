@@ -72,8 +72,9 @@ beegfs_state: present
 beegfs_force_format: no
 beegfs_interfaces:
 - ib0
+beegfs_mgmt_host: "{{ groups['cluster_beegfs_mgmt'] | first }}"
 beegfs_oss:
-- dev: sdb
+- dev: /dev/sdb
   port: 8003
 beegfs_client:
 - path: "/mnt/{{ cluster_name }}"

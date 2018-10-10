@@ -77,19 +77,19 @@ beegfs_state: present
 beegfs_force_format: no
 beegfs_interfaces:
 - ib0
+beegfs_mgmt_host: "{{ groups['cluster_beegfs_mgmt'] | first }}"
 beegfs_oss:
-- dev: nvme0n1
+- dev: /dev/nvme0n1
   port: 8003
-- dev: nvme1n1
+- dev: /dev/nvme1n1
   port: 8103
-- dev: nvme2n1
+- dev: /dev/nvme2n1
   port: 8203
-- dev: nvme3n1
+- dev: /dev/nvme3n1
   port: 8303
 beegfs_client:
 - path: "/mnt/{{ cluster_name }}"
   port: 18004
-beegfs_mgmt_host: "{{ groups['cluster_beegfs_mgmt'] | first }}"
 
 # Software defined raid config
 md0:
