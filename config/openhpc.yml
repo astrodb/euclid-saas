@@ -107,28 +107,23 @@ ceph_mount_path: /alaska
 ceph_mount_fuse: true
 
 # BeegFS config
-beegfs_block_devices:
-- md0
-beegfs_port_oss: [8003]
-beegfs_fstype: "xfs"
-beegfs_force_format: no
-beegfs_host_mgmt: "{{ groups['cluster_beegfs_mgmt'] | first }}"
-beegfs_interfaces: ["ib0"]
-beegfs_path_meta: "/data/beegfs/beegfs_meta"
-beegfs_rdma: yes
 beegfs_state: present
-
-# BeegFS client config
-beegfs_client_confs:
-- beegfs_path_client: "/mnt/{{ cluster_name }}"
-  beegfs_host_mgmt: "{{ beegfs_host_mgmt }}"
-  beegfs_port_client: 8004
-- beegfs_path_client: /mnt/storage-ssd
-  beegfs_host_mgmt: storage-ssd-node-0
-  beegfs_port_client: 18004
-- beegfs_path_client: /mnt/storage-nvme
-  beegfs_host_mgmt: storage-nvme-node-0
-  beegfs_port_client: 28004
+beegfs_force_format: no
+beegfs_interfaces:
+- ib0
+beegfs_mgmt_host: "{{ groups['cluster_beegfs_mgmt'] | first }}"
+beegfs_oss:
+- dev: /dev/md0
+  port: 8003
+beegfs_client:
+- path: "/mnt/{{ cluster_name }}"
+  port: 8004
+- path: "/mnt/storage-ssd"
+  port: 18004
+  mgmt_host: "storage-ssd-node-0"
+- path: "/mnt/storage-nvme"
+  port: 28004
+  mgmt_host: "storage-nvme-node-0"
 
 # Software defined raid config
 md0:
