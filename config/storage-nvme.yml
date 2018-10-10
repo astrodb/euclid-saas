@@ -89,6 +89,7 @@ beegfs_oss:
 beegfs_client:
 - path: "/mnt/{{ cluster_name }}"
   port: 18004
+beegfs_mgmt_host: "{{ groups['cluster_beegfs_mgmt'] | first }}"
 
 # Software defined raid config
 md0:
