@@ -11,5 +11,6 @@
         admon: no
         meta: "{{ inventory_hostname in groups['cluster_beegfs_mds'] }}"
         oss: "{{ inventory_hostname in groups['cluster_beegfs_oss'] }}"
+        tuning: "{{ inventory_hostname in groups['cluster_beegfs_oss'] }}"
         client: "{{ inventory_hostname in groups['cluster_beegfs_client'] }}"
 ...
