@@ -5,4 +5,12 @@ ib_mtu:
 ib_netmask: 255.255.255.0
 ib_connected_mode: no
 ib_use_config_drive: no
+ib_modules:
+- mlx5_core
+- mlx5_ib
+- ib_core
+- ib_uverbs
+- ib_ipoib
+- rdma_cm
+- rdma_ucm
 ...
