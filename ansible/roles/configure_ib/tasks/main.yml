@@ -34,14 +34,17 @@
     state: present
   with_items: "{{ ib_modules }}"
   become: yes
+  notify: Reset interface
 
 - name: Ensure kernel modules persist
   lineinfile:
     path: /etc/modules-load.d/infiniband.conf
     line: "{{ item }}"
     state: present
+    create: yes
   with_items: "{{ ib_modules }}"
   become: yes
+  notify: Reset interface
 
 - name: Copy ifcfg-ib0 network script over
   template:
