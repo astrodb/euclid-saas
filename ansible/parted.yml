@@ -1,0 +1,13 @@
+- hosts: cluster
+  tasks:
+  - name: Create partitions
+    parted:
+      label: gpt
+      state: present
+      part_type: primary
+      device: "{{ item.dev }}"
+      part_start: "{{ item.start }}"
+      part_end: "{{ item.end }}"
+      number: "{{ item.number }}"
+    with_items: "{{ partitions }}"
+    become: yes
