@@ -27,7 +27,7 @@ cluster_groups:
   - "{{ slurm_compute }}"
 
 # Login node configuration.
-slurm_login_flavor: "compute-A"
+slurm_login_flavor: "compute-B"
 slurm_login_image: "CentOS7.5-OpenHPC"
 slurm_login_num_nodes: 1
 
