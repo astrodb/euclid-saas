@@ -104,6 +104,7 @@ beegfs_client:
 - path: "/mnt/{{ cluster_name }}"
   port: 18004
 
+# Create more partitions so that there are more dedicated processes to handle incoming requests
 partitions:
 - dev: /dev/nvme0n1
   start: 0%

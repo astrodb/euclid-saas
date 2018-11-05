@@ -1,6 +1,6 @@
 - hosts: cluster
   tasks:
-  - name: Create partitions
+  - name: "Create partition {{ item.number }} on device {{ item.dev }}"
     parted:
       label: gpt
       state: present
