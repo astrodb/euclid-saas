@@ -126,7 +126,7 @@ While the deployment instructions for Kubernetes is identical to Docker Swarm.
 There is an additional playbook available to handle upgrades which can be
 invoked as follows:
 
-    ansible-playbook --vault-password-file vault-password -i ansible/inventory-k8s -e version=1.11.2 ansible/container-infra-upgrade.yml
+    ansible-playbook --vault-password-file vault-password -i ansible/inventory-k8s -e k8s_version=1.11.2 ansible/container-infra-upgrade.yml
 
 ### Dedicated GlusterFS/BeeGFS Storage
 
