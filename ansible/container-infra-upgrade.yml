@@ -1,7 +1,7 @@
 - hosts:
   - minion
   vars:
-    k8s_version: 1.11.2
+    k8s_version: v1.11.2
     minion_services:
     - name: kubernetes-kubelet
       service: kubelet
@@ -36,6 +36,7 @@
 - hosts:
   - master
   vars:
+    k8s_version: v1.11.2
     master_services:
     - name: kubernetes-controller-manager
       service: kube-controller-manager
