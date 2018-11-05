@@ -8,9 +8,9 @@
       service: kube-proxy
   tasks:
   - name: pull images
-    # command: "atomic pull --storage ostree docker.io/openstackmagnum/{{ item.name }}:{{ item.version | default(version) }}"
+    # command: "atomic pull --storage ostree docker.io/openstackmagnum/:{{ item.version | default(k8s_version) }}"
     atomic_image:
-      name: "docker.io/openstackmagnum/{{ item.name }}:{{ item.version | default(version) }}"
+      name: "docker.io/openstackmagnum/{{ item.name }}:{{ item.version | default(k8s_version) }}"
       state: latest
       backend: ostree
       started: yes
