@@ -12,6 +12,45 @@
 - hosts: 
     - slurm_compute_bare
 
+- hosts:
+    - cluster_control
+    - cluster_login
+    - cluster_batch
+  tasks:
+    - name: Ensure the OpenHPC package repo rpm is present
+      yum:
+        name: "https://github.com/openhpc/ohpc/releases/download/v1.3.GA/ohpc-release-1.3-1.el7.x86_64.rpm"
+        state: present
+      become: yes
+
+    # In the images used in RAL, a GID wanted by Munge (201) is already
+    # claimed by NAGIOS.
+    - name: Purge site NAGIOS plugins and POSIX groups
+      block:
+        - yum:
+            name:
+              - nagios-plugins-load
+              - nagios-plugins-swap
+              - nagios-plugins
+              - nagios-plugins-perl
+              - nagios-plugins-ntp
+              - nagios-plugins-procs
+              - nagios-common
+              - nagios-plugins-disk
+              - nagios-plugins-ping
+              - nagios-plugins-log
+              - nagios-plugins-icmp
+              - nagios-plugins-nrpe
+              - tier1-nagios-plugins
+            state: absent
+        - user:
+            name: nagios
+            state: absent 
+        - group:
+            name: nagios
+            state: absent 
+      become: yes
+
 - hosts: cluster_control
   become: yes
   roles:

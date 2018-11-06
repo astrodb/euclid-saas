@@ -6,6 +6,7 @@ cluster_net:
     floating_net: "External"
     security_groups:
       - "default"
+      - "intranet"
 
 cluster_config_drive: false
 

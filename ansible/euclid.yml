@@ -1,11 +1,11 @@
 ---
 - include: ssh-known-hosts.yml
 - include: setup.yml
-- include: euclid-ib.yml
-- include: manila-client.yml
+#- include: euclid-ib.yml
+#- include: manila-client.yml
 - include: euclid-users.yml
 - include: euclid-cvmfs.yml
-- include: euclid-lustre.yml
+#- include: euclid-lustre.yml
 - include: euclid-openhpc.yml
 - include: euclid-ial.yml
 - include: euclid-limits.yml

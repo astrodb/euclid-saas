@@ -17,6 +17,14 @@
       vars:
         proxy_index: "{{ play_hosts.index(inventory_hostname) % (groups['cluster_cvmfs_proxy'] | length) }}"
 
+    - name: Fixup ScientificLinux incorrect releasever package
+      ini_file:
+        path: /etc/yum.conf
+        section: main
+        option: "distroverpkg"
+        value: "sl-release"
+      when: ansible_distribution == "Scientific"
+
     - name: Enable use of the proxy server for Yum caching
       ini_file:
         path: /etc/yum.conf
