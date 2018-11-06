@@ -9,8 +9,31 @@
   
 # Apply generic setup configuration that is universally useful
 - hosts: cluster
+  vars:
+    ansible_become: yes
+    my_cloud_config: |
+      ---
+      clouds:
+        {{ alaska_cloud }}:
+          auth:
+            auth_url: http://{{ controller_vip }}:5000
+            project_name: p3
+            domain_name: default
+        alaska-monasca:
+          auth:
+            auth_url: http://{{ controller_vip }}:5000
+            project_name: p3
+            domain_name: default
+            username: p3-monitor
+            password: {{ monitor_secret }}
+          region: RegionOne
   remote_user: centos
   become: yes
   roles:
     - role: cluster_setup
+    - role: stackhpc.os-config
+      os_config_content: "{{ my_cloud_config }}"
+      os_config_destination: "/etc/openstack"
+      os_config_owner: root
+      os_config_group: root
       monitor_secret: "{{ hostvars['localhost']['alaska_auth_p3_monitor'] }}"
