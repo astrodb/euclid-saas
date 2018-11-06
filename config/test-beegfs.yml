@@ -74,8 +74,6 @@ beegfs_oss:
   port: 8003
 - dev: /dev/sdc
   port: 8103
-- dev: /dev/sdd
-  port: 8203
 beegfs_client:
 - path: "/mnt/{{ cluster_name }}"
   port: 8004
