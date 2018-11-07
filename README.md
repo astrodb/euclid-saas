@@ -39,6 +39,19 @@ Prior to using stackhpc-appliances, ensure the virtual environment is activated:
 
     source venv/bin/activate
 
+### ALaSKA Environments
+
+There are two ALaSKA environments - Production and Alt-1. This repository
+supports both of these environments. To use a specific environment, ensure that
+any OpenStack authentication environment variables reference the correct
+environment. When executing playbooks, be sure to use the correct Ansible
+inventory:
+
+* `ansible/inventory` is for production
+* `ansible/inventory-alt-1` is for alt-1
+
+The following examples use the production inventory.
+
 ### Creating Infrastructure Using the Heat Templates
 
 The Heat templates and stackhpc.cluster-infra role are configured locally

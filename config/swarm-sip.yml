@@ -16,6 +16,7 @@ os_container_infra_external_interface: "{{ ext_name }}"
 os_container_infra_interfaces:
 - "{{ lln_name }}"
 - "{{ bdn_name }}"
+os_container_infra_environment_group: "{{ alaska_environment }}"
 
 # SIP config for Ceph mount
 ceph_mount_share_name: HomeDirs
