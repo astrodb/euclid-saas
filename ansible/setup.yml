@@ -9,13 +9,18 @@
   
 # Apply generic setup configuration that is universally useful
 - hosts: cluster
-  vars:
-    monitor_secret: "{{ hostvars['localhost']['alaska_auth_p3_monitor'] }}"
   remote_user: centos
   become: yes
   roles:
+    - role: oasis-roles.kdump
+      kdump_package: kexec-tools
+      kdump_conf_path: /etc/kdump.conf
+      kdump_become_user: root
+      kdump_crash_path: /var/crash
+      kdump_core_collector_args: makedumpfile -l --message-level 1 -d 31
     - role: cluster_setup
     - role: stackhpc.os-config
+      monitor_secret: "{{ hostvars['localhost']['alaska_auth_p3_monitor'] }}"
       os_config_content: |
         ---
         clouds:
