@@ -1,7 +1,7 @@
 *.swp
 
 # Ansible retry files.
-ansible/*.retry
+*.retry
 
 # Auto-generated inventory files.
 ansible/inventory_*
