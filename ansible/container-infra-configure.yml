@@ -9,7 +9,6 @@
     - role: stackhpc.os-manila-mount
       os_manila_mount_action: "lookup"
       os_manila_mount_share_name: "{{ ceph_mount_share_name }}"
-      os_manila_mount_share_user: "home"
 
 - hosts: cluster
   vars:
@@ -38,7 +37,6 @@
     os_manila_mount_access_key: "{{ hostvars['localhost']['os_manila_mount_access_key'] }}"
     os_manila_mount_export: "{{ hostvars['localhost']['os_manila_mount_export'] }}"
     os_manila_mount_action: "mount"
-    os_manila_mount_share_user: "home"
     os_manila_mount_pkgs_install: True
     os_manila_mount_path: "{{ ceph_mount_path }}"
     os_manila_mount_user: "root"

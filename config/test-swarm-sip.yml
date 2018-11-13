@@ -1,0 +1,7 @@
+---
+# Avoid a conflict with the production cluster.
+os_container_infra_cluster_name: test-swarm-sip
+os_container_infra_keypair: stack
+os_container_infra_master_count: 1
+os_container_infra_node_count: 1
+gluster_src:
