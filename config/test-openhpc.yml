@@ -1,0 +1,21 @@
+---
+# Avoid a conflict with the production cluster.
+cluster_name: test-openhpc
+
+# This parameter should be set to the name of an RSA keypair you have
+# uplaoded to OpenStack.
+cluster_keypair: stack
+
+# Login node configuration.
+slurm_login_flavor: "compute-A"
+slurm_login_num_nodes: 1
+
+# Compute node configuration.
+slurm_compute_flavor: "compute-A"
+slurm_compute_num_nodes: 1
+
+# Choose between glusterfs, beegfs and none.
+cluster_fs: none
+
+# Don't create any software RAID arrays.
+mdadm_arrays: []
