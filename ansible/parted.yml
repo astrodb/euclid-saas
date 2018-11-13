@@ -1,17 +1,31 @@
 - hosts: cluster
   tasks:
-  - name: "Create partition {{ item.number }} on device {{ item.dev }}"
-    parted:
-      label: gpt
-      state: present
-      part_type: primary
-      device: "{{ item.dev }}"
-      part_start: "{{ item.start }}"
-      part_end: "{{ item.end }}"
-      number: "{{ item.number }}"
-    with_items: "{{ partitions }}"
-    # NOTE (brtknr): The `parted` module in Ansible version 2.4 and lower is
-    # buggy in a destructive way therefore this check is necessary.
-    # See: https://github.com/ansible/ansible/issues/38594
-    when: ansible_version.full is version_compare('2.5', '>=')
-    become: yes
+    - name: "Remove existing partitions"
+      parted:
+        state: absent
+        part_type: primary
+        device: "{{ item.dev }}"
+        number: "{{ item.number }}"
+      with_items: "{{ partitions }}"
+      # NOTE (brtknr): The `parted` module in Ansible version 2.4 and lower is
+      # buggy in a destructive way therefore this check is necessary.
+      # See: https://github.com/ansible/ansible/issues/38594
+      when:
+      - ansible_version.full is version_compare('2.5', '>=')
+      - parted_force | default(false) | bool
+      become: yes
+    - name: "Create new partitions"
+      parted:
+        label: gpt
+        state: present
+        part_type: primary
+        device: "{{ item.dev }}"
+        part_start: "{{ item.start }}"
+        part_end: "{{ item.end }}"
+        number: "{{ item.number }}"
+      with_items: "{{ partitions }}"
+      # NOTE (brtknr): The `parted` module in Ansible version 2.4 and lower is
+      # buggy in a destructive way therefore this check is necessary.
+      # See: https://github.com/ansible/ansible/issues/38594
+      when: ansible_version.full is version_compare('2.5', '>=')
+      become: yes
