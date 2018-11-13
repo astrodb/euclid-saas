@@ -7,7 +7,6 @@
   roles:
     - role: stackhpc.beegfs
       beegfs_enable:
-        rdma: true
         admon: false
         mgmt: "{{ inventory_hostname in groups['cluster_beegfs_mgmt'] }}"
         meta: "{{ inventory_hostname in groups['cluster_beegfs_mds'] }}"
