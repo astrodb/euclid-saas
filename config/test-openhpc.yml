@@ -1,4 +1,7 @@
 ---
+# WARNING: This is a test cluster intended to be invoked via the scripts inside
+# tests/ folder. Do not invoke  directly.
+
 # This name is used for the Heat stack and as a prefix for the
 # cluster node hostnames.
 cluster_name: test-openhpc
@@ -19,51 +22,12 @@ cluster_nodenet_environment: "nodenet-3.yaml"
 # Enable the use of config drive, for managing IP assignment on IPoIB
 cluster_config_drive: true
 
-# Multi-node application topology.  In this case we have a SLURM
-# deployment formed from a login/controller node and a number of
-# batch compute nodes.
-cluster_groups:
-  - "{{ slurm_login }}"
-  - "{{ slurm_compute }}"
-
 # Login node configuration.
 slurm_login_flavor: "compute-A"
-slurm_login_image: "CentOS7.5-OpenHPC"
 slurm_login_num_nodes: 1
 
-slurm_login:
-  name: "login"
-  flavor: "{{ slurm_login_flavor }}"
-  image: "{{ slurm_login_image}}"
-  num_nodes: "{{ slurm_login_num_nodes }}"
-  user: "centos"
-
-# Compute node configuration.
 slurm_compute_flavor: "compute-A"
-slurm_compute_image: "CentOS7.5-OpenHPC"
 slurm_compute_num_nodes: 1
-
-slurm_compute:
-  name: "compute"
-  flavor: "{{ slurm_compute_flavor }}"
-  image: "{{ slurm_compute_image}}"
-  num_nodes: "{{ slurm_compute_num_nodes }}"
-  user: "centos"
-
-
-# Node group assignments for cluster roles.
-# These group assignments are appended to the cluster inventory file.
-# The names of these roles are cross-referenced to groups referred to
-# in playbooks in the ansible/ directory.
-cluster_roles:
-  - name: "ceph_client"
-    groups: "{{ cluster_groups }}"
-  - name: "login"
-    groups: [ "{{ slurm_login }}" ]
-  - name: "batch"
-    groups: [ "{{ slurm_compute }}" ]
-  - name: "mdadm"
-    groups: [ "{{ slurm_compute }}" ]
 
 # Choose between glusterfs, beegfs and none.
 cluster_fs: none

@@ -16,13 +16,9 @@
     mode: 0755
     state: directory
 
-- name: What is the service
-  debug:
-    var: slurm_service
-
 - name: Ensure SLURM services are enabled
   service:
-    name: "{{slurm_service}}"
+    name: "{{ slurm_service }}"
     enabled: yes
   notify:
     - Restart SLURM service
