@@ -8,8 +8,8 @@
 <filter *.**>
   @type parser
   key_name log
-  format /(?<time_stamp>\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}:\d{2}[.,]\d{3,6}Z)\s+[-|]\s+(?<module>\S+)\s+[-|]\s+(?<level>\S+)\s+[-|]?\s+(?<thread>.*)\s+[-|]\s+(?<log>.*)/
-  time_key time_stamp
+  format /(?<Timestamp>\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}:\d{2}[.,]\d{3,6}Z)\s+[-|]\s+(?<module>\S+)\s+[-|]\s+(?<level>\S+)\s+[-|]?\s+(?<thread>.*)\s+[-|]\s+(?<log>.*)/
+  time_key Timestamp
   time_format %Y-%m-%dT%H:%M:%S.%NZ
 </filter>
 
@@ -22,7 +22,7 @@
   @type record_transformer
   enable_ruby
   <record>
-    timestamp ${time.strftime('%Y-%m-%dT%H:%M:%S.%6NZ')}
+    timestamp ${time.strftime('%Y-%m-%dT%H:%M:%S.%3NZ')}
   </record>
 </filter>
 
