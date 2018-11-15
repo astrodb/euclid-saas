@@ -8,9 +8,9 @@
 <filter *.**>
   @type parser
   key_name log
-  format /(?<Timestamp>\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}:\d{2}[.,]\d{3,6}Z)\s+[-|]\s+(?<module>\S+)\s+[-|]\s+(?<level>\S+)\s+[-|]?\s+(?<thread>.*)\s+[-|]\s+(?<log>.*)/
+  format /^(?<Timestamp>\S+ \S+)\s-\s(?<programname>\S+)\s-\s(?<log_level>\S+)\s-\s(?<log>.*)$/
   time_key Timestamp
-  time_format %Y-%m-%dT%H:%M:%S.%NZ
+  time_format %Y-%m-%d %H:%M:%S,%N
 </filter>
 
 # Add a timestamp dimension with ms precision to all logs to record
@@ -37,7 +37,6 @@
   enable_ruby true
   <record>
     message ${record["log"]}
-    docker_tag ${tag}
   </record>
   remove_keys log
 </filter>
