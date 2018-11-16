@@ -6,22 +6,6 @@
 # cluster node hostnames.
 cluster_name: test-openhpc
 
-# This parameter should be set to the name of an RSA keypair you have
-# uplaoded to OpenStack.
-cluster_keypair: wendy
-
-# Site-specific network configuration.
-cluster_net:
-  - { net: "ilab", subnet: "ilab" }
-  - { net: "p3-bdn", subnet: "p3-bdn" }
-  - { net: "p3-lln", subnet: "p3-lln" }
-
-# A 3-NIC node resource in the heat templates.
-cluster_nodenet_environment: "nodenet-3.yaml"
-
-# Enable the use of config drive, for managing IP assignment on IPoIB
-cluster_config_drive: true
-
 # Login node configuration.
 slurm_login_flavor: "compute-A"
 slurm_login_num_nodes: 1
