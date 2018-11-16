@@ -1,4 +1,13 @@
 ---
+- name: Install OpenHPC runtime Slurm packages
+  yum:
+    name:
+      - "slurm-ohpc"
+      - "munge-ohpc"
+      - "slurm-slurmd-ohpc"
+      - "slurm-example-configs-ohpc"
+    state: installed
+
 - name: Ensure the SLURM spool directory exists
   file:
     path: /var/spool/slurm
@@ -9,7 +18,7 @@
 
 - name: Ensure SLURM services are enabled
   service:
-    name: "{{slurm_service}}"
+    name: "{{ slurm_service }}"
     enabled: yes
   notify:
     - Restart SLURM service
