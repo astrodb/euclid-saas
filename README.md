@@ -122,6 +122,12 @@ Then, run the second playbook to:
 
     ansible-playbook --vault-password-file=vault-password -i ansible/inventory-kubernetes -e @config/kubernetes.yml ansible/container-infra-configure.yml
 
+While the deployment instructions for Kubernetes is identical to Docker Swarm,
+there is an additional playbook available to handle upgrades which can be
+invoked as follows:
+
+    ansible-playbook --vault-password-file vault-password -i ansible/inventory-k8s -e k8s_version=1.11.2 ansible/container-infra-upgrade.yml
+
 ### Dedicated GlusterFS/BeeGFS Storage
 
 Creating gluster storage cluster infrastructure using storage-A (nvme) and storage-B (ssd) flavours:
@@ -150,3 +156,4 @@ To setup GlusterFS server:
 To setup hyperconverged storage and mount storage on OpenHPC node:
 
     ansible-playbook --vault-password-file vault-password -e @config/openhpc.yml -i ansible/inventory-openhpc ansible/openhpc.yml
+

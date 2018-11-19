@@ -78,18 +78,66 @@ beegfs_force_format: no
 beegfs_interfaces:
 - ib0
 beegfs_mgmt_host: "{{ groups['cluster_beegfs_mgmt'] | first }}"
+beegfs_oss_tunable:
+- nvme0n1
+- nvme1n1
+- nvme2n1
+- nvme3n1
 beegfs_oss:
-- dev: /dev/nvme0n1
+- dev: /dev/nvme0n1p1
   port: 8003
-- dev: /dev/nvme1n1
+- dev: /dev/nvme0n1p2
+  port: 8013
+- dev: /dev/nvme1n1p1
   port: 8103
-- dev: /dev/nvme2n1
+- dev: /dev/nvme1n1p2
+  port: 8113
+- dev: /dev/nvme2n1p1
   port: 8203
-- dev: /dev/nvme3n1
+- dev: /dev/nvme2n1p2
+  port: 8213
+- dev: /dev/nvme3n1p1
   port: 8303
+- dev: /dev/nvme3n1p2
+  port: 8313
 beegfs_client:
 - path: "/mnt/{{ cluster_name }}"
   port: 18004
+
+# Create more partitions so that there are more dedicated processes to handle incoming requests
+partitions:
+- dev: /dev/nvme0n1
+  start: 0%
+  end: 50%
+  number: 1
+- dev: /dev/nvme0n1
+  start: 50%
+  end: 100%
+  number: 2
+- dev: /dev/nvme1n1
+  start: 0%
+  end: 50%
+  number: 1
+- dev: /dev/nvme1n1
+  start: 50%
+  end: 100%
+  number: 2
+- dev: /dev/nvme2n1
+  start: 0%
+  end: 50%
+  number: 1
+- dev: /dev/nvme2n1
+  start: 50%
+  end: 100%
+  number: 2
+- dev: /dev/nvme3n1
+  start: 0%
+  end: 50%
+  number: 1
+- dev: /dev/nvme3n1
+  start: 50%
+  end: 100%
+  number: 2
 
 # Software defined raid config
 md0:

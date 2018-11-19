@@ -5,7 +5,7 @@ cluster_name: openhpc
 
 # This parameter should be set to the name of an RSA keypair you have
 # uplaoded to OpenStack.
-cluster_keypair: bharat
+cluster_keypair: wendy
 
 # Site-specific network configuration.
 cluster_net:

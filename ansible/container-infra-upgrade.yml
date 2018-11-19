@@ -1,0 +1,73 @@
+- hosts:
+  - minion
+  vars:
+    k8s_version: v1.11.2
+    minion_services:
+    - name: kubernetes-kubelet
+      service: kubelet
+    - name: kubernetes-proxy
+      service: kube-proxy
+  tasks:
+  - name: pull images
+    atomic_image:
+      name: "docker.io/openstackmagnum/{{ item.name }}:{{ item.version | default(k8s_version) }}"
+      state: latest
+      backend: ostree
+      started: yes
+    with_items: "{{ minion_services }}"
+    become: yes
+  - name: apply images
+    atomic_container:
+      name: "{{ item.service }}"
+      backend: ostree
+      state: latest
+      mode: system
+      image: "docker.io/openstackmagnum/{{ item.name }}:{{ item.version | default(k8s_version) }}"
+    with_items: "{{ minion_services }}"
+    become: yes 
+  - name: start service
+    service:
+      name: "{{ item.service }}"
+      state: started
+      enabled: yes
+    become: yes
+    with_items: "{{ minion_services }}"
+
+- hosts:
+  - master
+  vars:
+    k8s_version: v1.11.2
+    master_services:
+    - name: kubernetes-controller-manager
+      service: kube-controller-manager
+    - name: kubernetes-proxy
+      service: kube-proxy
+    - name: kubernetes-apiserver
+      service: kube-apiserver
+    - name: kubernetes-scheduler
+      service: kube-scheduler
+  tasks:
+  - name: pull images
+    atomic_image:
+      name: "docker.io/openstackmagnum/{{ item.name }}:{{ item.version | default(k8s_version) }}"
+      state: latest
+      backend: ostree
+      started: yes
+    with_items: "{{ master_services }}"
+    become: yes 
+  - name: apply images
+    atomic_container:
+      name: "{{ item.service }}"
+      backend: ostree
+      state: latest
+      mode: system
+      image: "docker.io/openstackmagnum/{{ item.name }}:{{ item.version | default(k8s_version) }}"
+    with_items: "{{ master_services }}"
+    become: yes
+  - name: start service
+    service:
+      name: "{{ item.service }}"
+      state: started
+      enabled: yes
+    become: yes
+    with_items: "{{ master_services }}"

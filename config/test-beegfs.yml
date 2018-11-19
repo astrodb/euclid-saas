@@ -1,0 +1,75 @@
+---
+# This name is used for the Heat stack and as a prefix for the
+# cluster node hostnames.
+cluster_name: test-beegfs
+
+# This parameter should be set to the name of an RSA keypair you have
+# uplaoded to OpenStack.
+cluster_keypair: wendy
+
+# Site-specific network configuration.
+cluster_net:
+  - { net: "ilab", subnet: "ilab" }
+  - { net: "p3-bdn", subnet: "p3-bdn" }
+  - { net: "p3-lln", subnet: "p3-lln" }
+
+# A 3-NIC node resource in the heat templates.
+cluster_nodenet_environment: "nodenet-3.yaml"
+
+# Enable the use of config drive, for managing IP assignment on IPoIB
+cluster_config_drive: true
+
+# Node configuration.
+cluster_groups:
+  - "{{ master }}"
+  - "{{ node }}"
+
+compute_flavor: "compute-A"
+compute_image: "CentOS7.5-OpenHPC"
+
+master:
+  name: "master"
+  flavor: "{{ compute_flavor }}"
+  image: "{{ compute_image}}"
+  num_nodes: "1"
+  user: "centos"
+
+node:
+  name: "node"
+  flavor: "{{ compute_flavor }}"
+  image: "{{ compute_image}}"
+  num_nodes: "1"
+  user: "centos"
+
+# Node group assignments for cluster roles.
+# These group assignments are appended to the cluster inventory file.
+# The names of these roles are cross-referenced to groups referred to
+# in playbooks in the ansible/ directory.
+cluster_roles:
+  - name: "beegfs_mgmt"
+    groups: [ "{{ master }}" ]
+  - name: "beegfs_mds"
+    groups: [ "{{ master }}" ]
+  - name: "beegfs_oss"
+    groups: [ "{{ node }}" ]
+  - name: "beegfs_client"
+    groups: "{{ cluster_groups }}"
+
+# Choose between glusterfs, beegfs and none.
+cluster_fs: beegfs
+
+# BeegFS config
+beegfs_state: present
+beegfs_force_format: no
+beegfs_interfaces:
+- ib0
+beegfs_mgmt_host: "{{ groups['cluster_beegfs_mgmt'] | first }}"
+beegfs_oss:
+- dev: /dev/sdb
+  port: 8003
+- dev: /dev/sdc
+  port: 8103
+beegfs_client:
+- path: "/mnt/{{ cluster_name }}"
+  port: 8004
+...
