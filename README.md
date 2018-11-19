@@ -122,8 +122,8 @@ Then, run the second playbook to:
 
     ansible-playbook --vault-password-file=vault-password -i ansible/inventory-kubernetes -e @config/kubernetes.yml ansible/container-infra-configure.yml
 
-While the deployment instructions for Kubernetes is identical to Docker Swarm.
-There is an additional playbook available to handle upgrades which can be
+While the deployment instructions for Kubernetes is identical to Docker Swarm,
+there is an additional playbook available to handle upgrades which can be
 invoked as follows:
 
     ansible-playbook --vault-password-file vault-password -i ansible/inventory-k8s -e k8s_version=1.11.2 ansible/container-infra-upgrade.yml

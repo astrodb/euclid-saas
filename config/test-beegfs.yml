@@ -19,14 +19,11 @@ cluster_nodenet_environment: "nodenet-3.yaml"
 # Enable the use of config drive, for managing IP assignment on IPoIB
 cluster_config_drive: true
 
-# Multi-node application topology.  In this case we have a SLURM
-# deployment formed from a login/controller node and a number of
-# batch compute nodes.
+# Node configuration.
 cluster_groups:
   - "{{ master }}"
   - "{{ node }}"
 
-# Compute node configuration.
 compute_flavor: "compute-A"
 compute_image: "CentOS7.5-OpenHPC"
 
@@ -49,8 +46,6 @@ node:
 # The names of these roles are cross-referenced to groups referred to
 # in playbooks in the ansible/ directory.
 cluster_roles:
-  - name: "ceph_client"
-    groups: "{{ cluster_groups }}"
   - name: "beegfs_mgmt"
     groups: [ "{{ master }}" ]
   - name: "beegfs_mds"

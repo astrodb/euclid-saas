@@ -23,7 +23,7 @@
       line: '%wheel ALL=(ALL) NOPASSWD: ALL'
       validate: 'visudo -cf %s'    
     become: yes
-  - name: Set sysctl settings
+  - name: Set sysctl settings based on SIP team request
     sysctl:
       name: "{{ item.name }}"
       value: "{{ item.value }}"
