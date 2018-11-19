@@ -1,0 +1,4 @@
+---
+setup_sysctl_enable: true
+setup_time_enable: true
+setup_hosts_enable: true

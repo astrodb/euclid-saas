@@ -7,11 +7,11 @@ lln_name: p3-lln
 # SIP configuration
 os_container_infra_user: fedora
 os_container_infra_state: present
-os_container_infra_cluster_name: k8s-fa27
+os_container_infra_cluster_name: k8s-sip
 os_container_infra_cluster_template_name: k8s-fedora-atomic-27
 os_container_infra_keypair: wendy
 os_container_infra_master_count: 1
-os_container_infra_node_count: 2
+os_container_infra_node_count: 1
 os_container_infra_external_interface: "{{ ext_name }}"
 os_container_infra_interfaces:
 - "{{ lln_name }}"

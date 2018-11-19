@@ -10,4 +10,5 @@
 - src: stackhpc.beegfs
 - src: singleplatform-eng.users
 - src: mrlesmithjr.mdadm
+- src: oasis-roles.kdump
 ...

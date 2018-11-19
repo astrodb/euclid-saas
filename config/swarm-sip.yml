@@ -22,6 +22,11 @@ os_container_infra_environment_group: "{{ alaska_environment }}"
 ceph_mount_share_name: HomeDirs
 ceph_mount_path: /mnt/ceph
 
+# Disable these before running setup.yml
+kdump_enable: false
+# This is enabled by default on Atomic Host
+setup_time_enable: false
+
 # SIP users 
 users:
 - username: stig
@@ -55,6 +60,18 @@ users:
   uid: 1006
   ssh_key:
   - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCUOhekNNoWCVzdyks2ROdW4gjDxKxPXCMc0VetY08i/WkZPFFUZZOhAN13EVzNh2aVtRYIQSGheqbuIW5QvEIBJ4OqmF5Tjw/76JBQ2c8Vhq0wLboYnvscMD4fwyHbcezBZ67eDxz1P7jTJtoBrshm+vaIXP1PEsQqJOc6RN+a9F6Fqfjuxc+yjGkuwC0h61pdkVrvvqBHUa5cSyFo3A4BAkpzwq785uBSkC/jQH3CxzcbeomxG+1nxYM69qCDARxnPBkHPQHjHP5TxrpS/JS1/pPS6GlKDQ0NvZ+5Eo09QFt7kPoY+05TWwkwCOWXESMPKBFUmOowUgThCZyR/YW3 mark@mark-xps15"
+- username: vlad
+  name: Vlad Stolyarov
+  groups: ['wheel','systemd-journal']
+  uid: 1007
+  ssh_key:
+  - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDeHHJ2Thsnc/F4bx6ZjjKZV/BX68c3Xnl40Aie69wJ00Uh1maYP1p6Pj1QSreFZbYhx11XqwD1a6rlPASAJe/cYj4PIsvmbgAGZqzEpXsWqJij/R7BaYm7EoWiqx4iI7jXCCDE8QJfZC4gR2SPhD3ClLc07SCuvOm6OABJq+KUih0jrkLPcNNK9xiufhe/gP2lfiy7aUPBZThkd6AVgWV+nHaK2dm7d532ChARSpB/Kr3bsyONFDI0+sCxUDtcEHblRw/VVubMLir6UTsYchtCDVVlR3fuiDVM4Oj/p/P8P9OE5VuJ6le1gkYKVK1JFA9LqgPGsbYsuhvylDUe8Acl Generated-by-Nova"
+- username: fred
+  name: Fred Dulwich
+  groups: ['wheel','systemd-journal']
+  uid: 1008
+  ssh_key:
+  - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQClobEi5Eg5GAZk0o43Vb+KgAh6UmTm+rtmaLXVBTZp+e3BubDGK2RVNzmLgXVsu+9P7YdMC65c9E8iC2WXkLmdjTbXYRqCbgiMs6/MCe40YIhV/iBZvyBS8Rb46VKGPBjfJIvU9P2Cs7CYA6Uh0/Vyg1LfFDfq3SfzNBUK5/+gSzR2DyB6hptazq40qa9z/StZ8Qsa0xvIFEV5+eDqPB51MBhZLn3tjy+4tWNRMIgx2CQllYt38w/dtFsLcZvXHEyfm3fYjqfemWDJa9PNMpGB4lSRKSskH4+sVLDGRpCoGp10EXkcfYwjGkNaFA+ZfSpy0Sc0VEPDpdpg+H7tM9dvPHICrJ7ITQlgElKRsUX9H8H/rFsgqf18dWg9rF5Zi4wikSQR30JZbwHZUjhRamq/rJ6LbmfYjMB6tzr9RTyZVT8V8HO9BVvxO+3erIMpSALc6c9wgTxI5BTdhKDInW1uX2OY73RkUhWtCR7QjrpefyS7EI/ya8RvorXcKUxGj1E60Cjcl5EvbuSZk7Z51CKlK2w5uquDamJnqjUCqGzrnkMaIBlVXzfDXVy4VQnAETiC/oeGmx+qQrc3bqkqcg0xADWd9wWvo1rLA83Wh/KGCNkCUK6Wekpi9B+Cv5xUq9GBhGwQ5Pqhzy4WtcOPhrdWPnhf0ZElVL+XovEQKxKq0Q== hpcdulw1@ilab-gate.ilab.cluster"
 
 # SIP sudoers
 sudoers_sudoers:

@@ -3,8 +3,11 @@
 # panic since this brings the OpenStack API down due to pause frame throttles
 - name: Set kernel.panic timeout in sysctl
   sysctl:
-    name: kernel.panic
-    value: 5
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
     state: present
     reload: yes
     sysctl_set: yes
+  with_items:
+    - { name: kernel.panic, value: 5 }
+...

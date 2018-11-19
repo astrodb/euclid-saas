@@ -1,4 +1,7 @@
 ---
-- include: time.yml
-- include: hosts.yml
 - include: sysctl.yml
+  when: setup_sysctl_enable
+- include: hosts.yml
+  when: setup_hosts_enable
+- include: time.yml
+  when: setup_time_enable
