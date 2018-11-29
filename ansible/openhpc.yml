@@ -4,6 +4,7 @@
 
 # Setup ceph mount
 - import_playbook: manila-client.yml
+  when: ceph_mount_share_name is defined
 
 # Add cluster users
 - import_playbook: users.yml
