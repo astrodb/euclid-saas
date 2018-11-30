@@ -35,6 +35,7 @@
       - { name: net.core.rmem_default, value: 8388608 }
       - { name: net.core.wmem_max, value: 524288 }
       - { name: net.core.wmem_default, value: 524288 }
+    become: yes
   roles:
   # Configure infiniband interface
   - configure_ib
