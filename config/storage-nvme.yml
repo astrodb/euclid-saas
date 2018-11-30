@@ -5,7 +5,7 @@ cluster_name: storage-nvme
 
 # This parameter should be set to the name of an RSA keypair you have
 # uplaoded to OpenStack.
-cluster_keypair: bharat
+cluster_keypair: wendy 
 
 # Site-specific network configuration.
 cluster_net:
@@ -74,7 +74,7 @@ gluster_mnt: "/mnt/{{ gluster_cluster_volume_name }}"
 
 # BeegFS config
 beegfs_state: present
-beegfs_force_format: no
+beegfs_force_format: false
 beegfs_interfaces:
 - ib0
 beegfs_mgmt_host: "{{ groups['cluster_beegfs_mgmt'] | first }}"
