@@ -11,7 +11,7 @@ os_container_infra_cluster_name: swarm-sip
 os_container_infra_cluster_template_name: swarm-fedora-atomic-27
 os_container_infra_keypair: wendy
 os_container_infra_master_count: 1
-os_container_infra_node_count: 1
+os_container_infra_node_count: 6
 os_container_infra_external_interface: "{{ ext_name }}"
 os_container_infra_interfaces:
 - "{{ lln_name }}"
