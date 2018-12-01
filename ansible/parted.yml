@@ -1,4 +1,4 @@
-- hosts: cluster
+- hosts: cluster_parted
   tasks:
     - name: "Remove existing partitions"
       parted:

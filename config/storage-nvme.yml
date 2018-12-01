@@ -38,7 +38,9 @@ storage:
 # in playbooks in the ansible/ directory.
 cluster_roles:
   - name: "mdadm"
-    groups: [] #[ "{{ storage }}" ]
+    groups: [  ]
+  - name: "parted"
+    groups: [ "{{ storage }}" ]
   - name: "glusterfs_server"
     groups: [ "{{ storage }}" ]
   - name: "glusterfs_client"

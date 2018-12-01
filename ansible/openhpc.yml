@@ -18,6 +18,9 @@
 # Use mdadm to create software defined raid
 - import_playbook: mdadm.yml
 
+# Use mdadm to create software defined raid
+- import_playbook: parted.yml
+
 # Setup hyperconverged storage. Current clusterfs options are:
 # - glusterfs
 # - beegfs
