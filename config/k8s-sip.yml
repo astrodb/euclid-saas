@@ -11,11 +11,14 @@ os_container_infra_cluster_name: k8s-sip
 os_container_infra_cluster_template_name: k8s-fedora-atomic-27
 os_container_infra_keypair: wendy
 os_container_infra_master_count: 1
-os_container_infra_node_count: 1
+os_container_infra_node_count: 2
 os_container_infra_external_interface: "{{ ext_name }}"
 os_container_infra_interfaces:
 - "{{ lln_name }}"
 - "{{ bdn_name }}"
+
+# Kubernetes version
+os_container_infra_k8s_version: v1.11.5-1
 
 # SIP config for Ceph mount
 ceph_mount_share_name: HomeDirs
