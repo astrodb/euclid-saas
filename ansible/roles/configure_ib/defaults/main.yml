@@ -1,9 +1,11 @@
 ---
+ib_interface: ib0
 ib_ipaddr:
+ib_netmask: 255.255.255.0
 ib_hwaddr:
 ib_mtu:
-ib_netmask: 255.255.255.0
-ib_connected_mode: no
+ib_connected_mode: "yes"
+ib_ping_host:
 ib_use_config_drive: no
 ib_modules:
 - mlx5_core

@@ -8,7 +8,8 @@
 - src: stackhpc.os-manila-mount
 - src: stackhpc.os-config
 - src: stackhpc.beegfs
-- src: singleplatform-eng.users
+- src: mrlesmithjr.squid
 - src: mrlesmithjr.mdadm
 - src: oasis-roles.kdump
+- src: singleplatform-eng.users
 ...

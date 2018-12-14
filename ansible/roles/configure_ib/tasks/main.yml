@@ -19,13 +19,6 @@
     set_fact:
       ib_ipaddr: "{{ network_data.networks[2].ip_address }}"
   - debug: var=ib_ipaddr
-  - name: Obtain hardware address
-    command: cat /sys/class/net/ib0/address
-    register: result
-  - name: Set hardware address fact
-    set_fact:
-      ib_hwaddr: "{{ result.stdout }}"
-  - debug: var=ib_hwaddr
   when: ib_use_config_drive | bool
 
 - name: Load kernel modules
@@ -46,10 +39,31 @@
   become: yes
   notify: Reset interface
 
+- name: Obtain hardware address
+  command: "cat /sys/class/net/{{ ib_interface }}/address"
+  register: result
+  changed_when: false
+
+- name: Set hardware address fact
+  set_fact:
+    ib_hwaddr: "{{ result.stdout }}"
+
 - name: Copy ifcfg-ib0 network script over
   template:
     src: ifcfg-ib0.j2
     dest: /etc/sysconfig/network-scripts/ifcfg-ib0
   become: yes
   notify: Reset interface
+
+- name: Flush handlers
+  meta: flush_handlers
+
+- block:
+    - name: Display ping host
+      debug:
+        msg: "Pinging {{ ib_ping_host }}"
+
+    - name: Ping another host
+      command: "ping -c1 {{ ib_ping_host }}"
+  when: ib_ping_host is not none
 ...

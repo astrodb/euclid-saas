@@ -1,0 +1,118 @@
+---
+- hosts: cluster_infiniband
+  become: yes
+  vars:
+    lustre_lnet_net: o2ib10
+    lustre_lnet_interface: ib0
+    lustre_mount_path: /mnt/lustre
+    lustre_mount_servers:
+      - 10.102.240.126@o2ib10
+      - 10.102.240.129@o2ib10
+    lustre_mount_fs_name: /euclid
+    lustre_mount_opts:
+      - _netdev
+      - flock
+      - user_xattr
+      - nodev
+      - nosuid
+      - lazystatfs
+      - relatime
+      - x-systemd.after=lnet.service
+      - x-systemd.requires=lnet.service
+  tasks:
+    - name: Select a proxy server for this host
+      set_fact:
+        http_proxy: "{{ groups['cluster_cvmfs_proxy'][proxy_index | int] }}"
+      vars:
+        proxy_index: "{{ play_hosts.index(inventory_hostname) % (groups['cluster_cvmfs_proxy'] | length) }}"
+  
+    - name: Add Lustre client repository
+      yum_repository:
+        name: lustre-client
+        description: Lustre client repo
+        baseurl: https://downloads.whamcloud.com/public/lustre/lustre-2.10.4-ib/MOFED-4.3-3.0.2.1/el7.5.1804/client/
+        gpgcheck: no
+        proxy: "http://{{ http_proxy }}:3128"
+  
+    - name: Ensure EPEL installed
+      yum:
+        name: epel-release
+  
+    - name: Remove OpenHPC lustre client due to conflicts
+      yum:
+        name: lustre-client-ohpc
+        state: absent
+  
+    - name: Install kernel devel so dkms works
+      yum:
+        name: "{{ item }}"
+      with_items:
+        - kernel
+        - kernel-devel
+        - kernel-headers
+        - kernel-abi-whitelists
+        - kernel-tools
+        - kernel-tools-libs
+        - kernel-tools-libs-devel
+  
+    - name: Get the current kernel version
+      command: uname -r
+      register: kver
+      changed_when: false
+  
+    - name: Display the current kernel version
+      debug:
+        msg: "active kernel version:{{ kver['stdout'] }}"
+  
+    - name: Double check the correct versions of headers for running kernel
+      yum:
+        name: "{{ item }}-{{ kver['stdout'] }}"
+      with_items:
+        - kernel
+        - kernel-devel
+        - kernel-headers
+        - kernel-tools
+        - kernel-tools-libs
+        - kernel-tools-libs-devel
+  
+    - name: Install client, this triggers a build of kernel module
+      yum:
+        name: "{{ item }}"
+      with_items:
+        - lustre-client-dkms
+        - lustre-client
+  
+    - name: Write lnet.conf
+      copy:
+        content: "{{ lustre_lnet_config }}"
+        dest: /etc/lnet.conf
+      vars:
+        lustre_lnet_config: |
+          ---
+          net:
+            - net type: {{ lustre_lnet_net }}
+              local NI(s):
+                - interfaces:
+                    0: {{ lustre_lnet_interface }}
+
+    - name: Create directory for mount
+      file:
+        path: "{{ lustre_mount_path }}"
+        state: directory
+        mode: 0755
+
+    - name: Start the LNET service
+      service:
+        name: lnet
+        enabled: true
+        state: started
+  
+    - name: Add lustre mount
+      mount:
+        path: "{{ lustre_mount_path }}"
+        fstype: lustre
+        opts: "{{ lustre_mount_opts | join(',') }}"
+        state: mounted
+        src: "{{ mount_src }}"
+      vars:
+        mount_src: "{{ (lustre_mount_servers + [lustre_mount_fs_name]) | join(':') }}"

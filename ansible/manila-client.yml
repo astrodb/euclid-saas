@@ -9,6 +9,8 @@
       vars:
         os_manila_mount_action: "lookup"
         os_manila_mount_share_name: "{{ ceph_mount_share_name }}"
+        os_manila_mount_share_user: "{{ ceph_mount_share_user }}"
+        os_manila_mount_auth: "{{ openstack_auth }}"
 
 - hosts: cluster_ceph_client
   roles:
@@ -18,8 +20,10 @@
       os_manila_mount_host: "{{ hostvars['localhost']['os_manila_mount_host'] }}"
       os_manila_mount_access_key: "{{ hostvars['localhost']['os_manila_mount_access_key'] }}"
       os_manila_mount_export: "{{ hostvars['localhost']['os_manila_mount_export'] }}"
+      os_manila_mount_share_user: "{{ ceph_mount_share_user }}"
       os_manila_mount_pkgs_install: True
-      os_manila_mount_path: "{{ alaska_homedir }}"
+      os_manila_mount_path: "{{ manila_mount_point }}"
       os_manila_mount_user: "root"
       os_manila_mount_group: "root"
       os_manila_mount_fuse: "{{ ceph_mount_fuse | default(True) }}"
+...

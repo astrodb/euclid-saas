@@ -1,0 +1,20 @@
+---
+# Site-specific network configuration.
+cluster_net:
+  - net: "ospstackac2-tv-net1"
+    subnet: "568797e8-cb7f-4317-9af5-eb8bacc43a90"
+    floating_net: "ext-net"
+    security_groups:
+      - "default"
+
+# OpenStack project name at Memset
+euclid_project_name: "ospstackac2"
+
+# EUCLID external network name at Memset
+euclid_network_external_name: "ext-net"
+
+# EUCLID internal network name at Memset.
+euclid_network_internal_name: "ospstackac2-tv-net1"
+
+# Security group to use
+euclid_secgroup_openstack_name: "default"

@@ -1,0 +1,27 @@
+---
+- hosts: cluster_login:cluster_control
+  become: yes
+  tasks:
+    - name: Ensure max open file limit is applied
+      sysctl:
+        name: fs.file-max
+        value: 1000000
+        sysctl_set: true
+        sysctl_file: /etc/sysctl.d/99-euclid.conf
+
+    - name: Ensure PAM limits are applied
+      pam_limits:
+        dest: /etc/security/limits.d/99-euclid.conf
+        domain: "{{ item.domain }}"
+        limit_item: "{{ item.limit_item }}"
+        limit_type: "{{ item.limit_type }}"
+        value: "{{ item.value }}"
+      with_items:
+        - domain: hpcgill1
+          limit_item: nofile
+          limit_type: hard
+          value: 1000000
+        - domain: hpcgill1
+          limit_item: nofile
+          limit_type: soft
+          value: 1000000

@@ -4,7 +4,8 @@ shade
 openstacksdk
 python-barbicanclient
 python-keystoneclient
-python-magnumclient
+python-openstackclient
+python-ironicclient
 python-heatclient
+python-magnumclient
 python-novaclient
-

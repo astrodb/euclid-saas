@@ -16,10 +16,14 @@
     mode: 0755
     state: directory
 
+- name: What is the service
+  debug:
+    var: slurm_service
+
 - name: Ensure SLURM services are enabled
   service:
     name: "{{ slurm_service }}"
-    enabled: yes
+    enabled: "{{ slurm_service_enabled | bool }}"
   notify:
     - Restart SLURM service
 
@@ -32,3 +36,13 @@
     mode: 0644
   notify: 
     - Restart SLURM service
+
+- name: Flush handlers
+  meta: flush_handlers
+
+# In case the service isn't running and the config hasn't changed to trigger
+# the handler, ensure it's running here.
+- name: Ensure SLURM services are running
+  service:
+    name: "{{slurm_service}}"
+    state: "{{'started' if slurm_service_enabled|bool else 'stopped'}}"

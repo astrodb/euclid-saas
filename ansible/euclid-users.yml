@@ -1,0 +1,15 @@
+- hosts:
+    - cluster_login
+    - cluster_batch
+  become: yes
+  pre_tasks:
+    - name: Ensure user home dir root exists
+      file:
+        path: "{{ euclid_homedir }}"
+        state: directory
+
+  roles:
+    - role: singleplatform-eng.users
+      users: "{{ euclid_users }}"
+      groups_to_create: "{{ euclid_groups }}"
+
