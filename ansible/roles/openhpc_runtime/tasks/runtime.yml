@@ -1,6 +1,0 @@
----
-- name: Ensure selected OpenHPC packages are installed
-  yum:
-    name: "{{openhpc_packages}}"
-    state: present
-...

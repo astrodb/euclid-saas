@@ -1,6 +1,0 @@
----
-- name: Restart SLURM service
-  service:
-    name: "{{slurm_service}}"
-    state: reloaded
-  when: slurm_service_enabled | bool

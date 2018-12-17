@@ -1,15 +1,17 @@
 ---
+# Sorted by maintainer name, role name
+- src: mrlesmithjr.mdadm
+- src: mrlesmithjr.squid
+- src: oasis-roles.kdump
+- src: singleplatform-eng.users
+- src: stackhpc.beegfs
 - src: stackhpc.cluster-infra
-- src: stackhpc.monasca-agent
-- src: stackhpc.monasca-rsyslog
 - src: stackhpc.grafana-conf
 - src: stackhpc.gluster-cluster
+- src: stackhpc.monasca-agent
+- src: stackhpc.monasca-rsyslog
+- src: stackhpc.openhpc
 - src: stackhpc.os-container-infra
 - src: stackhpc.os-manila-mount
 - src: stackhpc.os-config
-- src: stackhpc.beegfs
-- src: mrlesmithjr.squid
-- src: mrlesmithjr.mdadm
-- src: oasis-roles.kdump
-- src: singleplatform-eng.users
 ...

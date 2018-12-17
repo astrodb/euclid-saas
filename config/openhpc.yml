@@ -59,6 +59,8 @@ cluster_roles:
     groups: "{{ cluster_groups }}"
   - name: "login"
     groups: [ "{{ slurm_login }}" ]
+  - name: "control"
+    groups: [ "{{ slurm_login }}" ]
   - name: "batch"
     groups: [ "{{ slurm_compute }}" ]
   - name: "mdadm"
