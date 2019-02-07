@@ -1,0 +1,22 @@
+---
+# Site-specific network configuration.
+cluster_net:
+  - net: "gateway"
+    subnet: "gateway"
+    floating_net: "internet"
+    security_groups:
+      - "default"
+
+cluster_config_drive: false
+
+# OpenStack project name
+euclid_project_name: "stackhpc"
+
+# EUCLID external network name
+euclid_network_external_name: "gateway"
+
+# EUCLID internal network name
+euclid_network_internal_name: "backdoor"
+
+# Security group to use
+euclid_secgroup_openstack_name: "default"
