@@ -47,11 +47,14 @@ slurm_control:
 
 slurm_compute:
   name: "compute"
-  flavor: "m2.large"
+  flavor: "m3.xlarge"
   image: "ScientificLinux-7-NoGui"
   user: "stelfer"
-  num_nodes: 6
+  num_nodes: 4
   nodenet_resource: "Cluster::NodeNet1"
+  node_resource: "Cluster::InstanceWithVolume"
+  volume_size: 100
+  volume_type: "rbd"
 
 cvmfs_proxy:
   name: "proxy"
@@ -60,9 +63,9 @@ cvmfs_proxy:
   user: "stelfer"
   num_nodes: 1
   nodenet_resource: "Cluster::NodeNet1"
-  #node_resource: "Cluster::InstanceWithVolume"
-  #volume_size: 60
-  #volume_type: "rbd"
+  node_resource: "Cluster::InstanceWithVolume"
+  volume_size: 60
+  volume_type: "rbd"
 
 
 # Node group assignments for cluster roles.
