@@ -4,7 +4,7 @@
   - cluster_batch
   become: yes
   roles:
-    - role: openhpc
+    - role: stackhpc.openhpc
       openhpc_enable:
         control: "{{ inventory_hostname in groups['cluster_control'] }}"
         batch: "{{ inventory_hostname in groups['cluster_batch'] }}"
