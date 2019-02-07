@@ -13,6 +13,8 @@ cluster_groups:
   - "{{ slurm_compute }}"
   - "{{ cvmfs_proxy }}"
 
+cluster_gw_group: "gw"
+
 openvpn_gw:
   name: "gw"
   flavor: "m2.small"
