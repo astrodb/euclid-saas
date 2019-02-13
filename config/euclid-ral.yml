@@ -14,12 +14,13 @@ cluster_groups:
   - "{{ cvmfs_proxy }}"
 
 cluster_gw_group: "gw"
+cluster_guest_user: "mholliman"
 
 openvpn_gw:
   name: "gw"
   flavor: "m2.small"
   image: "ScientificLinux-7-NoGui"
-  user: "stelfer"
+  user: "{{cluster_guest_user}}"
   num_nodes: 1
   nodenet_resource: "Cluster::NodeNet1WithPreallocatedFIP"
   nodenet_fips:
@@ -30,7 +31,7 @@ slurm_login:
   name: "login"
   flavor: "m2.medium"
   image: "ScientificLinux-7-NoGui"
-  user: "stelfer"
+  user: "{{cluster_guest_user}}"
   num_nodes: 1
   nodenet_resource: "Cluster::NodeNet1WithPreallocatedFIP"
   nodenet_fips:
@@ -41,7 +42,7 @@ slurm_control:
   name: "control"
   flavor: "m2.medium"
   image: "ScientificLinux-7-NoGui"
-  user: "stelfer"
+  user: "{{cluster_guest_user}}"
   num_nodes: 1
   nodenet_resource: "Cluster::NodeNet1"
 
@@ -49,7 +50,7 @@ slurm_compute:
   name: "compute"
   flavor: "m3.xlarge"
   image: "ScientificLinux-7-NoGui"
-  user: "stelfer"
+  user: "{{cluster_guest_user}}"
   num_nodes: 4
   nodenet_resource: "Cluster::NodeNet1"
   node_resource: "Cluster::InstanceWithVolume"
@@ -60,7 +61,7 @@ cvmfs_proxy:
   name: "proxy"
   flavor: "m2.medium"
   image: "ScientificLinux-7-NoGui"
-  user: "stelfer"
+  user: "{{cluster_guest_user}}"
   num_nodes: 1
   nodenet_resource: "Cluster::NodeNet1"
   node_resource: "Cluster::InstanceWithVolume"
@@ -90,6 +91,14 @@ cluster_roles:
   - name: "cvmfs_proxy"
     groups:
       - "{{ cvmfs_proxy }}"
+  - name: "ceph_mon"
+    groups:
+      - "{{ slurm_login }}"
+      - "{{ slurm_control }}"
+      - "{{ openvpn_gw }}"
+  - name: "ceph_osd"
+    groups:
+      - "{{ slurm_compute }}"
 
 # Define a list of SLURM partitions to create.
 openhpc_slurm_partitions: 

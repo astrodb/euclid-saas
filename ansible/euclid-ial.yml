@@ -39,25 +39,36 @@
         name: "SGSservices"
         description: "Edinburgh/EUCLID SGS services"
         state: "present"
-        baseurl: "https://userread:password@apceuclidrepo.in2p3.fr/nexus/content/repositories/el7.sgsservices"
+        baseurl: "https://userread:password@codeen-repo.euclid-ec.org/nexus/content/repositories/el7.sgsservices"
         enabled: yes
         protect: no
         gpgcheck: no
         metadata_expire: 10
-        sslcacert: "/etc/pki/tls/certs/CNRS2-Standard.pem"
+      become: true
+
+    - name: Install the Euclid IAL Repo
+      yum_repository:
+        name: "euclid.ial.1.0.DEV"
+        description: "Edinburgh/EUCLID IAL services"
+        state: "present"
+        baseurl: "https://userread:password@codeen-repo.euclid-ec.org/nexus/content/repositories/el7.euclid.ial.1.0.DEV"
+        enabled: yes
+        protect: no
+        gpgcheck: no
+        metadata_expire: 10
       become: true
 
     - name: Install the IAL Packages
       yum:
         name:
           - "euclid-ial-drm"
-          - "euclid-ial-wfm"
+          - "ST_IAL_Bootstrap_Services"
         state: present
       become: true
 
     - name: Enable and start the EUCLID IAL service
       systemd:
-        name: "euclid-ial-wfm"
+        name: "euclid-pipelinerunner"
         enabled: true
         state: started
       become: true

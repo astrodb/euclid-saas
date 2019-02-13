@@ -1,0 +1,20 @@
+        ansible/euclid-cvmfs.yml
+        ansible/euclid-ial.yml
+        ansible/euclid-ib.yml
+        ansible/euclid-limits.yml
+        ansible/euclid-lustre.yml
+        ansible/euclid-openhpc.yml
+        ansible/euclid-safe.yml
+        ansible/euclid-users.yml
+        ansible/euclid.yml
+        ansible/ssh-known-hosts.yml
+        config/euclid-2.yml
+        config/euclid-3.yml
+        config/euclid-ral.yml
+        config/euclid.yml
+        euclid.sh
+        project/euclid/eod.yml
+        project/euclid/memset.yml
+        project/euclid/ral.yml
+        project/euclid/sausage.yml
+

@@ -1,8 +1,9 @@
 ---
 # Sorted by maintainer name, role name
 - src: mrlesmithjr.mdadm
-- src: mrlesmithjr.squid
-- src: oasis-roles.kdump
+- name: mrlesmithjr.squid
+  src: https://github.com/stackhpc/ansible-squid
+  version: add-scientific
 - src: singleplatform-eng.users
 - src: stackhpc.beegfs
 - src: stackhpc.cluster-infra
@@ -14,4 +15,8 @@
 - src: stackhpc.os-container-infra
 - src: stackhpc.os-manila-mount
 - src: stackhpc.os-config
+- src: stackhpc.beegfs
+- src: singleplatform-eng.users
+- src: mrlesmithjr.mdadm
+- src: oasis_roles.kdump
 ...
