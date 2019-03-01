@@ -18,5 +18,10 @@
       kdump_crash_path: /var/crash
       kdump_core_collector_args: makedumpfile -l --message-level 1 -d 31
       when: kdump_enable | default(true)
+
     - role: cluster_setup
+
+    - role: resmo.ntp
+      ntp_config_server: "{{ cluster_ntp_servers | default(omit) }}"
+
 ...
