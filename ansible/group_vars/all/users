@@ -1,0 +1,50 @@
+---
+
+# Mount point for Euclid user home directories.
+# This should be consistent across the deployment.
+euclid_homedir: "/euclid"
+euclid_group_name: "euclid"
+iris_group_name: "iris"
+
+euclid_groups:
+  - name: "{{ euclid_group_name }}"
+    gid: 2000
+  - name: "{{ iris_group_name }}"
+    gid: 8069
+
+
+euclid_users:
+  - username: "hpcgill1"
+    groups: [ "{{ euclid_group_name }}", "{{ iris_group_name }}" ]
+    name: "Bryan R. Gillis <b.gillis@roe.ac.uk>"
+    home: "{{euclid_homedir}}/hpcgill1"
+    uid: 16291
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDP81krWUzI5Oz/CQPMfHxzvJ2Z9mtSEXTvTgeZ73wqizqti5iO/1lskMX8eqiVSPJqRAc5iTbCgYsZ2fSxbharQOex8MR5e3BhMa3s8YPB6ACkUYsgY/qoASyP59HRlntQzLlzbrUz56eYarGf/6V9DiW0y43c/P6CujaoWOf0n69Vy+Qj7O7jI38PaKm0lUzpVA6QQjJmARxvqff7zt0hWJX548x0ReEXGfb86G18GOtBk3mZLb6IvNmqU2xFuUX5RaM7P2OBSU2KEkCVZ9rNQQL2CEOyTrmJUg92T556HaZna15E4Qt7ux4mGLgk+IB203efKiQ536Ftr/2ZRfOL brg@sdc-uk.roe.ac.uk"
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDhgvKgiWkXdl1ah+u7BnGrTB+46MmP7fEX89YpxsKeC3l9+av9wh1jPwJ3sxpmHFa6HKhyi8IR/UjP16FACaUkXMSxxcTD8fCMnk5lH47kwUeed9DNABCS2RYB9Fe3MQAfMJfqEUjLwrmbloS0/IsfbC4vlqcW2XYezQrYzArWC5b02i8sROe9Mcb+T6+loljMPYZy/yKY2e4lAryLZB4h8dYyBqulkhXx6EeKWdmPKj9TBqu1TLf6/P6OGvlQ2ZJmXJnRWAePZDTDy2aGvHHQDEyWrBVmF7sLnLF0na444zMSm+EyX8beu609yRiSktELrONqgtqD3HmXLJqhjA0b hpcgill1@ilab-gate.ilab.cluster"
+  - username: "hpcholl1"
+    groups: [ "{{ euclid_group_name }}", "{{ iris_group_name }}", "wheel" ]
+    name: "Mark Holliman <msh@roe.ac.uk>"
+    home: "{{euclid_homedir}}/hpcholl1"
+    uid: 16287
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCwNcXawcsNzA73TxmyozskeA3Ex5el0iLhGWtSPz43R5//VjE/7sHmcsrm8HsFnDXp35S+GIwSX3MwGkjzzrUOCz2yGZi82yq9AzhYS1fa1UJhYb76HevIMk85u3DNij4FuNFnTCmoVWXglukrCHW8KgsqBiuah9uXZfsRPOysJOjWLcj+VI+U5A4kVehpyFNMAi5Re4/9n/PSxbvcNmsdW6lpEVhHJcYDmKPd6ZvgiH2uf6kpeTffb2LQAdittchhKot+0AAe5nERVcCGd8NGYcApf0pJ7KJU7xzzliBAZbYvEsnJTuJDfInVLFIZPHZdJGyv7VyqNNqW9WoXg1Cr euclid@sdc-uk.roe.ac.uk"
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDWnl+U7SsHd+BggD498vGl7sOOF6cP5bo1QJsBHQsBdgsmcrutb2ZzHgW5/jCiR8DUtj+ezN0NnIQPkcPBNsMCKYx0ib+mE9SlPVru3uqWp9oK/Bl6FWwWdG2KIX7tlbWAKlb2toHXD6C9mV88g2oiaYI7576MGbDjUHGlxPoP3JT78TpUeJ1UOPoQ5gXo/39Y8qzfSKoPvibP0CuDCLB/7nob8LYaFaHczTILcrfhnrDNMg5WjhaDoMobjWwTAAe7x+YRbPsmYAESax8CsjvRjiJkQ7Z8XkBd3hCuQqTeaegtNAxfIimYs0oPhYMk7dZaT5ZoG/AB1TlmUO1oGIyv hpcholl1@ilab-gate.ilab.cluster"
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDE4q8BN97rLhtpwLVRSxtzpnbafHzPB39URvpUNJpwGAlqfRD7kS0V8ELbOP9TjxpkkLINS2mzoma9i7MagRm8WVqA7BxP8StnLPbBeCJYuuWya3Oic3SAFcu73+JYuIYSP/xotn6vMPBHhuH+LsbeThsL8N/hBMveXHZV8N970KFbHdg9MK5A/g+QkxBYmIrbZ6ISPFewMGOLc8u7iH770d/J7ZOFh2tRmrixy+wgvx3ur6/ZUCwLKg7/+PBLZyBT0aRnmm124tyjJ9MF9bx7cd4GcCvi87C67lg4vgaLoXbOCB0fe4nczxtrHghk+lQBL16EmLBhSYBLcJ/3DqmL Euclid-SaaS-RAL"
+  - username: "hpccros1"
+    groups: [ "{{ euclid_group_name }}", "{{ iris_group_name }}" ]
+    name: "Nick Cross <njc@roe.ac.uk>"
+    home: "{{euclid_homedir}}/hpccros1"
+    uid: 16290
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDT9nHQ7Z+2Kql2CI6koEbgDWlYy7LzSiI4tGlDoa6p30EuwZjiEZTtRLQhcT/ZTWN4KHocyIUohwnxwon/X0ETQxh/bOaWvEVwYEJ0ihRdTWZtDc6VF9ty8Tsq8tWm0q7dH5agr6wRND1tTVfHiSYA9L32h6SVP6HVZBPfSHQ626SWe0QenMwFFU47Ohv4j+KDz9aq0FLR6/Lp1gyl9X73WVmpjGUSpt4xAHMrIj3TGbT8vHIpsi9Vp3qxKFdzDGtsVbrUBppAUp8ZmdXpQVCFLhIuCP49j8ElZv+k9W89WQDytDNLo+zkNN5mNCnc5lNI3pldVjt1608bn0KzlflD njc@sdc-uk.roe.ac.uk"
+  - username: "sclt100"
+    groups: [ "{{ euclid_group_name }}", "{{ iris_group_name }}", "wheel" ]
+    name: "Stig Telfer <stig@stackhpc.com>"
+    home: "{{euclid_homedir}}/sclt100"
+    uid: 15238
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDE4q8BN97rLhtpwLVRSxtzpnbafHzPB39URvpUNJpwGAlqfRD7kS0V8ELbOP9TjxpkkLINS2mzoma9i7MagRm8WVqA7BxP8StnLPbBeCJYuuWya3Oic3SAFcu73+JYuIYSP/xotn6vMPBHhuH+LsbeThsL8N/hBMveXHZV8N970KFbHdg9MK5A/g+QkxBYmIrbZ6ISPFewMGOLc8u7iH770d/J7ZOFh2tRmrixy+wgvx3ur6/ZUCwLKg7/+PBLZyBT0aRnmm124tyjJ9MF9bx7cd4GcCvi87C67lg4vgaLoXbOCB0fe4nczxtrHghk+lQBL16EmLBhSYBLcJ/3DqmL stig@skellig.local"
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDkXbp+OEyRoAtLPvmNJoLQJJKbjfWXVT3xyyLArzbKDNUkC8mdOUJDFPOJj91CEKKPd1x+6ys6EzJ8zFpfTQYkULClUE3XVx5q7ZMdQE3wROK+++z4RCcKrTgArd2wp5cfluMbwgp+HThuv+hdEvpEmltiALWk8wocPS6lHQmpq7AA+oB798ErNGITjfOdBbAmzcJ/Qba6y8J/ksShBDyn+dnhOT/M9wLsJaO5lh2wRqO6WxLZ6N5tlQZyyXAxBsphi+4u4gG1FiCdu7CClQr+zxEGHOnYxtbSa0X51zINxFKQAljI0IXYFJ3/7hmjkGhd1bGdXvVIqFOQdKGNFvXR stig@skellig.local"
+
+...

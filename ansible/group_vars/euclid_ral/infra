@@ -1,0 +1,33 @@
+---
+infra_name: "ral"
+
+# RAL STFC OpenStack-specific network configuration.
+# These resources exist in the Euclid project.
+infra_net:
+  - net: "euclid-private"
+    subnet: "euclid-private"
+    floating_net: "External"
+    security_groups:
+      - "default"
+      - "intranet"
+
+# Custom availability zone appears to be necessary for RAL deployments using volumes
+infra_az: "ceph"
+
+infra_flavor_base: "m2.small"
+infra_flavor_login: "m2.small"
+infra_flavor_compute: "m3.xlarge"
+
+infra_resource_net_base: "Cluster::NodeNet1"
+infra_resource_net_external: "Cluster::NodeNet1WithPreallocatedFIP"
+infra_resource_net_compute: "{{ infra_resource_net_base }}"
+
+infra_image_base: "ScientificLinux-7-NoGui"
+infra_image_login: "{{ infra_image_base }}"
+infra_image_compute: "{{ infra_image_base }}"
+
+infra_user_base: "fixme"
+infra_user_login: "{{ infra_user_base }}"
+infra_user_compute: "{{ infra_user_base }}"
+
+

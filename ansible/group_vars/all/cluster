@@ -14,4 +14,4 @@ cluster_config_drive: true
 
 # Name of the Ansible group that all cluster hosts and localhost will be added
 # to in the generated inventory.
-cluster_environment_group: "{{ alaska_environment }}"
+cluster_environment_group: "cluster"
