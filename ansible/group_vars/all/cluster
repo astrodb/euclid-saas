@@ -10,8 +10,8 @@ cluster_keypair: rsa_keypair
 
 # Use a config drive. This is required in order to use the Infiniband network
 # (LLN), which does not currently support DHCP.
-cluster_config_drive: true
+#cluster_config_drive: true
 
 # Name of the Ansible group that all cluster hosts and localhost will be added
 # to in the generated inventory.
-cluster_environment_group: "cluster"
+cluster_infra_group: "{{ cluster_name }}"

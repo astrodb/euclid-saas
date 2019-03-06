@@ -13,6 +13,7 @@
 - src: stackhpc.gluster-cluster
 - src: stackhpc.monasca-agent
 - src: stackhpc.monasca-rsyslog
+- src: stackhpc.nfs-cluster
 - src: stackhpc.openhpc
 - src: stackhpc.os-container-infra
 - src: stackhpc.os-manila-mount
