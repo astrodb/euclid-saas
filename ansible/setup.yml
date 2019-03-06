@@ -22,6 +22,15 @@
     - role: cluster_setup
 
     - role: resmo.ntp
-      ntp_config_server: "{{ cluster_ntp_servers | default(omit) }}"
+      ntp_config_server: "{{ infra_ntp_servers | default(omit) }}"
+
+# Bring in site-specific infrastructure configuration.
+# It doesn't seem like there's a parameterised way of doing this
+- import_playbook: "setup-ral.yml"
+  when: infra_name == "ral"
+- import_playbook: "setup-cam.yml"
+  when: infra_name == "cam"
+- import_playbook: "setup-sausage.yml"
+  when: infra_name == "sausage"
 
 ...
