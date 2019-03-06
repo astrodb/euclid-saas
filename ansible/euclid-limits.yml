@@ -1,5 +1,7 @@
 ---
-- hosts: cluster_login:cluster_control
+- hosts:
+    - cluster_login
+    - cluster_control
   become: yes
   tasks:
     - name: Ensure max open file limit is applied
