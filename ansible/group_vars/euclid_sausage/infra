@@ -8,6 +8,7 @@ infra_net:
     floating_net: "internet"
     security_groups:
       - "default"
+      - "allow-openvpn"
 
 infra_flavor_base: "bratwurst"
 infra_flavor_login: "hotdog"

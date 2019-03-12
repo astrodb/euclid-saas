@@ -1,0 +1,13 @@
+---
+
+- hosts:
+  - cluster_gw
+
+  roles:
+
+  - role: stackhpc.openvpn
+    become: true
+    #openvpn_servers: [ 'euclid-cam-gw-0' ]
+    openvpn_servers: "{{ ansible_play_hosts }}"
+    openvpn_clients: "{{ ansible_play_hosts }}"
+    openvpn_proto: udp
