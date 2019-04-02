@@ -19,6 +19,10 @@ infra_flavor_base: "m2.small"
 infra_flavor_login: "m2.small"
 infra_flavor_compute: "m3.xlarge"
 
+# Cluster-infra Heat Resources to use for RAL OpenStack
+infra_resource_node_base: "Cluster::Instance"
+infra_resource_node_storage: "Cluster::InstanceWithVolume"
+
 infra_resource_net_base: "Cluster::NodeNet1"
 infra_resource_net_external: "Cluster::NodeNet1WithPreallocatedFIP"
 infra_resource_net_external_fips:
@@ -26,6 +30,8 @@ infra_resource_net_external_fips:
     ip: "130.246.215.191"
   - uuid: "4996ee00-1ee3-4db3-ab28-ec8e5acbd256"
     ip: "130.246.215.152"
+  - uuid: "63f0ccf3-ada2-42b7-a8cc-917dac31fe22"
+    ip: "130.246.215.225"
 infra_resource_net_compute: "{{ infra_resource_net_base }}"
 
 
@@ -33,7 +39,8 @@ infra_image_base: "ScientificLinux-7-NoGui"
 infra_image_login: "{{ infra_image_base }}"
 infra_image_compute: "{{ infra_image_base }}"
 
-infra_user_base: "fixme"
+# RAL do some smart stuff to map OpenStack usernames to guest account
+infra_user_base: "{{ lookup('env', 'OS_USERNAME') }}"
 infra_user_login: "{{ infra_user_base }}"
 infra_user_compute: "{{ infra_user_base }}"
 
