@@ -21,7 +21,7 @@ openvpn_gw:
   user: "{{ infra_user_base }}"
   num_nodes: 1
   nodenet_resource: "{{ infra_resource_net_external }}"
-  #nodenet_fips: "{{ [infra_resource_net_external_fips[0]] | default(omit) }}"
+  nodenet_fips: "{{ [infra_resource_net_external_fips[0]] | default(omit) }}"
 
 slurm_login:
   name: "login"
@@ -30,7 +30,7 @@ slurm_login:
   user: "{{ infra_user_login }}"
   num_nodes: 1
   nodenet_resource: "{{ infra_resource_net_external }}"
-  #nodenet_fips: "{{ [infra_resource_net_external_fips[1]] | default(omit) }}"
+  nodenet_fips: "{{ [infra_resource_net_external_fips[1]] | default(omit) }}"
 
 slurm_control:
   name: "control"
