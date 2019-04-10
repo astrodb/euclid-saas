@@ -1,0 +1,47 @@
+---
+
+# Site configuration specific to RAL OpenStack infrastructure.
+
+- hosts:
+    - euclid_ral
+  become: yes
+  tasks:
+
+    # Seems the Scientific Linux port has some RH package state lingering about it.
+    # This is the default image in use at RAL.
+    - name: Fixup ScientificLinux incorrect releasever package
+      ini_file:
+        path: /etc/yum.conf
+        section: main
+        option: "distroverpkg"
+        value: "sl-release"
+      when: ansible_distribution == "Scientific"
+
+    # In the images used in RAL, a GID wanted by Munge (201) is already
+    # claimed by NAGIOS.
+    - name: Purge site NAGIOS plugins and POSIX groups
+      block:
+        - yum:
+            name:
+              - nagios-plugins-load
+              - nagios-plugins-swap
+              - nagios-plugins
+              - nagios-plugins-perl
+              - nagios-plugins-ntp
+              - nagios-plugins-procs
+              - nagios-common
+              - nagios-plugins-disk
+              - nagios-plugins-ping
+              - nagios-plugins-log
+              - nagios-plugins-icmp
+              - nagios-plugins-nrpe
+              - tier1-nagios-plugins
+            state: absent
+        - user:
+            name: nagios
+            state: absent 
+        - group:
+            name: nagios
+            state: absent 
+
+...

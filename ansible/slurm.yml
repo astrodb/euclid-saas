@@ -2,6 +2,7 @@
 - hosts:
   - cluster_control
   - cluster_batch
+  - cluster_login
   become: yes
   roles:
     - role: stackhpc.openhpc

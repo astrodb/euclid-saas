@@ -11,19 +11,17 @@
     - cluster_batch
   become: yes
   tasks:
+
+    # We must preserve locality in a federated configuration.
     - name: Select a proxy server for this host
       set_fact:
-        http_proxy: "{{ groups['cluster_cvmfs_proxy'][proxy_index | int] }}"
+        http_proxy: "{{ groups[proxy_group][proxy_index | int] }}"
       vars:
-        proxy_index: "{{ play_hosts.index(inventory_hostname) % (groups['cluster_cvmfs_proxy'] | length) }}"
+        proxy_group: "{{ cluster_name + '_proxy' }}"
+        proxy_index: "{{ play_hosts.index(inventory_hostname) % (groups[proxy_group] | length) }}"
 
-    - name: Fixup ScientificLinux incorrect releasever package
-      ini_file:
-        path: /etc/yum.conf
-        section: main
-        option: "distroverpkg"
-        value: "sl-release"
-      when: ansible_distribution == "Scientific"
+    - debug:
+        var: http_proxy
 
     - name: Enable use of the proxy server for Yum caching
       ini_file:
@@ -48,7 +46,9 @@
     - name: Write local configuration
       copy:
         dest: "/etc/cvmfs/default.local"
-        content: "{{ cvmfs_conf_local }}"
+        content: |
+          CVMFS_REPOSITORIES=euclid.in2p3.fr,euclid-dev.in2p3.fr
+          CVMFS_HTTP_PROXY="http://{{ http_proxy }}:3128"
         mode: 0644
 
     - name: Ensure the CVMVFS keys directory exists
@@ -98,7 +98,7 @@
         dest: "/etc/cvmfs/config.d/euclid.in2p3.fr.conf"
         content: |
                 CVMFS_SERVER_URL="http://129.215.175.41/cvmfs/euclid.in2p3.fr;http://cceuclids1.in2p3.fr/cvmfs/euclid.in2p3.fr" 
-                CVMFS_HTTP_PROXY="http://{{http_proxy}}:3128" 
+                CVMFS_HTTP_PROXY="http://{{ http_proxy }}:3128" 
                 CVMFS_PUBLIC_KEY=/etc/cvmfs/keys/euclid.in2p3.fr.pub
         mode: 0444
       notify:
@@ -109,7 +109,7 @@
         dest: "/etc/cvmfs/config.d/euclid-dev.in2p3.fr.conf"
         content: |
                 CVMFS_SERVER_URL="http://129.215.175.41/cvmfs/euclid-dev.in2p3.fr;http://cceuclids1.in2p3.fr/cvmfs/euclid-dev.in2p3.fr" 
-                CVMFS_HTTP_PROXY="http://{{http_proxy}}:3128" 
+                CVMFS_HTTP_PROXY="http://{{ http_proxy }}:3128" 
                 CVMFS_PUBLIC_KEY=/etc/cvmfs/keys/euclid-dev.in2p3.fr.pub
         mode: 0444
       notify:

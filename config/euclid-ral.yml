@@ -15,6 +15,7 @@ cluster_groups:
 
 cluster_gw_group: "gw"
 cluster_guest_user: "mholliman"
+cluster_homedir: "/euclid"
 
 openvpn_gw:
   name: "gw"
@@ -200,13 +201,14 @@ euclid_users:
 #    ssh_key:
 #      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDQharjXndGvQLihlPp9tdXzSUNei/JUFuiOJbkfdNoPUAM+ZrV+LhI6HEGD7jJxDom86FK/f4QveZi/Xk+g1dfSQvtIj0YGJyu+5GZPkJfpxQsDwcIaaH96yqJMe9Xbh8asnoqkAGZIi7+QUaffEhOcuy9cajgfBwx81tav56rRNl8R6ej9c3nauAdMM1A+Nd98sKNk9VPM1m+6SKEbmHLL6AQTIRZMNz8r5PzPAqmkoDTx2nXnqVSsVi4TZ0RU4meIKhCzqZLGKUEqFKVhNmAmNLmGkI2IhAF+qTjR7Y+jHW/pyj/rZ0CU+B0tpJ7OaUQ6P14HdUeRbSXHR7TXkxT gconge@sdc-uk.roe.ac.uk"
   - username: "hpcholl1"
-    groups: [ "{{ euclid_group_name }}", "{{ iris_group_name }}" ]
+    groups: [ "{{ euclid_group_name }}", "{{ iris_group_name }}", "wheel" ]
     name: "Mark Holliman <msh@roe.ac.uk>"
     home: "{{euclid_homedir}}/hpcholl1"
     uid: 16287
     ssh_key:
       - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCwNcXawcsNzA73TxmyozskeA3Ex5el0iLhGWtSPz43R5//VjE/7sHmcsrm8HsFnDXp35S+GIwSX3MwGkjzzrUOCz2yGZi82yq9AzhYS1fa1UJhYb76HevIMk85u3DNij4FuNFnTCmoVWXglukrCHW8KgsqBiuah9uXZfsRPOysJOjWLcj+VI+U5A4kVehpyFNMAi5Re4/9n/PSxbvcNmsdW6lpEVhHJcYDmKPd6ZvgiH2uf6kpeTffb2LQAdittchhKot+0AAe5nERVcCGd8NGYcApf0pJ7KJU7xzzliBAZbYvEsnJTuJDfInVLFIZPHZdJGyv7VyqNNqW9WoXg1Cr euclid@sdc-uk.roe.ac.uk"
       - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDWnl+U7SsHd+BggD498vGl7sOOF6cP5bo1QJsBHQsBdgsmcrutb2ZzHgW5/jCiR8DUtj+ezN0NnIQPkcPBNsMCKYx0ib+mE9SlPVru3uqWp9oK/Bl6FWwWdG2KIX7tlbWAKlb2toHXD6C9mV88g2oiaYI7576MGbDjUHGlxPoP3JT78TpUeJ1UOPoQ5gXo/39Y8qzfSKoPvibP0CuDCLB/7nob8LYaFaHczTILcrfhnrDNMg5WjhaDoMobjWwTAAe7x+YRbPsmYAESax8CsjvRjiJkQ7Z8XkBd3hCuQqTeaegtNAxfIimYs0oPhYMk7dZaT5ZoG/AB1TlmUO1oGIyv hpcholl1@ilab-gate.ilab.cluster"
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDE4q8BN97rLhtpwLVRSxtzpnbafHzPB39URvpUNJpwGAlqfRD7kS0V8ELbOP9TjxpkkLINS2mzoma9i7MagRm8WVqA7BxP8StnLPbBeCJYuuWya3Oic3SAFcu73+JYuIYSP/xotn6vMPBHhuH+LsbeThsL8N/hBMveXHZV8N970KFbHdg9MK5A/g+QkxBYmIrbZ6ISPFewMGOLc8u7iH770d/J7ZOFh2tRmrixy+wgvx3ur6/ZUCwLKg7/+PBLZyBT0aRnmm124tyjJ9MF9bx7cd4GcCvi87C67lg4vgaLoXbOCB0fe4nczxtrHghk+lQBL16EmLBhSYBLcJ/3DqmL Euclid-SaaS-RAL"
   - username: "hpccros1"
     groups: [ "{{ euclid_group_name }}", "{{ iris_group_name }}" ]
     name: "Nick Cross <njc@roe.ac.uk>"
@@ -222,12 +224,13 @@ euclid_users:
 #    ssh_key:
 #      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDI8NVRUR6uro/ZTNQ8BPgy8+a3OSK47HKmP9zmmYhTyHcmRoZsnyVsmzXvMxtvMJsehWtA6l07yzdisShXemZqKQpdiJkw269ofo1eXKyA1Sw/C5wHGZSLE6bZkX1+rFeNlJII+CgxnVgyfQRVh1wnsrQJSKwGd7o+qOo3iYJiE9gGZChZdHFiUgZ7X9IJz21R7/Ra4h+COpXMC4sNVjyT7dswHi1Kjj1IYnKVnDaeOy7Ofgy96O6S5vz1uVrvUxhhyvoK3D4KQ5zoG3bW8wfAZjUXx3MXmMAV4SsnOXz5EWZA6wwMzvH1O177IwbScv8HmSsQfIRiQ8PlKMnMXABR nirajw@sdc-uk.roe.ac.uk"
   - username: "sclt100"
+    groups: [ "{{ euclid_group_name }}", "{{ iris_group_name }}", "wheel" ]
     name: "Stig Telfer <stig@stackhpc.com>"
     home: "{{euclid_homedir}}/sclt100"
     uid: 15238
     ssh_key:
-      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDCLva2hRoqcA77XoK0t7aPmip4CmxM6SdsnJdbN4i0l72Rf6HMNH2ZR5p+eZPxaxiJgmtQ5MpquNt775lFSGVIV7oyAKDdYuLA/8KXoKje4EsCMfA9m6Eg8urjrPprelTAl7xsem1eH9c/Jk6TFbJSyMrY7kvgNo1KZ+D24F5cCSSRncy0s5GoPWEJfdnSHdjvxc97vhSPY9KwsaMdbpj+u+1WlUDeoLjMsWLPDsqnIHLwYN74f9jfTvsoQxw9Wq3dmzRvy8sQkJ1OoAeuuM4B4MKel7U6QqrhMYyIUG2pcSBBICtT2Q5V4RhnBIqQrL8w1efq+TeD/ETSuQgFBiq1 sclt100@ilab-gate.ilab.cluster"
-      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCqySju7sKVGV8muTQ3KL7ZN/b4FQ3Sbm3vuUMEjO7lShmb7QeeXcQnJLkqiUD+VOC7WtBDwlMtvtC9KQHixpBohBrV/0fJ4zBElQ5ijpnLmwmKN/lEcoquvpL37LVAH7PxpnY2ElhhdgJxxYqruhJJZSwxTYC3XGoY1YosYY5SqZM1ZpTfEVHuN7VCzCiggcDHJAd+zG+1XRlYUHqPB3f29ymXTSG1C3EwaezrTY6+nUM5+Kcw7bOutxPfSev5Vk9densyQg9tsfjWBC0fbobOltWsycDMvlhT/Otc8XMFaHw1BZKjVkrcDQ2t364h9RmLGs6k777ECiE1IphSbXST sclt100@eod-control"
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDE4q8BN97rLhtpwLVRSxtzpnbafHzPB39URvpUNJpwGAlqfRD7kS0V8ELbOP9TjxpkkLINS2mzoma9i7MagRm8WVqA7BxP8StnLPbBeCJYuuWya3Oic3SAFcu73+JYuIYSP/xotn6vMPBHhuH+LsbeThsL8N/hBMveXHZV8N970KFbHdg9MK5A/g+QkxBYmIrbZ6ISPFewMGOLc8u7iH770d/J7ZOFh2tRmrixy+wgvx3ur6/ZUCwLKg7/+PBLZyBT0aRnmm124tyjJ9MF9bx7cd4GcCvi87C67lg4vgaLoXbOCB0fe4nczxtrHghk+lQBL16EmLBhSYBLcJ/3DqmL stig@skellig.local"
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDkXbp+OEyRoAtLPvmNJoLQJJKbjfWXVT3xyyLArzbKDNUkC8mdOUJDFPOJj91CEKKPd1x+6ys6EzJ8zFpfTQYkULClUE3XVx5q7ZMdQE3wROK+++z4RCcKrTgArd2wp5cfluMbwgp+HThuv+hdEvpEmltiALWk8wocPS6lHQmpq7AA+oB798ErNGITjfOdBbAmzcJ/Qba6y8J/ksShBDyn+dnhOT/M9wLsJaO5lh2wRqO6WxLZ6N5tlQZyyXAxBsphi+4u4gG1FiCdu7CClQr+zxEGHOnYxtbSa0X51zINxFKQAljI0IXYFJ3/7hmjkGhd1bGdXvVIqFOQdKGNFvXR stig@skellig.local"
   - username: "pfb29"
     name: "Paul Browne <pfb29@cam.ac.uk>"
     home: "{{euclid_homedir}}/pfb29"

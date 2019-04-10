@@ -1,0 +1,40 @@
+---
+infra_name: "cam"
+
+# Site-specific network configuration.
+infra_net:
+  - net: "cumulus-internal"
+    subnet: "cumulus-internal"
+    floating_net: "internet"
+    security_groups:
+      - "default"
+      - "allow-ssh"
+      - "allow-openvpn"
+
+# These flavors are defined with ephemeral secondary disks
+infra_flavor_base: "general.v1.small"
+infra_flavor_login: "general.v1.small"
+infra_flavor_compute: "general.v1.large"
+
+# Cluster-infra Heat Resources to use for Cambridge Cumulus Cloud
+# Note that ephemeral disks are performant local SSD at Cambridge
+infra_resource_node_base: "Cluster::Instance"
+infra_resource_node_storage: "Cluster::Instance"
+
+infra_resource_net_base: "Cluster::NodeNet1"
+#infra_resource_net_external: "Cluster::NodeNet1WithPreallocatedFIP"
+infra_resource_net_external: "Cluster::NodeNet1WithFIP"
+infra_resource_net_external_fips:
+  - uuid: "a97faeee-0992-4639-a7e2-8b2ab2644a8e"
+    ip: "128.232.224.72"
+infra_resource_net_compute: "{{ infra_resource_net_base }}"
+
+infra_image_base: "CentOS7-1901"
+infra_image_login: "{{ infra_image_base }}"
+infra_image_compute: "{{ infra_image_base }}"
+
+infra_user_base: "centos"
+infra_user_login: "{{ infra_user_base }}"
+infra_user_compute: "{{ infra_user_base }}"
+
+

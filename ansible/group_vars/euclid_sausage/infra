@@ -1,0 +1,36 @@
+---
+infra_name: "sausage"
+
+# Site-specific network configuration.
+infra_net:
+  - net: "gateway"
+    subnet: "393103dc-7386-4f71-9250-41b007dbfe82" # gateway 10.0.0.0/24
+    floating_net: "internet"
+    security_groups:
+      - "default"
+      - "allow-openvpn"
+
+infra_flavor_base: "bratwurst"
+infra_flavor_login: "hotdog"
+infra_flavor_compute: "saveloy"
+
+# Cluster-infra Heat Resources to use for Sausage Cloud
+# Note that Sausage Cloud does not have Cinder support
+infra_resource_node_base: "Cluster::Instance"
+infra_resource_node_storage: "Cluster::Instance"
+
+infra_resource_net_base: "Cluster::NodeNet1"
+infra_resource_net_external: "Cluster::NodeNet1WithFIP"
+infra_resource_net_compute: "{{ infra_resource_net_base }}"
+infra_resource_net_external_fips: [ [], [], ]
+
+
+infra_image_base: "CentOS 7.6"
+infra_image_login: "{{ infra_image_base }}"
+infra_image_compute: "{{ infra_image_base }}"
+
+infra_user_base: "centos"
+infra_user_login: "{{ infra_user_base }}"
+infra_user_compute: "{{ infra_user_base }}"
+
+

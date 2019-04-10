@@ -1,15 +1,39 @@
+---
+
+# Creation of the users listed in euclid_users
+# (see group_vars/all/users)
+
+# NOTE: a cluster filesystem should be in place and mounted
+# before invoking this playbook.
+
 - hosts:
     - cluster_login
     - cluster_batch
   become: yes
   pre_tasks:
+
+    # NB: should already exist from cluster filesystem setup.
+
     - name: Ensure user home dir root exists
       file:
         path: "{{ euclid_homedir }}"
         state: directory
 
   roles:
+
+    # To avoid races, we run the user creation role twice:
+    # - once on a single node to create the home directory
+    # - then on all nodes to create user state but skip 
+    #   home directory creation.
+
     - role: singleplatform-eng.users
       users: "{{ euclid_users }}"
       groups_to_create: "{{ euclid_groups }}"
+      run_once: true
 
+    - role: singleplatform-eng.users
+      users: "{{ euclid_users }}"
+      groups_to_create: "{{ euclid_groups }}"
+      users_create_homedirs: false
+
+...

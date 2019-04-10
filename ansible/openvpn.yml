@@ -1,0 +1,14 @@
+---
+
+- hosts:
+  - cluster_gw
+
+  roles:
+
+  - role: stackhpc.openvpn
+    become: true
+    openvpn_servers: "{{ groups['cluster_gw'] }}"
+    openvpn_clients: "{{ groups['cluster_gw'] }}"
+    openvpn_subnet_clients: "{{ ansible_play_hosts }}"
+    openvpn_proto: tcp
+
