@@ -22,6 +22,8 @@ infra_resource_node_storage: "Cluster::Instance"
 infra_resource_net_base: "Cluster::NodeNet1"
 infra_resource_net_external: "Cluster::NodeNet1WithFIP"
 infra_resource_net_compute: "{{ infra_resource_net_base }}"
+infra_resource_net_external_fips: [ [], [], ]
+
 
 infra_image_base: "CentOS 7.6"
 infra_image_login: "{{ infra_image_base }}"

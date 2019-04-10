@@ -1,0 +1,85 @@
+---
+# This name is used for the Heat stack and as a prefix for the
+# cluster node hostnames.
+cluster_name: "euclid-{{ infra_name }}"
+
+cluster_groups:
+  - "{{ openvpn_gw }}"
+  - "{{ slurm_compute }}"
+  - "{{ cvmfs_proxy }}"
+
+cluster_gw_group: "gw"
+cluster_guest_user: "{{ infra_user_base }}"
+cluster_homedir: "/euclid"
+
+openvpn_gw:
+  name: "gw"
+  flavor: "{{ infra_flavor_base }}"
+  image: "{{ infra_image_base }}"
+  user: "{{ infra_user_base }}"
+  num_nodes: 1
+  nodenet_resource: "{{ infra_resource_net_external }}"
+  nodenet_fips: "{{ [infra_resource_net_external_fips[0]] | default(omit) }}"
+
+slurm_compute:
+  name: "compute"
+  flavor: "{{ infra_flavor_compute }}"
+  image: "{{ infra_image_compute }}"
+  user: "{{ infra_user_compute }}"
+  num_nodes: 4
+  nodenet_resource: "{{ infra_resource_net_base }}"
+  node_resource: "{{ infra_resource_node_storage }}"
+  volume_size: 100
+  volume_type: "rbd"
+
+cvmfs_proxy:
+  name: "proxy"
+  flavor: "{{ infra_flavor_base }}"
+  image: "{{ infra_image_base }}"
+  user: "{{ infra_user_base }}"
+  num_nodes: 1
+  nodenet_resource: "{{ infra_resource_net_base }}"
+  node_resource: "{{ infra_resource_node_storage }}"
+  volume_size: 60
+  volume_type: "rbd"
+
+
+# Node group assignments for cluster roles.
+# These group assignments are appended to the cluster inventory file.
+# The names of these roles are cross-referenced to groups referred to
+# in playbooks in the ansible/ directory.
+cluster_roles:
+  # A group of all nodes deployed in this infrastructure.
+  - name: "{{ infra_name }}"
+    groups:
+      - "{{ openvpn_gw }}"
+      - "{{ slurm_compute }}"
+      - "{{ cvmfs_proxy }}"
+
+  # All nodes that should be mounting the Ceph filesystem
+  - name: "ceph_client"
+    groups: 
+      - "{{ slurm_compute }}"
+  - name: "gw"
+    groups:
+      - "{{ openvpn_gw }}"
+  - name: "batch"
+    groups: 
+      - "{{ slurm_compute }}" 
+  - name: "cvmfs_proxy"
+    groups:
+      - "{{ cvmfs_proxy }}"
+  - name: "ceph_mon"
+    groups:
+      - "{{ openvpn_gw }}"
+  - name: "ceph_osd"
+    groups:
+      - "{{ slurm_compute }}"
+
+# Define a list of SLURM partitions to create.
+openhpc_slurm_partitions: 
+  - name: "{{ infra_name }}"
+    groups:
+      - "{{ slurm_compute }}"
+
+
