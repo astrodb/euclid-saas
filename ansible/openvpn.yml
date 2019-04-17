@@ -2,9 +2,22 @@
 - hosts:
   - cluster_gw
   pre_tasks:
+    - block:
+      - set_fact:
+          blocking_site_regexp: ".*-{{ site_blocking_openvpn }}-.*"
+      - name: Find blocked gateway
+        set_fact:
+          blocked_gateway: "{{ groups['cluster_gw'] | select('match', blocking_site_regexp) | first }}"
+      - name: Force blocked gateway to act as a client
+        set_fact:
+          gateways: "{{ groups['cluster_gw'] | reject('==', blocked_gateway) | list + [ blocked_gateway ] }}"
+      when: site_blocking_openvpn is defined
+    - set_fact:
+        gateways: "{{ groups['cluster_gw'] }}"
+      when: site_blocking_openvpn is not defined
     - name: Find index in gateway list
       set_fact:
-        gateway_index: "{{ groups['cluster_gw'].index(inventory_hostname) }}"
+        gateway_index: "{{ gateways.index(inventory_hostname) }}"
     - name: Initialise list of servers and clients
       set_fact:
         openvpn_servers: []
@@ -14,15 +27,15 @@
         openvpn_servers: "{{ openvpn_servers + [ item.1 ] }}"
       when:
         - item.0|int <= gateway_index|int
-        - groups['cluster_gw'][item.0|int + 1] | default(false)
+        - gateways[item.0|int + 1] | default(false)
       with_indexed_items:
-        - "{{ groups['cluster_gw'] }}"
+        - "{{ gateways }}"
     - name: Populate list of clients
       set_fact:
         openvpn_clients: "{{ openvpn_clients + [ item.1 ] }}"
       when: item.0|int >= gateway_index|int 
       with_indexed_items:
-        - "{{ groups['cluster_gw'] }}"
+        - "{{ gateways }}"
   roles:
   - role: stackhpc.openvpn
     become: true
