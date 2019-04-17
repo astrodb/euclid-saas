@@ -3,8 +3,8 @@ infra_name: "cam"
 
 # Site-specific network configuration.
 infra_net:
-  - net: "cumulus-internal"
-    subnet: "cumulus-internal"
+  - net: "euclid"
+    subnet: "euclid"
     floating_net: "internet"
     security_groups:
       - "default"
