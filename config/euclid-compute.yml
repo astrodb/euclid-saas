@@ -20,6 +20,8 @@ openvpn_gw:
   num_nodes: 1
   nodenet_resource: "{{ infra_resource_net_external }}"
   nodenet_fips: "{{ [infra_resource_net_external_fips[0]] | default(omit) }}"
+  router_networks:
+    - ip_address: "0.0.0.0/0"
 
 slurm_compute:
   name: "compute"
