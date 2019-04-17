@@ -20,7 +20,7 @@
 - src: stackhpc.openhpc
 - name: stackhpc.openvpn
   src: https://github.com/stackhpc/ansible-role-openvpn
-  version: master
+  version: host-routes
 - src: stackhpc.os-container-infra
 - src: stackhpc.os-manila-mount
 - src: stackhpc.os-config
