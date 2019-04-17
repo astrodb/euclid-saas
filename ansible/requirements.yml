@@ -8,7 +8,9 @@
 - src: resmo.ntp
 - src: singleplatform-eng.users
 - src: stackhpc.beegfs
-- src: stackhpc.cluster-infra
+- name: stackhpc.cluster-infra
+  src: https://github.com/stackhpc/ansible-role-cluster-infra
+  version: router_ports
 - src: stackhpc.grafana-conf
 - src: stackhpc.gluster-cluster
 - src: stackhpc.monasca-agent
