@@ -1,14 +1,30 @@
 ---
-
 - hosts:
   - cluster_gw
-
+  pre_tasks:
+    - name: Find index in gateway list
+      set_fact:
+        gateway_index: "{{ groups['cluster_gw'].index(inventory_hostname) }}"
+    - name: Initialise list of servers and clients
+      set_fact:
+        openvpn_servers: []
+        openvpn_clients: []
+    - name: Populate list of servers
+      set_fact:
+        openvpn_servers: "{{ openvpn_servers + [ item.1 ] }}"
+      when:
+        - item.0|int <= gateway_index|int
+        - groups['cluster_gw'][item.0|int + 1] | default(false)
+      with_indexed_items:
+        - "{{ groups['cluster_gw'] }}"
+    - name: Populate list of clients
+      set_fact:
+        openvpn_clients: "{{ openvpn_clients + [ item.1 ] }}"
+      when: item.0|int >= gateway_index|int 
+      with_indexed_items:
+        - "{{ groups['cluster_gw'] }}"
   roles:
-
   - role: stackhpc.openvpn
     become: true
-    openvpn_servers: "{{ groups['cluster_gw'] }}"
-    openvpn_clients: "{{ groups['cluster_gw'] }}"
     openvpn_subnet_clients: "{{ ansible_play_hosts }}"
     openvpn_proto: tcp
-
