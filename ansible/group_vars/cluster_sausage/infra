@@ -14,6 +14,8 @@ infra_flavor_base: "bratwurst"
 infra_flavor_login: "hotdog"
 infra_flavor_compute: "saveloy"
 
+infra_count_compute: 6
+
 # Cluster-infra Heat Resources to use for Sausage Cloud
 # Note that Sausage Cloud does not have Cinder support
 infra_resource_node_base: "Cluster::Instance"

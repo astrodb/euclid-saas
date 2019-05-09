@@ -1,0 +1,6 @@
+---
+# Connect to Cambridge University NTP services
+infra_ntp_servers:
+  - 129.215.205.191
+
+...

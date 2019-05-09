@@ -1,8 +1,8 @@
 # Ansible inventory for creating and managing infrastructure on Cambridge Cumulus Cloud
 
 # Ansible Shade uses OpenStack clients running locally
-[euclid_cam]
+[cluster_cam]
 localhost ansible_connection=local ansible_python_interpreter=python
 
 [openstack:children]
-euclid_cam
+cluster_cam

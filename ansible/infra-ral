@@ -1,8 +1,8 @@
 # Ansible inventory for creating and managing infrastructure at RAL
 
 # Ansible Shade uses OpenStack clients running locally
-[euclid_ral]
+[cluster_ral]
 localhost ansible_connection=local ansible_python_interpreter=python
 
 [openstack:children]
-euclid_ral
+cluster_ral

@@ -1,5 +1,6 @@
 ---
 # Sorted by maintainer name, role name
+- src: mrlesmithjr.manage-lvm
 - src: mrlesmithjr.mdadm
 - name: mrlesmithjr.squid
   src: https://github.com/stackhpc/ansible-squid

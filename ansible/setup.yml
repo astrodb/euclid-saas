@@ -26,6 +26,8 @@
 
 # Bring in site-specific infrastructure configuration.
 # It doesn't seem like there's a parameterised way of doing this
+- import_playbook: "setup-edi.yml"
+  when: infra_name == "edi"
 - import_playbook: "setup-ral.yml"
   when: infra_name == "ral"
 - import_playbook: "setup-cam.yml"

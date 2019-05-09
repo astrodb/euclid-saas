@@ -1,6 +1,7 @@
 ---
-- include: ssh-known-hosts.yml
+#- include: ssh-known-hosts.yml
 - include: setup.yml
+- include: openvpn.yml
 #- include: euclid-ib.yml
 #- include: manila-client.yml
 - include: euclid-users.yml

@@ -8,7 +8,7 @@ ansible/inventory_*
 ansible/inventory-*
 
 # Ansible roles installed from Galaxy.
-ansible/roles/*\.*/
+ansible/roles/*\.*
 
 # IntelliJ files
 .idea

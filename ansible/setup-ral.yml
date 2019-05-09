@@ -3,7 +3,7 @@
 # Site configuration specific to RAL OpenStack infrastructure.
 
 - hosts:
-    - euclid_ral
+    - cluster_ral
   become: yes
   tasks:
 

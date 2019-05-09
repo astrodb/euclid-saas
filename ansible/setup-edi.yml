@@ -1,0 +1,10 @@
+---
+
+# Site configuration specific to Cambridge / Cumulus infrastructure
+
+- hosts:
+    - euclid-edi
+
+  become: yes
+
+...

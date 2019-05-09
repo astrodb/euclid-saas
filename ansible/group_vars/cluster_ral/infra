@@ -11,13 +11,20 @@ infra_net:
       - "default"
       - "intranet"
       - "allow-openvpn"
+      - "allow-cam"
+      - "allow-sausage"
 
 # Custom availability zone appears to be necessary for RAL deployments using volumes
 infra_az: "ceph"
 
 infra_flavor_base: "m2.small"
 infra_flavor_login: "m2.small"
-infra_flavor_compute: "m3.xlarge"
+infra_flavor_compute: "c1.large"
+#infra_flavor_compute: "c1.xxlarge"
+#infra_flavor_compute: "c1.medium"
+
+# Number of compute nodes (maximising our quota)
+infra_count_compute: 12
 
 # Cluster-infra Heat Resources to use for RAL OpenStack
 infra_resource_node_base: "Cluster::Instance"
