@@ -24,6 +24,21 @@
     - role: resmo.ntp
       ntp_config_server: "{{ infra_ntp_servers | default(omit) }}"
 
+  tasks:
+
+    # Improve entropy for processors with hardware support for rdrand
+    # This improves the performance of encrypted connections
+    - name: Ensure RNGD package is installed
+      package:
+        name: rng-tools
+        state: present
+    - name: Ensure RNGD is enabled and started
+      systemd:
+        name: rngd
+        enabled: yes
+        state: started
+
+
 # Bring in site-specific infrastructure configuration.
 # It doesn't seem like there's a parameterised way of doing this
 - import_playbook: "setup-edi.yml"
