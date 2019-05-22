@@ -31,12 +31,18 @@
           - gateways[item.0|int + 1] | default(false)
         with_indexed_items:
           - "{{ gateways }}"
+      # Create a client list without this host in it
+      # Add this host only if there are servers defined other than this host.
       - name: Populate list of clients
         set_fact:
           openvpn_clients: "{{ openvpn_clients + [ item.1 ] }}"
-        when: item.0|int >= gateway_index|int
+        when: item.0|int > gateway_index|int
         with_indexed_items:
           - "{{ gateways }}"
+      - name: Conditionally add this host as a client
+        set_fact:
+          openvpn_clients: "{{ openvpn_clients + [inventory_hostname] }}"
+        when: openvpn_servers | difference([inventory_hostname]) | length > 0
       when: inventory_hostname in groups['cluster_gw']
     - block:
         - set_fact:
