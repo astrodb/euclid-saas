@@ -13,6 +13,7 @@ infra_net:
       - "allow-openvpn"
       - "allow-cam"
       - "allow-sausage"
+      - "allow-edi"
 
 # Custom availability zone appears to be necessary for RAL deployments using volumes
 infra_az: "ceph"
