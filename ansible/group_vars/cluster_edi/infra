@@ -2,3 +2,4 @@
 # Edinburgh infrastructure is not actually managed here
 infra_name: "edi"
 
+infra_intranet_interface: "ansible_eth1"
