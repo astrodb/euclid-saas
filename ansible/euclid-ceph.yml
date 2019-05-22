@@ -1,0 +1,9 @@
+---
+
+# Nodes that are defined as OSD servers must have LVM configuration applied.
+# This configuration will be defined in site inventory.
+- hosts: cluster_ceph_osd
+  roles:
+    - role: mrlesmithjr.manage-lvm
+      become: true
+...
