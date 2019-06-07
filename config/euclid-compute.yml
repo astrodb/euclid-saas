@@ -80,11 +80,3 @@ cluster_roles:
   - name: "ceph_osd"
     groups:
       - "{{ slurm_compute }}"
-
-# Define a list of SLURM partitions to create.
-openhpc_slurm_partitions: 
-  - name: "{{ infra_name }}"
-    groups:
-      - "{{ slurm_compute }}"
-
-
