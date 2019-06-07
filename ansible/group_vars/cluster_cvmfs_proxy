@@ -1,0 +1,12 @@
+---
+
+squid_cache_disk_dir: "/srv/squid"
+squid_pri_domain_name: 'novalocal'
+
+# Proxy nodes can use a good chunk of their total RAM for Squid proxy
+squid_cache_ram_mb: "{{ ansible_memtotal_mb / 4 }}"
+
+squid_cache_ram_obj_kb: 16384
+squid_cache_disk_obj_kb: 65536
+
+...

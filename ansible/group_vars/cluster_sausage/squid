@@ -1,0 +1,7 @@
+---
+# No dedicated device on Sausage cloud
+squid_cache_disk_mb: 20000
+
+...
+
+
