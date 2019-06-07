@@ -4,7 +4,11 @@
 
 - hosts:
     - euclid-cam_compute
-
   become: yes
-
+  tasks:
+    - name: Ensure vdb is not mounted
+      mount:
+        src: "/dev/vdb"
+        path: "/mnt"
+        state: unmounted
 ...
