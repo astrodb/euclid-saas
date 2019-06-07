@@ -9,7 +9,8 @@ openhpc_packages:
   - cfitsio-devel
   - cfitsio-docs
   - wcslib
-  - wcslib-utils
+  # Appears to have a dependency on an older version of cfitsio
+  #- wcslib-utils
   - wcslib-devel
   - wcstools
   - ncurses
@@ -55,12 +56,14 @@ openhpc_packages:
   - libpng-devel
   - libpng
   - cairo
-  - cairo-devel
+  # Appears to have issues with multilib compatibility and pixman
+  #- cairo-devel
   - python-matplotlib 
 # - python-astropy
 # - python-astropy-doc
   - PyQt4
-  - PyQt4-devel
+  # Appears to have a broken dependency on PyQt4
+  #- PyQt4-devel
   - pyephem
   - python-Cython
   - python-Cython-debuginfo
