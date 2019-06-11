@@ -1,0 +1,12 @@
+---
+
+# Name of the CephFS filesystem on the federated Euclid Ceph cluster
+euclid_ceph_name: "cephfs"
+
+# CephFS mount point on Ceph client hosts
+euclid_ceph_mount: "/ceph"
+
+# CephX client username
+euclid_ceph_client: "euclid"
+
+...

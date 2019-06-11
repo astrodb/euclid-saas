@@ -2,7 +2,7 @@
 
 # Mount point for Euclid user home directories.
 # This should be consistent across the deployment.
-euclid_homedir: "/euclid"
+euclid_homedir: "/ceph/home"
 euclid_group_name: "euclid"
 iris_group_name: "iris"
 

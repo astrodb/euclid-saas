@@ -1,0 +1,8 @@
+---
+# At Cambridge IRIS we use a Cinder volume
+squid_cache_disk_mb: 48000
+
+...
+
+
+

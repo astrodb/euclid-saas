@@ -1,0 +1,8 @@
+---
+# At Edinburgh we don't have much root fs capacity
+squid_cache_disk_mb: 2000
+
+...
+
+
+

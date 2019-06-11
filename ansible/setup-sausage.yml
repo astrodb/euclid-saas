@@ -2,18 +2,21 @@
 
 # Site configuration specific to RAL OpenStack infrastructure.
 
+# Create some fake OSD storage devices on compute nodes
 - hosts:
-    - euclid_sausage
+    - euclid-sausage_compute
 
   become: yes
 
-  roles:
-    - role: stackhpc.cluster-nfs
-      nfs_enable:
-        server: "{{ inventory_hostname in groups['euclid_sausage_control'] }}"
-        clients: "{{ inventory_hostname in groups['euclid_sausage_login']|union(groups['euclid_sausage_compute'])}}"
-      nfs_export: "/srv/euclid"
-      nfs_client_mnt_point: "{{ euclid_homedir }}"
-      nfs_server: "{{ groups['euclid_sausage_control'] | first }}"
+  tasks:
+    - name: Create loopback backing file
+      command: "dd if=/dev/zero of={{ sausage_osd_loopback_file }} bs=1G count={{ sausage_osd_loopback_gigabytes }}"
+      args:
+        creates: "{{ sausage_osd_loopback_file }}"
+
+    - name: Create loopback device
+      command: "losetup /dev/loop0 {{ sausage_osd_loopback_file }}"
+      args:
+        creates: "/dev/loop0"
 
 ...

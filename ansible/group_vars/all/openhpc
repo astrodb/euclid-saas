@@ -1,0 +1,21 @@
+---
+
+# Define a list of SLURM partitions to create.
+openhpc_slurm_partitions:
+  - name: "cam"
+    groups:
+      - cluster_name: "euclid-cam"
+        name: "compute"
+        num_nodes: "{{ groups['euclid-cam_compute'] | length }}"
+  - name: "ral"
+    groups:
+      - cluster_name: "euclid-ral"
+        name: "compute"
+        num_nodes: "{{ groups['euclid-ral_compute'] | length }}"
+  - name: "sausage"
+    groups:
+      - cluster_name: "euclid-sausage"
+        name: "compute"
+        num_nodes: "{{ groups['euclid-sausage_compute'] | length }}"
+
+...

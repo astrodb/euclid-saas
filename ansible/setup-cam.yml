@@ -1,0 +1,50 @@
+---
+
+# Site configuration specific to Cambridge / Cumulus infrastructure
+
+- hosts:
+    - euclid-cam_compute
+    - euclid-cam_proxy
+  become: yes
+  tasks:
+    - name: Check if /mnt is mounted
+      set_fact:
+        mnt_mounted: "{{ ansible_mounts | selectattr('mount', 'eq', '/mnt') | list | length | bool }}"
+
+    - name: Ensure vdb is not mounted on /mnt
+      mount:
+        src: "/dev/vdb"
+        path: "/mnt"
+        state: unmounted
+      when: mnt_mounted
+
+- hosts:
+    - euclid-cam_proxy
+  become: yes
+  tasks:
+    - name: Ensure serve dir exists
+      file:
+        path: "/srv"
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Check if serve disk is mounted
+      set_fact:
+        serve_disk_mounted: "{{ ansible_mounts | selectattr('mount', 'eq', '/srv') | list | length | bool }}"
+
+    - name: Ensure serve disk is formatted
+      filesystem:
+        dev: "/dev/vdb"
+        fstype: "ext4"
+      when: 
+        - not serve_disk_mounted 
+
+    - name: Ensure serve disk is mounted
+      mount:
+        fstype: "ext4"
+        path: "/srv"
+        src: "/dev/vdb"
+        state: mounted
+...

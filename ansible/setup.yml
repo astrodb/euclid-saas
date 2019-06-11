@@ -24,8 +24,33 @@
     - role: resmo.ntp
       ntp_config_server: "{{ infra_ntp_servers | default(omit) }}"
 
+  tasks:
+
+    # Improve entropy for processors with hardware support for rdrand
+    # This improves the performance of encrypted connections
+    - name: Ensure RNGD package is installed
+      package:
+        name: rng-tools
+        state: present
+    - name: Ensure RNGD is enabled and started
+      systemd:
+        name: rngd
+        enabled: yes
+        state: started
+
+    # Drop SELinux into permissive state if it is currently enforcing
+    - name: Put SELinux out of Enforcing state
+      selinux:
+        policy: targeted
+        state: permissive
+      when: 
+        - ansible_selinux.status == "enabled"
+        - ansible_selinux.mode == "enforcing"
+
 # Bring in site-specific infrastructure configuration.
 # It doesn't seem like there's a parameterised way of doing this
+- import_playbook: "setup-edi.yml"
+  when: infra_name == "edi"
 - import_playbook: "setup-ral.yml"
   when: infra_name == "ral"
 - import_playbook: "setup-cam.yml"
@@ -33,4 +58,10 @@
 - import_playbook: "setup-sausage.yml"
   when: infra_name == "sausage"
 
+# Nodes that are defined as OSD servers must have LVM configuration applied.
+# This configuration will be defined in site inventory.
+- hosts: cluster_ceph_osd
+  roles:
+    - role: mrlesmithjr.manage-lvm
+      become: true
 ...

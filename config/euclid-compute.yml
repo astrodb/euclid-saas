@@ -28,7 +28,7 @@ slurm_compute:
   flavor: "{{ infra_flavor_compute }}"
   image: "{{ infra_image_compute }}"
   user: "{{ infra_user_compute }}"
-  num_nodes: 4
+  num_nodes: "{{ infra_count_compute }}"
   nodenet_resource: "{{ infra_resource_net_base }}"
   node_resource: "{{ infra_resource_node_storage }}"
   volume_size: 100
@@ -73,15 +73,10 @@ cluster_roles:
       - "{{ cvmfs_proxy }}"
   - name: "ceph_mon"
     groups:
-      - "{{ openvpn_gw }}"
+      - "{{ cvmfs_proxy }}"
+  - name: "ceph_mds"
+    groups:
+      - "{{ cvmfs_proxy }}"
   - name: "ceph_osd"
     groups:
       - "{{ slurm_compute }}"
-
-# Define a list of SLURM partitions to create.
-openhpc_slurm_partitions: 
-  - name: "{{ infra_name }}"
-    groups:
-      - "{{ slurm_compute }}"
-
-

@@ -1,0 +1,7 @@
+---
+#openvpn_host_subnet_cidr: "10.10.120.0/24"
+openvpn_server_port: 8080
+
+# Interface of subnet which should be routed to OpenVPN 
+openvpn_intra_if: "eth1"
+...

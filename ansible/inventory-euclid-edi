@@ -1,0 +1,49 @@
+# Ansible Shade uses OpenStack clients running locally
+[openstack]
+localhost ansible_connection=local ansible_python_interpreter=python
+
+[euclid-edi_gw]
+euclid-edi-gw-0 ansible_host=192.41.108.89 ansible_user=stackhpc
+
+[euclid-edi_ctrl]
+euclid-edi-ctrl-0 ansible_host=192.41.108.88 ansible_user=stackhpc
+
+# Aliases for Edinburgh deploy
+[euclid-edi_proxy:children]
+euclid-edi_ctrl
+
+#
+# Specific roles for cluster deployment assignments
+#
+
+[cluster:children]
+euclid-edi_gw
+euclid-edi_ctrl
+
+[cluster_edi:children]
+euclid-edi_gw
+euclid-edi_ctrl
+
+[cluster_edi:vars]
+ansible_ssh_common_args="-o ProxyJump=ubuntu@www.stackhpc.com -o ForwardAgent=yes"
+
+[cluster_ceph_client:children]
+euclid-edi_ctrl
+
+[cluster_gw:children]
+euclid-edi_gw
+
+[cluster_cvmfs_proxy:children]
+euclid-edi_proxy
+
+[cluster_ceph_mon:children]
+euclid-edi_ctrl
+
+[cluster_ceph_mds:children]
+euclid-edi_ctrl
+
+[cluster_control:children]
+euclid-edi_ctrl
+
+[cluster_login:children]
+euclid-edi_ctrl
