@@ -38,6 +38,14 @@
         enabled: yes
         state: started
 
+    # Drop SELinux into permissive state if it is currently enforcing
+    - name: Put SELinux out of Enforcing state
+      selinux:
+        policy: targeted
+        state: permissive
+      when: 
+        - ansible_selinux.status == "enabled"
+        - ansible_selinux.mode == "enforcing"
 
 # Bring in site-specific infrastructure configuration.
 # It doesn't seem like there's a parameterised way of doing this

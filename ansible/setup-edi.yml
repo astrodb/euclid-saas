@@ -3,7 +3,7 @@
 # Site configuration specific to Cambridge / Cumulus infrastructure
 
 - hosts:
-    - euclid-edi
+    - cluster_edi
 
   become: yes
 
