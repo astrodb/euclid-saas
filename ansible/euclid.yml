@@ -1,12 +1,10 @@
 ---
-#- include: ssh-known-hosts.yml
 - include: setup.yml
 - include: openvpn.yml
-#- include: euclid-ib.yml
-#- include: manila-client.yml
+# Normally we stop at this point to create and mount
+# a cluster filesystem (using Ceph-Ansible)
 - include: euclid-users.yml
 - include: euclid-cvmfs.yml
-#- include: euclid-lustre.yml
 - include: euclid-openhpc.yml
 - include: euclid-ial.yml
 - include: euclid-limits.yml

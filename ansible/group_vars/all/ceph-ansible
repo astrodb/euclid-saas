@@ -1,0 +1,27 @@
+---
+
+ntp_service_enabled: false
+
+ceph_origin: repository
+ceph_repository: community
+ceph_stable_release: mimic
+
+fsid: 68801036-16b7-42b9-bacb-8e6ef8ea4214
+
+ceph_intra_if: "{{ openvpn_intra_if | default(ansible_default_ipv4.interface) }}"
+ceph_intra_ipv4: "{{ hostvars[inventory_hostname]['ansible_' + ceph_intra_if]['ipv4'] }}"
+ceph_intra_cidr: "{{ (ceph_intra_ipv4.network + '/' + ceph_intra_ipv4.netmask) | ipaddr('net') }}"
+
+monitor_interface: "{{ ceph_intra_if }}"
+public_network: "{{ ceph_intra_cidr }}"
+cluster_network: "{{ ceph_intra_cidr }}"
+
+osd_objectstore: bluestore
+
+ceph_conf_overrides:
+   global:
+      osd_pool_default_pg_num: 256
+      osd_pool_default_size: 2
+      osd_pool_default_min_size: 1
+
+...
