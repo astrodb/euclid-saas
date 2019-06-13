@@ -43,6 +43,7 @@ openhpc_packages:
   - openblas-gnu-ohpc
   - gsl-gnu-ohpc
   - python-scipy-gnu-openmpi-ohpc
+  - nhc-ohpc
   - python34
   - python34-devel
   - python-virtualenv

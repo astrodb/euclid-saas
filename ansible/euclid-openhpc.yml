@@ -35,3 +35,54 @@
 
 # Run the common slurm playbook, pulling in facts defined above
 - import_playbook: slurm.yml
+
+# Configure the installation of LBNL NHC (https://github.com/mej/nhc)
+- hosts:
+    - cluster_control
+    - cluster_batch
+  become: yes
+  handlers:
+    - name: Reload Slurm daemon
+      service:
+        name: slurmd
+        state: reloaded
+      when: inventory_hostname in groups['cluster_batch']
+
+    - name: Reload Slurm controller daemon
+      service:
+        name: slurmctld
+        state: reloaded
+      when: inventory_hostname in groups['cluster_control']
+
+  tasks:
+    - name: Install configuration for NHC
+      copy:
+        content: |
+          # Check that ssh is running
+          * || check_ps_service -u root -S sshd
+          # All nodes should have their root filesystem mounted read/write.
+          * || check_fs_mount_rw -f /
+          # All nodes should have the ceph filesystem mounted read/write.
+          * || check_fs_mount -t ceph -o '/(^|,)noatime(,|$)/' -f /ceph
+          # All nodes should have the cvmfs filesystem mounted
+          * || check_file_test -a /cvmfs/euclid.in2p3.fr/CentOS7
+          * || check_file_test -a /cvmfs/euclid-dev.in2p3.fr/CentOS7
+        dest: /etc/nhc/nhc.conf
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Configure Slurm for NHC 
+      lineinfile:
+        path: "/etc/slurm/slurm.conf"
+        regexp: "^[# ]*{{ item.key }}=.*"
+        line: "{{ item.key }}={{ item.val }}"
+      with_list:
+        - { key: HealthCheckProgram,  val: /usr/sbin/nhc }
+        - { key: HealthCheckInterval, val: 300 }
+        - { key: Prolog,              val: /usr/sbin/nhc }
+        - { key: SchedulerParameters, val: nohold_on_prolog_fail }
+      notify:
+        - Reload Slurm daemon
+        - Reload Slurm controller daemon
+
