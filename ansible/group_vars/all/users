@@ -47,5 +47,12 @@ euclid_users:
     ssh_key:
       - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDE4q8BN97rLhtpwLVRSxtzpnbafHzPB39URvpUNJpwGAlqfRD7kS0V8ELbOP9TjxpkkLINS2mzoma9i7MagRm8WVqA7BxP8StnLPbBeCJYuuWya3Oic3SAFcu73+JYuIYSP/xotn6vMPBHhuH+LsbeThsL8N/hBMveXHZV8N970KFbHdg9MK5A/g+QkxBYmIrbZ6ISPFewMGOLc8u7iH770d/J7ZOFh2tRmrixy+wgvx3ur6/ZUCwLKg7/+PBLZyBT0aRnmm124tyjJ9MF9bx7cd4GcCvi87C67lg4vgaLoXbOCB0fe4nczxtrHghk+lQBL16EmLBhSYBLcJ/3DqmL stig@skellig.local"
       - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDkXbp+OEyRoAtLPvmNJoLQJJKbjfWXVT3xyyLArzbKDNUkC8mdOUJDFPOJj91CEKKPd1x+6ys6EzJ8zFpfTQYkULClUE3XVx5q7ZMdQE3wROK+++z4RCcKrTgArd2wp5cfluMbwgp+HThuv+hdEvpEmltiALWk8wocPS6lHQmpq7AA+oB798ErNGITjfOdBbAmzcJ/Qba6y8J/ksShBDyn+dnhOT/M9wLsJaO5lh2wRqO6WxLZ6N5tlQZyyXAxBsphi+4u4gG1FiCdu7CClQr+zxEGHOnYxtbSa0X51zINxFKQAljI0IXYFJ3/7hmjkGhd1bGdXvVIqFOQdKGNFvXR stig@skellig.local"
+  - username: "mcnab"
+    groups: [ "{{ iris_group_name }}" ]
+    name: "Andrew McNab <andrew.mcnab@cern.ch>"
+    home: "{{ euclid_homedir }}/mcnab"
+    uid: 15239
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAIEAuFxxq0w1gPENOxj6Uj4PhzomdVfJyBvWP9z8bWTYarErvqLQIZpUeBFW8sM+k/nnugUhYln59nJHsZk7GhTdicZJ4YxJF6mM3NMqisjYfuUdQXchTcKyy0yCdXv/P2xygvx0vBrIWROMYNLaTt/TdBeZQVC/JbWcJchrUSbpqec= andrew.mcnab@cern.ch"
 
 ...

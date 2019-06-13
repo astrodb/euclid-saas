@@ -1,4 +1,4 @@
-ansible>=2.5.0
+ansible~=2.7
 os-client-config
 shade
 openstacksdk

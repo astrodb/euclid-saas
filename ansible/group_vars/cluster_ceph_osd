@@ -1,0 +1,10 @@
+---
+
+# Define hierarchy in the crush map to enable us to set
+# region-aware crush rules.
+osd_crush_location:
+  root: "root_{{ infra_name }}"
+  region: "region_{{ infra_name }}"
+  host: "{{ inventory_hostname }}"
+
+...
