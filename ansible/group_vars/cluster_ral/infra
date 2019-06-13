@@ -20,12 +20,10 @@ infra_az: "ceph"
 
 infra_flavor_base: "m2.small"
 infra_flavor_login: "m2.small"
-infra_flavor_compute: "c1.large"
-#infra_flavor_compute: "c1.xxlarge"
-#infra_flavor_compute: "c1.medium"
+infra_flavor_compute: "c1.xxlarge"
 
 # Number of compute nodes (maximising our quota)
-infra_count_compute: 12
+infra_count_compute: 40
 
 # Cluster-infra Heat Resources to use for RAL OpenStack
 infra_resource_node_base: "Cluster::Instance"
