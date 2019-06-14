@@ -1,0 +1,14 @@
+---
+- hosts: cluster_ceph_client
+  tasks:
+  - name: Perform CephFS client mount
+    mount:
+      path: "{{ euclid_ceph_mount }}"
+      src: "{{ groups['cluster_ceph_mon'] | join(',') }}:6789:/"
+      fstype: ceph
+      state: unmounted
+      opts: "_netdev,noatime,name={{ euclid_ceph_client }},secretfile=/etc/ceph/ceph.client.{{ euclid_ceph_client }}.secret"
+      boot: yes
+    become: True
+
+...
