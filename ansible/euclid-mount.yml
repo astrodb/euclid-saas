@@ -1,0 +1,40 @@
+---
+- hosts: cluster_ceph_mon
+  tasks:
+  - name: Extract secret
+    command: "ceph auth get-or-create-key client.{{ euclid_ceph_client }} mds 'allow rwp' mon 'allow r' osd 'allow *'"
+    become: True
+    run_once: True
+    register: cephfs_mount_secret
+
+- hosts: cluster_ceph_client
+  tasks:
+  - name: Ensure client mount points exist
+    file: 
+      path: "{{ euclid_ceph_mount }}"
+      state: directory
+      owner: root
+      group: root
+      mode: 0755
+    become: True
+
+  - name: Write secret file
+    copy:
+      dest: "/etc/ceph/ceph.client.{{ euclid_ceph_client }}.secret"
+      owner: root
+      group: root
+      mode: 0600
+      content: "{{ hostvars[groups['cluster_ceph_mon'][0]].cephfs_mount_secret.stdout }}"
+    become: True
+
+  - name: Perform CephFS client mount
+    mount:
+      path: "{{ euclid_ceph_mount }}"
+      src: "{{ groups['cluster_ceph_mon'] | join(',') }}:6789:/"
+      fstype: ceph
+      state: mounted
+      opts: "_netdev,noatime,name={{ euclid_ceph_client }},secretfile=/etc/ceph/ceph.client.{{ euclid_ceph_client }}.secret"
+      boot: yes
+    become: True
+
+...
