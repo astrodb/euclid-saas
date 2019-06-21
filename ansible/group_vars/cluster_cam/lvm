@@ -4,7 +4,7 @@
 lvm_groups: 
   - vgname: ceph
     disks:
-      - /dev/vdb
+      - "{{ compute_ephemeral_dev }}"
     create: true
     lvnames:
       - lvname: osd
