@@ -19,6 +19,7 @@ infra_count_compute: 6
 # Cluster-infra Heat Resources to use for Sausage Cloud
 # Note that Sausage Cloud does not have Cinder support
 infra_resource_node_base: "Cluster::Instance"
+infra_resource_node_compute: "Cluster::Instance"
 infra_resource_node_storage: "Cluster::Instance"
 
 infra_resource_net_base: "Cluster::NodeNet1"

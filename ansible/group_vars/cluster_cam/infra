@@ -21,6 +21,7 @@ infra_count_compute: 12
 # Cluster-infra Heat Resources to use for Cambridge Cumulus Cloud
 # Note that ephemeral disks are performant local SSD at Cambridge
 infra_resource_node_base: "Cluster::Instance"
+infra_resource_node_compute: "Cluster::Instance"
 infra_resource_node_storage: "Cluster::InstanceWithVolume"
 
 infra_resource_net_base: "Cluster::NodeNet1"

@@ -13,13 +13,15 @@
 
     - name: Ensure vdb is not mounted on /mnt
       mount:
-        src: "/dev/vdb"
+        src: "{{ compute_ephemeral_dev }}"
         path: "/mnt"
         state: unmounted
       when: mnt_mounted
 
 - hosts:
     - euclid-cam_proxy
+  vars:
+    proxy_cinder_dev: "/dev/sdb"
   become: yes
   tasks:
     - name: Ensure serve dir exists
@@ -36,7 +38,7 @@
 
     - name: Ensure serve disk is formatted
       filesystem:
-        dev: "/dev/vdb"
+        dev: "{{ proxy_cinder_dev }}"
         fstype: "ext4"
       when: 
         - not serve_disk_mounted 
@@ -45,6 +47,6 @@
       mount:
         fstype: "ext4"
         path: "/srv"
-        src: "/dev/vdb"
+        src: "{{ proxy_cinder_dev }}"
         state: mounted
 ...
