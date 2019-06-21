@@ -7,6 +7,7 @@ cluster_groups:
   - "{{ openvpn_gw }}"
   - "{{ slurm_compute }}"
   - "{{ cvmfs_proxy }}"
+  - "{{ ial_agent }}"
 
 cluster_gw_group: "gw"
 cluster_guest_user: "{{ infra_user_base }}"
@@ -45,6 +46,15 @@ cvmfs_proxy:
   volume_size: 60
   volume_type: "rbd"
 
+ial_agent:
+  name: "ial"
+  flavor: "{{ infra_flavor_base }}"
+  image: "{{ infra_image_base }}"
+  user: "{{ infra_user_base }}"
+  num_nodes: 1
+  nodenet_resource: "{{ infra_resource_net_base }}"
+  node_resource: "{{ infra_resource_node_base }}"
+
 
 # Node group assignments for cluster roles.
 # These group assignments are appended to the cluster inventory file.
@@ -57,11 +67,13 @@ cluster_roles:
       - "{{ openvpn_gw }}"
       - "{{ slurm_compute }}"
       - "{{ cvmfs_proxy }}"
+      - "{{ ial_agent }}"
 
   # All nodes that should be mounting the Ceph filesystem
   - name: "ceph_client"
     groups: 
       - "{{ slurm_compute }}"
+      - "{{ ial_agent }}"
   - name: "gw"
     groups:
       - "{{ openvpn_gw }}"
@@ -80,3 +92,6 @@ cluster_roles:
   - name: "ceph_osd"
     groups:
       - "{{ slurm_compute }}"
+  - name: "ial"
+    groups:
+      - "{{ ial_agent }}"
