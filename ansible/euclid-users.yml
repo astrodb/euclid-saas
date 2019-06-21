@@ -36,4 +36,15 @@
       groups_to_create: "{{ euclid_groups }}"
       users_create_homedirs: false
 
+  tasks:
+
+    - name: Ensure users in wheel have passwordless sudo
+      copy:
+        content: |
+          %wheel ALL=(ALL) NOPASSWD:ALL
+        dest: "/etc/sudoers.d/99-wheel-users"
+        owner: root
+        group: root
+        mode: 0440
+
 ...
