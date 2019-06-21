@@ -11,10 +11,10 @@
             blocked_gateway: "{{ groups['cluster_gw'] | select('match', blocking_site_regexp) | first }}"
         - name: Force blocked gateway to act as a client
           set_fact:
-            gateways: "{{ groups['cluster_gw'] | reject('==', blocked_gateway) | list + [ blocked_gateway ] }}"
+            gateways: "{{ groups['cluster_gw'] | reject('==', blocked_gateway) | list | sort + [ blocked_gateway ] }}"
         when: site_blocking_openvpn is defined
       - set_fact:
-          gateways: "{{ groups['cluster_gw'] }}"
+          gateways: "{{ groups['cluster_gw'] | sort }}"
         when: site_blocking_openvpn is not defined
       - name: Find index in gateway list
         set_fact:
