@@ -47,3 +47,4 @@ euclid-edi_ctrl
 
 [cluster_login:children]
 euclid-edi_ctrl
+cluster_ial
