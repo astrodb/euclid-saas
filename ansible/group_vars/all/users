@@ -15,7 +15,7 @@ euclid_groups:
 
 euclid_users:
   - username: "hpcgill1"
-    groups: [ "{{ euclid_group_name }}", "{{ iris_group_name }}" ]
+    groups: [ "{{ euclid_group_name }}", "{{ iris_group_name }}", "wheel" ]
     name: "Bryan R. Gillis <b.gillis@roe.ac.uk>"
     home: "{{euclid_homedir}}/hpcgill1"
     uid: 16291
