@@ -2,6 +2,9 @@
 [openstack]
 localhost ansible_connection=local ansible_python_interpreter=python
 
+# Define groups used but not populated in this inventory
+[cluster_ial]
+
 [euclid-edi_gw]
 euclid-edi-gw-0 ansible_host=192.41.108.89 ansible_user=stackhpc
 
@@ -25,7 +28,8 @@ euclid-edi_gw
 euclid-edi_ctrl
 
 [cluster_edi:vars]
-ansible_ssh_common_args="-o ProxyJump=ubuntu@www.stackhpc.com -o ForwardAgent=yes"
+ansible_ssh_common_args="-o ForwardAgent=yes"
+#ansible_ssh_common_args="-o ProxyJump=ubuntu@www.stackhpc.com -o ForwardAgent=yes"
 
 [cluster_ceph_client:children]
 euclid-edi_ctrl
