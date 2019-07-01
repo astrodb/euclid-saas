@@ -16,7 +16,7 @@ infra_flavor_base: "general.v1.small"
 infra_flavor_login: "general.v1.small"
 infra_flavor_compute: "general.v1.large"
 
-infra_count_compute: 12
+infra_count_compute: 36
 
 # Cluster-infra Heat Resources to use for Cambridge Cumulus Cloud
 # Note that ephemeral disks are performant local SSD at Cambridge
@@ -40,4 +40,6 @@ infra_user_base: "centos"
 infra_user_login: "{{ infra_user_base }}"
 infra_user_compute: "{{ infra_user_base }}"
 
-
+# Workaround: the device name for ephemeral storage changed in the
+# course of development of this deployment.
+compute_ephemeral_dev: "/dev/sdb"
