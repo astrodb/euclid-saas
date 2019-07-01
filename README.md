@@ -249,3 +249,46 @@ system libraries.  For example:
 module load gnu7 openmpi3 imb
 srun  -p cam -N 2 --mpi=pmix IMB-MPI1 PingPong
 ```
+
+## Scaling the Deployment
+
+To change the size in either direction, the same playbooks are run.
+They are intended to be idempotent, so running them across the existing
+deployment should have no impact on compute nodes that already have the
+required configuration (see additional notes on scaling down, below).
+
+### Scaling Down the Deployment 
+
+Scaling down a running deployment has some additional nuances
+that must be taken into account:
+
+* If there are running jobs, the nodes must be drained from Slurm before
+  they are destroyed.
+
+* The data each compute node stores as part of the Ceph filesystem must
+  be migrated to other instances.
+
+Due to the numbering schemes, the compute nodes removed from an instance
+are always the highest-numbered compute nodes.
+
+#### Removing an OSD from Ceph
+
+Following the process defined in the 
+[http://docs.ceph.com/docs/master/rados/operations/add-or-rm-osds/#removing-osds-manual](Ceph online documentation),
+we remove a node from the Ceph cluster following this process:
+
+* Use `ceph osd tree` to find the OSD number associated with the node to remove.
+* As `root` on a Ceph monitor node, run `ceph osd out` for the OSD instance.
+* Watch for cluster rebalancing using `ceph -w`
+* Connect to the victim compute node and run `systemctl stop ceph-osd@<i>` for the OSD instance.
+* As `root` on a Ceph monitor node, run `ceph osd purge --yes-i-really-mean-it` for the OSD instance.
+
+For example:
+
+```
+sudo ceph osd tree
+sudo ceph osd out 2
+sudo ceph -w
+ssh -i ~/.ssh/id_euclid centos@euclid-sausage-compute-4 sudo systemctl stop ceph-osd@2
+ceph osd purge 2 --yes-i-really-mean-it
+```
