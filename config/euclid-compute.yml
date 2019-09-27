@@ -32,7 +32,7 @@ slurm_compute:
   num_nodes: "{{ infra_count_compute }}"
   nodenet_resource: "{{ infra_resource_net_base }}"
   node_resource: "{{ infra_resource_node_compute }}"
-  volume_size: 100
+  volume_size: 170
   volume_type: "rbd"
 
 cvmfs_proxy:

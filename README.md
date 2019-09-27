@@ -203,7 +203,6 @@ ensure that all required operations happen once everywhere.
 ansible-playbook -i ansible/inventory-euclid-ral \
                  -i ansible/inventory-euclid-edi \
                  -i ansible/inventory-euclid-cam \
-                 -i ansible/inventory-euclid-sausage \
                  ansible/euclid-users.yml  
 ```
 
@@ -220,7 +219,6 @@ package updates.
 ansible-playbook -i ansible/inventory-euclid-ral \
                  -i ansible/inventory-euclid-edi \
                  -i ansible/inventory-euclid-cam \
-                 -i ansible/inventory-euclid-sausage \
                  -e @config/euclid-compute.yml \
                  ansible/euclid-cvmfs.yml  
 ```
@@ -235,7 +233,6 @@ nodes for each site placed into a dedicated partition.
 ansible-playbook -i ansible/inventory-euclid-ral \
                  -i ansible/inventory-euclid-edi \
                  -i ansible/inventory-euclid-cam \
-                 -i ansible/inventory-euclid-sausage \
                  -e @config/euclid-compute.yml \
                  ansible/euclid-openhpc.yml  
 ```

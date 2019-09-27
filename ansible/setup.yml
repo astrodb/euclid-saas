@@ -6,7 +6,29 @@
 #    - role: alaska_secrets
 #      secret_name: "alaska.auth.p3-monitor"
 #      secret_var: "alaska_auth_p3_monitor"
-  
+
+# It can be a little slow to get ssh connections initiated.
+# This can trigger problems with high connection concurrency through
+# a ProxyJump intermediary.
+# Increase the number of connections permitted in the startup state
+# from the default of 10 to 50.
+- hosts: cluster_gw
+  become: yes
+  tasks:
+    - name: Increase gw connection concurrency for ProxyJump
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        create: no    # Really should be there, something's wrong if not
+        state: present
+        regexp: "^[# ]*MaxStartups +[0-9]+:[0-9]+:[0-9]+"
+        line: "MaxStartups 50:30:100"
+      notify: Restart sshd
+  handlers:
+    - name: Restart sshd
+      systemd:
+        name: sshd
+        state: reloaded
+
 # Apply generic setup configuration that is universally useful
 - hosts: cluster
   become: yes
