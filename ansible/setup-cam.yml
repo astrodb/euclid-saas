@@ -15,7 +15,7 @@
       mount:
         src: "{{ compute_ephemeral_dev }}"
         path: "/mnt"
-        state: unmounted
+        state: absent
       when: mnt_mounted
 
 - hosts:
