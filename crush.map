@@ -1,0 +1,1340 @@
+# begin crush map
+tunable choose_local_tries 0
+tunable choose_local_fallback_tries 0
+tunable choose_total_tries 50
+tunable chooseleaf_descend_once 1
+tunable chooseleaf_vary_r 1
+tunable chooseleaf_stable 1
+tunable straw_calc_version 1
+tunable allowed_bucket_algs 54
+
+# devices
+device 0 osd.0 class hdd
+device 1 osd.1 class hdd
+device 2 osd.2 class hdd
+device 3 osd.3 class hdd
+device 4 osd.4 class hdd
+device 5 osd.5 class hdd
+device 6 osd.6 class hdd
+device 7 osd.7 class hdd
+device 8 osd.8 class hdd
+device 9 osd.9 class hdd
+device 10 osd.10 class hdd
+device 11 osd.11 class hdd
+device 12 osd.12 class hdd
+device 13 osd.13 class hdd
+device 14 osd.14 class hdd
+device 15 osd.15 class hdd
+device 16 osd.16 class hdd
+device 17 osd.17 class hdd
+device 18 osd.18 class hdd
+device 19 osd.19 class hdd
+device 20 osd.20 class hdd
+device 21 osd.21 class hdd
+device 22 osd.22 class hdd
+device 23 osd.23 class hdd
+device 24 osd.24 class hdd
+device 25 osd.25 class hdd
+device 26 osd.26 class hdd
+device 27 osd.27 class hdd
+device 28 osd.28 class hdd
+device 29 osd.29 class hdd
+device 30 osd.30 class hdd
+device 31 osd.31 class hdd
+device 32 osd.32 class hdd
+device 33 osd.33 class hdd
+device 34 osd.34 class hdd
+device 35 osd.35 class hdd
+device 36 osd.36 class hdd
+device 38 osd.38 class hdd
+device 39 osd.39 class hdd
+device 40 osd.40 class hdd
+device 41 osd.41 class hdd
+device 42 osd.42 class hdd
+device 43 osd.43 class hdd
+device 44 osd.44 class hdd
+device 45 osd.45 class hdd
+device 46 osd.46 class hdd
+device 47 osd.47 class hdd
+device 48 osd.48 class hdd
+device 49 osd.49 class hdd
+device 50 osd.50 class hdd
+device 51 osd.51 class hdd
+device 52 osd.52 class hdd
+device 53 osd.53 class hdd
+device 54 osd.54 class hdd
+device 55 osd.55 class hdd
+device 56 osd.56 class hdd
+device 57 osd.57 class hdd
+device 58 osd.58 class hdd
+device 59 osd.59 class hdd
+device 60 osd.60 class hdd
+device 61 osd.61 class hdd
+device 62 osd.62 class hdd
+device 63 osd.63 class hdd
+device 64 osd.64 class hdd
+device 65 osd.65 class hdd
+device 66 osd.66 class hdd
+device 67 osd.67 class hdd
+device 68 osd.68 class hdd
+device 69 osd.69 class hdd
+device 70 osd.70 class hdd
+device 71 osd.71 class hdd
+device 72 osd.72 class hdd
+device 73 osd.73 class hdd
+device 74 osd.74 class hdd
+device 75 osd.75 class hdd
+device 76 osd.76 class hdd
+device 77 osd.77 class hdd
+device 78 osd.78 class hdd
+device 79 osd.79 class hdd
+device 80 osd.80 class hdd
+device 81 osd.81 class hdd
+device 82 osd.82 class hdd
+device 83 osd.83 class hdd
+device 84 osd.84 class hdd
+device 85 osd.85 class hdd
+device 86 osd.86 class hdd
+device 87 osd.87 class hdd
+device 88 osd.88 class hdd
+device 89 osd.89 class hdd
+device 90 osd.90 class hdd
+device 91 osd.91 class hdd
+device 92 osd.92 class hdd
+device 93 osd.93 class hdd
+device 94 osd.94 class hdd
+device 95 osd.95 class hdd
+device 96 osd.96 class hdd
+device 97 osd.97 class hdd
+device 98 osd.98 class hdd
+device 99 osd.99 class hdd
+device 100 osd.100 class hdd
+device 101 osd.101 class hdd
+device 102 osd.102 class hdd
+device 103 osd.103 class hdd
+device 104 osd.104 class hdd
+device 105 osd.105 class hdd
+device 106 osd.106 class hdd
+device 107 osd.107 class hdd
+device 108 osd.108 class hdd
+device 109 osd.109 class hdd
+device 110 osd.110 class hdd
+device 111 osd.111 class hdd
+device 112 osd.112 class hdd
+device 113 osd.113 class hdd
+device 114 osd.114 class hdd
+device 115 osd.115 class hdd
+device 116 osd.116 class hdd
+device 117 osd.117 class hdd
+device 118 osd.118 class hdd
+device 119 osd.119 class hdd
+device 120 osd.120 class hdd
+device 121 osd.121 class hdd
+device 122 osd.122 class hdd
+device 123 osd.123 class hdd
+device 124 osd.124 class hdd
+device 125 osd.125 class hdd
+device 126 osd.126 class hdd
+
+# types
+type 0 osd
+type 1 host
+type 2 chassis
+type 3 rack
+type 4 row
+type 5 pdu
+type 6 pod
+type 7 room
+type 8 datacenter
+type 9 region
+type 10 root
+
+# buckets
+host euclid-cam-compute-0 {
+	id -2		# do not change unnecessarily
+	id -39 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.0 weight 0.156
+}
+host euclid-cam-compute-1 {
+	id -4		# do not change unnecessarily
+	id -40 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.1 weight 0.156
+}
+host euclid-cam-compute-2 {
+	id -5		# do not change unnecessarily
+	id -41 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.4 weight 0.156
+}
+host euclid-cam-compute-3 {
+	id -6		# do not change unnecessarily
+	id -42 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.5 weight 0.156
+}
+host euclid-cam-compute-4 {
+	id -7		# do not change unnecessarily
+	id -43 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.6 weight 0.156
+}
+host euclid-cam-compute-5 {
+	id -8		# do not change unnecessarily
+	id -44 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.7 weight 0.156
+}
+host euclid-cam-compute-6 {
+	id -9		# do not change unnecessarily
+	id -45 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.2 weight 0.156
+}
+host euclid-cam-compute-7 {
+	id -10		# do not change unnecessarily
+	id -46 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.3 weight 0.156
+}
+host euclid-cam-compute-8 {
+	id -11		# do not change unnecessarily
+	id -47 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.9 weight 0.156
+}
+host euclid-cam-compute-9 {
+	id -12		# do not change unnecessarily
+	id -48 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.8 weight 0.156
+}
+host euclid-cam-compute-10 {
+	id -13		# do not change unnecessarily
+	id -49 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.11 weight 0.156
+}
+host euclid-cam-compute-11 {
+	id -14		# do not change unnecessarily
+	id -50 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.10 weight 0.156
+}
+host euclid-cam-compute-12 {
+	id -15		# do not change unnecessarily
+	id -51 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.12 weight 0.156
+}
+host euclid-cam-compute-13 {
+	id -16		# do not change unnecessarily
+	id -52 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.13 weight 0.156
+}
+host euclid-cam-compute-14 {
+	id -17		# do not change unnecessarily
+	id -53 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.16 weight 0.156
+}
+host euclid-cam-compute-15 {
+	id -18		# do not change unnecessarily
+	id -54 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.15 weight 0.156
+}
+host euclid-cam-compute-16 {
+	id -19		# do not change unnecessarily
+	id -55 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.14 weight 0.156
+}
+host euclid-cam-compute-17 {
+	id -20		# do not change unnecessarily
+	id -56 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.17 weight 0.156
+}
+host euclid-cam-compute-18 {
+	id -21		# do not change unnecessarily
+	id -57 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.18 weight 0.156
+}
+host euclid-cam-compute-19 {
+	id -22		# do not change unnecessarily
+	id -58 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.19 weight 0.156
+}
+host euclid-cam-compute-20 {
+	id -23		# do not change unnecessarily
+	id -59 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.21 weight 0.156
+}
+host euclid-cam-compute-21 {
+	id -24		# do not change unnecessarily
+	id -60 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.20 weight 0.156
+}
+host euclid-cam-compute-22 {
+	id -25		# do not change unnecessarily
+	id -61 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.22 weight 0.156
+}
+host euclid-cam-compute-23 {
+	id -26		# do not change unnecessarily
+	id -62 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.23 weight 0.156
+}
+host euclid-cam-compute-24 {
+	id -27		# do not change unnecessarily
+	id -63 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.24 weight 0.156
+}
+host euclid-cam-compute-25 {
+	id -28		# do not change unnecessarily
+	id -64 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.25 weight 0.156
+}
+host euclid-cam-compute-26 {
+	id -29		# do not change unnecessarily
+	id -65 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.26 weight 0.156
+}
+host euclid-cam-compute-27 {
+	id -30		# do not change unnecessarily
+	id -66 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.27 weight 0.156
+}
+host euclid-cam-compute-28 {
+	id -31		# do not change unnecessarily
+	id -67 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.28 weight 0.156
+}
+host euclid-cam-compute-29 {
+	id -32		# do not change unnecessarily
+	id -68 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.29 weight 0.156
+}
+host euclid-cam-compute-30 {
+	id -33		# do not change unnecessarily
+	id -69 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.35 weight 0.156
+}
+host euclid-cam-compute-31 {
+	id -34		# do not change unnecessarily
+	id -70 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.32 weight 0.156
+}
+host euclid-cam-compute-32 {
+	id -35		# do not change unnecessarily
+	id -71 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.31 weight 0.156
+}
+host euclid-cam-compute-33 {
+	id -36		# do not change unnecessarily
+	id -72 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.30 weight 0.156
+}
+host euclid-cam-compute-34 {
+	id -37		# do not change unnecessarily
+	id -73 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.34 weight 0.156
+}
+host euclid-cam-compute-35 {
+	id -38		# do not change unnecessarily
+	id -74 class hdd		# do not change unnecessarily
+	# weight 0.156
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.33 weight 0.156
+}
+region region_cam {
+	id -3		# do not change unnecessarily
+	id -75 class hdd		# do not change unnecessarily
+	# weight 5.616
+	alg straw2
+	hash 0	# rjenkins1
+	item euclid-cam-compute-0 weight 0.156
+	item euclid-cam-compute-1 weight 0.156
+	item euclid-cam-compute-2 weight 0.156
+	item euclid-cam-compute-3 weight 0.156
+	item euclid-cam-compute-4 weight 0.156
+	item euclid-cam-compute-5 weight 0.156
+	item euclid-cam-compute-6 weight 0.156
+	item euclid-cam-compute-7 weight 0.156
+	item euclid-cam-compute-8 weight 0.156
+	item euclid-cam-compute-9 weight 0.156
+	item euclid-cam-compute-10 weight 0.156
+	item euclid-cam-compute-11 weight 0.156
+	item euclid-cam-compute-12 weight 0.156
+	item euclid-cam-compute-13 weight 0.156
+	item euclid-cam-compute-14 weight 0.156
+	item euclid-cam-compute-15 weight 0.156
+	item euclid-cam-compute-16 weight 0.156
+	item euclid-cam-compute-17 weight 0.156
+	item euclid-cam-compute-18 weight 0.156
+	item euclid-cam-compute-19 weight 0.156
+	item euclid-cam-compute-20 weight 0.156
+	item euclid-cam-compute-21 weight 0.156
+	item euclid-cam-compute-22 weight 0.156
+	item euclid-cam-compute-23 weight 0.156
+	item euclid-cam-compute-24 weight 0.156
+	item euclid-cam-compute-25 weight 0.156
+	item euclid-cam-compute-26 weight 0.156
+	item euclid-cam-compute-27 weight 0.156
+	item euclid-cam-compute-28 weight 0.156
+	item euclid-cam-compute-29 weight 0.156
+	item euclid-cam-compute-30 weight 0.156
+	item euclid-cam-compute-31 weight 0.156
+	item euclid-cam-compute-32 weight 0.156
+	item euclid-cam-compute-33 weight 0.156
+	item euclid-cam-compute-34 weight 0.156
+	item euclid-cam-compute-35 weight 0.156
+}
+host euclid-ral_compute_89 {
+	id -77		# do not change unnecessarily
+	id -79 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.36 weight 0.166
+}
+host euclid-ral_compute_88 {
+	id -81		# do not change unnecessarily
+	id -82 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.43 weight 0.166
+}
+host euclid-ral_compute_87 {
+	id -83		# do not change unnecessarily
+	id -84 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.42 weight 0.166
+}
+host euclid-ral_compute_86 {
+	id -85		# do not change unnecessarily
+	id -86 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.38 weight 0.166
+}
+host euclid-ral_compute_85 {
+	id -87		# do not change unnecessarily
+	id -88 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.46 weight 0.166
+}
+host euclid-ral_compute_84 {
+	id -89		# do not change unnecessarily
+	id -90 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.41 weight 0.166
+}
+host euclid-ral_compute_83 {
+	id -91		# do not change unnecessarily
+	id -92 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.57 weight 0.166
+}
+host euclid-ral_compute_82 {
+	id -93		# do not change unnecessarily
+	id -94 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.39 weight 0.166
+}
+host euclid-ral_compute_81 {
+	id -95		# do not change unnecessarily
+	id -96 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.47 weight 0.166
+}
+host euclid-ral_compute_80 {
+	id -97		# do not change unnecessarily
+	id -98 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.40 weight 0.166
+}
+host euclid-ral_compute_79 {
+	id -99		# do not change unnecessarily
+	id -100 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.48 weight 0.166
+}
+host euclid-ral_compute_78 {
+	id -101		# do not change unnecessarily
+	id -102 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.44 weight 0.166
+}
+host euclid-ral_compute_77 {
+	id -103		# do not change unnecessarily
+	id -104 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.45 weight 0.166
+}
+host euclid-ral_compute_76 {
+	id -105		# do not change unnecessarily
+	id -106 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.52 weight 0.166
+}
+host euclid-ral_compute_75 {
+	id -107		# do not change unnecessarily
+	id -108 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.53 weight 0.166
+}
+host euclid-ral_compute_74 {
+	id -109		# do not change unnecessarily
+	id -110 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.51 weight 0.166
+}
+host euclid-ral_compute_73 {
+	id -111		# do not change unnecessarily
+	id -112 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.49 weight 0.166
+}
+host euclid-ral_compute_72 {
+	id -113		# do not change unnecessarily
+	id -114 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.50 weight 0.166
+}
+host euclid-ral_compute_71 {
+	id -115		# do not change unnecessarily
+	id -116 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.56 weight 0.166
+}
+host euclid-ral_compute_70 {
+	id -117		# do not change unnecessarily
+	id -118 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.55 weight 0.166
+}
+host euclid-ral_compute_69 {
+	id -119		# do not change unnecessarily
+	id -120 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.54 weight 0.166
+}
+host euclid-ral_compute_68 {
+	id -121		# do not change unnecessarily
+	id -122 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.58 weight 0.166
+}
+host euclid-ral_compute_67 {
+	id -123		# do not change unnecessarily
+	id -124 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.59 weight 0.166
+}
+host euclid-ral_compute_66 {
+	id -125		# do not change unnecessarily
+	id -126 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.60 weight 0.166
+}
+host euclid-ral_compute_65 {
+	id -127		# do not change unnecessarily
+	id -128 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.61 weight 0.166
+}
+host euclid-ral_compute_64 {
+	id -129		# do not change unnecessarily
+	id -130 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.64 weight 0.166
+}
+host euclid-ral_compute_63 {
+	id -131		# do not change unnecessarily
+	id -132 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.63 weight 0.166
+}
+host euclid-ral_compute_62 {
+	id -133		# do not change unnecessarily
+	id -134 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.62 weight 0.166
+}
+host euclid-ral_compute_61 {
+	id -135		# do not change unnecessarily
+	id -136 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.65 weight 0.166
+}
+host euclid-ral_compute_60 {
+	id -137		# do not change unnecessarily
+	id -138 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.66 weight 0.166
+}
+host euclid-ral_compute_59 {
+	id -139		# do not change unnecessarily
+	id -140 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.71 weight 0.166
+}
+host euclid-ral_compute_58 {
+	id -141		# do not change unnecessarily
+	id -142 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.69 weight 0.166
+}
+host euclid-ral_compute_57 {
+	id -143		# do not change unnecessarily
+	id -144 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.68 weight 0.166
+}
+host euclid-ral_compute_56 {
+	id -145		# do not change unnecessarily
+	id -146 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.72 weight 0.166
+}
+host euclid-ral_compute_55 {
+	id -147		# do not change unnecessarily
+	id -148 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.73 weight 0.166
+}
+host euclid-ral_compute_54 {
+	id -149		# do not change unnecessarily
+	id -150 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.74 weight 0.166
+}
+host euclid-ral_compute_53 {
+	id -151		# do not change unnecessarily
+	id -152 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.70 weight 0.166
+}
+host euclid-ral_compute_52 {
+	id -153		# do not change unnecessarily
+	id -154 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.75 weight 0.166
+}
+host euclid-ral_compute_51 {
+	id -155		# do not change unnecessarily
+	id -156 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.76 weight 0.166
+}
+host euclid-ral_compute_50 {
+	id -157		# do not change unnecessarily
+	id -158 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.81 weight 0.166
+}
+host euclid-ral_compute_49 {
+	id -159		# do not change unnecessarily
+	id -160 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.77 weight 0.166
+}
+host euclid-ral_compute_48 {
+	id -161		# do not change unnecessarily
+	id -162 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.79 weight 0.166
+}
+host euclid-ral_compute_47 {
+	id -163		# do not change unnecessarily
+	id -164 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.67 weight 0.166
+}
+host euclid-ral_compute_46 {
+	id -165		# do not change unnecessarily
+	id -166 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.80 weight 0.166
+}
+host euclid-ral_compute_45 {
+	id -167		# do not change unnecessarily
+	id -168 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.78 weight 0.166
+}
+host euclid-ral_compute_44 {
+	id -169		# do not change unnecessarily
+	id -170 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.83 weight 0.166
+}
+host euclid-ral_compute_43 {
+	id -171		# do not change unnecessarily
+	id -172 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.82 weight 0.166
+}
+host euclid-ral_compute_42 {
+	id -173		# do not change unnecessarily
+	id -174 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.84 weight 0.166
+}
+host euclid-ral_compute_41 {
+	id -175		# do not change unnecessarily
+	id -176 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.96 weight 0.166
+}
+host euclid-ral_compute_40 {
+	id -177		# do not change unnecessarily
+	id -178 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.85 weight 0.166
+}
+host euclid-ral_compute_39 {
+	id -179		# do not change unnecessarily
+	id -180 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.95 weight 0.166
+}
+host euclid-ral_compute_38 {
+	id -181		# do not change unnecessarily
+	id -182 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.86 weight 0.166
+}
+host euclid-ral_compute_37 {
+	id -183		# do not change unnecessarily
+	id -184 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.89 weight 0.166
+}
+host euclid-ral_compute_36 {
+	id -185		# do not change unnecessarily
+	id -186 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.87 weight 0.166
+}
+host euclid-ral_compute_35 {
+	id -187		# do not change unnecessarily
+	id -188 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.97 weight 0.166
+}
+host euclid-ral_compute_34 {
+	id -189		# do not change unnecessarily
+	id -190 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.93 weight 0.166
+}
+host euclid-ral_compute_33 {
+	id -191		# do not change unnecessarily
+	id -192 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.98 weight 0.166
+}
+host euclid-ral_compute_32 {
+	id -193		# do not change unnecessarily
+	id -194 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.105 weight 0.166
+}
+host euclid-ral_compute_31 {
+	id -195		# do not change unnecessarily
+	id -196 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.91 weight 0.166
+}
+host euclid-ral_compute_30 {
+	id -197		# do not change unnecessarily
+	id -198 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.88 weight 0.166
+}
+host euclid-ral_compute_29 {
+	id -199		# do not change unnecessarily
+	id -200 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.90 weight 0.166
+}
+host euclid-ral_compute_28 {
+	id -201		# do not change unnecessarily
+	id -202 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.99 weight 0.166
+}
+host euclid-ral_compute_27 {
+	id -203		# do not change unnecessarily
+	id -204 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.94 weight 0.166
+}
+host euclid-ral_compute_26 {
+	id -205		# do not change unnecessarily
+	id -206 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.92 weight 0.166
+}
+host euclid-ral_compute_25 {
+	id -207		# do not change unnecessarily
+	id -208 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.103 weight 0.166
+}
+host euclid-ral_compute_24 {
+	id -209		# do not change unnecessarily
+	id -210 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.101 weight 0.166
+}
+host euclid-ral_compute_23 {
+	id -211		# do not change unnecessarily
+	id -212 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.104 weight 0.166
+}
+host euclid-ral_compute_22 {
+	id -213		# do not change unnecessarily
+	id -214 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.100 weight 0.166
+}
+host euclid-ral_compute_21 {
+	id -215		# do not change unnecessarily
+	id -216 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.102 weight 0.166
+}
+host euclid-ral_compute_20 {
+	id -217		# do not change unnecessarily
+	id -218 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.108 weight 0.166
+}
+host euclid-ral_compute_19 {
+	id -219		# do not change unnecessarily
+	id -220 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.106 weight 0.166
+}
+host euclid-ral_compute_18 {
+	id -221		# do not change unnecessarily
+	id -222 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.107 weight 0.166
+}
+host euclid-ral_compute_17 {
+	id -223		# do not change unnecessarily
+	id -224 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.109 weight 0.166
+}
+host euclid-ral_compute_16 {
+	id -225		# do not change unnecessarily
+	id -226 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.119 weight 0.166
+}
+host euclid-ral_compute_15 {
+	id -227		# do not change unnecessarily
+	id -228 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.110 weight 0.166
+}
+host euclid-ral_compute_14 {
+	id -229		# do not change unnecessarily
+	id -230 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.111 weight 0.166
+}
+host euclid-ral_compute_13 {
+	id -231		# do not change unnecessarily
+	id -232 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.112 weight 0.166
+}
+host euclid-ral_compute_12 {
+	id -233		# do not change unnecessarily
+	id -234 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.113 weight 0.166
+}
+host euclid-ral_compute_11 {
+	id -235		# do not change unnecessarily
+	id -236 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.120 weight 0.166
+}
+host euclid-ral_compute_10 {
+	id -237		# do not change unnecessarily
+	id -238 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.115 weight 0.166
+}
+host euclid-ral_compute_9 {
+	id -239		# do not change unnecessarily
+	id -240 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.114 weight 0.166
+}
+host euclid-ral_compute_8 {
+	id -241		# do not change unnecessarily
+	id -242 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.121 weight 0.166
+}
+host euclid-ral_compute_7 {
+	id -243		# do not change unnecessarily
+	id -244 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.116 weight 0.166
+}
+host euclid-ral_compute_6 {
+	id -245		# do not change unnecessarily
+	id -246 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.117 weight 0.166
+}
+host euclid-ral_compute_5 {
+	id -247		# do not change unnecessarily
+	id -248 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.118 weight 0.166
+}
+host euclid-ral_compute_4 {
+	id -249		# do not change unnecessarily
+	id -250 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.126 weight 0.166
+}
+host euclid-ral_compute_3 {
+	id -251		# do not change unnecessarily
+	id -252 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.122 weight 0.166
+}
+host euclid-ral_compute_2 {
+	id -253		# do not change unnecessarily
+	id -254 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.123 weight 0.166
+}
+host euclid-ral_compute_1 {
+	id -255		# do not change unnecessarily
+	id -256 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.124 weight 0.166
+}
+host euclid-ral_compute_0 {
+	id -257		# do not change unnecessarily
+	id -258 class hdd		# do not change unnecessarily
+	# weight 0.166
+	alg straw2
+	hash 0	# rjenkins1
+	item osd.125 weight 0.166
+}
+region region_ral {
+	id -78		# do not change unnecessarily
+	id -80 class hdd		# do not change unnecessarily
+	# weight 14.939
+	alg straw2
+	hash 0	# rjenkins1
+	item euclid-ral_compute_89 weight 0.166
+	item euclid-ral_compute_88 weight 0.166
+	item euclid-ral_compute_87 weight 0.166
+	item euclid-ral_compute_86 weight 0.166
+	item euclid-ral_compute_85 weight 0.166
+	item euclid-ral_compute_84 weight 0.166
+	item euclid-ral_compute_83 weight 0.166
+	item euclid-ral_compute_82 weight 0.166
+	item euclid-ral_compute_81 weight 0.166
+	item euclid-ral_compute_80 weight 0.166
+	item euclid-ral_compute_79 weight 0.166
+	item euclid-ral_compute_78 weight 0.166
+	item euclid-ral_compute_77 weight 0.166
+	item euclid-ral_compute_76 weight 0.166
+	item euclid-ral_compute_75 weight 0.166
+	item euclid-ral_compute_74 weight 0.166
+	item euclid-ral_compute_73 weight 0.166
+	item euclid-ral_compute_72 weight 0.166
+	item euclid-ral_compute_71 weight 0.166
+	item euclid-ral_compute_70 weight 0.166
+	item euclid-ral_compute_69 weight 0.166
+	item euclid-ral_compute_68 weight 0.166
+	item euclid-ral_compute_67 weight 0.166
+	item euclid-ral_compute_66 weight 0.166
+	item euclid-ral_compute_65 weight 0.166
+	item euclid-ral_compute_64 weight 0.166
+	item euclid-ral_compute_63 weight 0.166
+	item euclid-ral_compute_62 weight 0.166
+	item euclid-ral_compute_61 weight 0.166
+	item euclid-ral_compute_60 weight 0.166
+	item euclid-ral_compute_59 weight 0.166
+	item euclid-ral_compute_58 weight 0.166
+	item euclid-ral_compute_57 weight 0.166
+	item euclid-ral_compute_56 weight 0.166
+	item euclid-ral_compute_55 weight 0.166
+	item euclid-ral_compute_54 weight 0.166
+	item euclid-ral_compute_53 weight 0.166
+	item euclid-ral_compute_52 weight 0.166
+	item euclid-ral_compute_51 weight 0.166
+	item euclid-ral_compute_50 weight 0.166
+	item euclid-ral_compute_49 weight 0.166
+	item euclid-ral_compute_48 weight 0.166
+	item euclid-ral_compute_47 weight 0.166
+	item euclid-ral_compute_46 weight 0.166
+	item euclid-ral_compute_45 weight 0.166
+	item euclid-ral_compute_44 weight 0.166
+	item euclid-ral_compute_43 weight 0.166
+	item euclid-ral_compute_42 weight 0.166
+	item euclid-ral_compute_41 weight 0.166
+	item euclid-ral_compute_40 weight 0.166
+	item euclid-ral_compute_39 weight 0.166
+	item euclid-ral_compute_38 weight 0.166
+	item euclid-ral_compute_37 weight 0.166
+	item euclid-ral_compute_36 weight 0.166
+	item euclid-ral_compute_35 weight 0.166
+	item euclid-ral_compute_34 weight 0.166
+	item euclid-ral_compute_33 weight 0.166
+	item euclid-ral_compute_32 weight 0.166
+	item euclid-ral_compute_31 weight 0.166
+	item euclid-ral_compute_30 weight 0.166
+	item euclid-ral_compute_29 weight 0.166
+	item euclid-ral_compute_28 weight 0.166
+	item euclid-ral_compute_27 weight 0.166
+	item euclid-ral_compute_26 weight 0.166
+	item euclid-ral_compute_25 weight 0.166
+	item euclid-ral_compute_24 weight 0.166
+	item euclid-ral_compute_23 weight 0.166
+	item euclid-ral_compute_22 weight 0.166
+	item euclid-ral_compute_21 weight 0.166
+	item euclid-ral_compute_20 weight 0.166
+	item euclid-ral_compute_19 weight 0.166
+	item euclid-ral_compute_18 weight 0.166
+	item euclid-ral_compute_17 weight 0.166
+	item euclid-ral_compute_16 weight 0.166
+	item euclid-ral_compute_15 weight 0.166
+	item euclid-ral_compute_14 weight 0.166
+	item euclid-ral_compute_13 weight 0.166
+	item euclid-ral_compute_12 weight 0.166
+	item euclid-ral_compute_11 weight 0.166
+	item euclid-ral_compute_10 weight 0.166
+	item euclid-ral_compute_9 weight 0.166
+	item euclid-ral_compute_8 weight 0.166
+	item euclid-ral_compute_7 weight 0.166
+	item euclid-ral_compute_6 weight 0.166
+	item euclid-ral_compute_5 weight 0.166
+	item euclid-ral_compute_4 weight 0.166
+	item euclid-ral_compute_3 weight 0.166
+	item euclid-ral_compute_2 weight 0.166
+	item euclid-ral_compute_1 weight 0.166
+	item euclid-ral_compute_0 weight 0.166
+}
+root default {
+	id -1		# do not change unnecessarily
+	id -76 class hdd		# do not change unnecessarily
+	# weight 20.562
+	alg straw2
+	hash 0	# rjenkins1
+	item region_cam weight 5.623
+	item region_ral weight 14.939
+}
+
+# rules
+rule replicated_rule {
+	id 0
+	type replicated
+	min_size 1
+	max_size 10
+	step take default
+	step chooseleaf firstn 0 type host
+	step emit
+}
+rule replicated_cam {
+	id 1
+	type replicated
+	min_size 1
+	max_size 10
+	step take region_cam
+	step chooseleaf firstn 0 type host
+	step emit
+}
+rule replicated_ral {
+	id 2
+	type replicated
+	min_size 1
+	max_size 10
+	step take region_ral
+	step chooseleaf firstn 0 type host
+	step emit
+}
+
+# end crush map

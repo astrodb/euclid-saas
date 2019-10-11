@@ -1,0 +1,50 @@
+---
+- hosts:
+  - cluster
+  pre_tasks:
+    - block:
+      - block:
+        - set_fact:
+            blocking_site_regexp: ".*-{{ site_blocking_openvpn }}-.*"
+        - name: Find blocked gateway
+          set_fact:
+            blocked_gateway: "{{ groups['cluster_gw'] | select('match', blocking_site_regexp) | first }}"
+        - name: Force blocked gateway to act as a client
+          set_fact:
+            gateways: "{{ groups['cluster_gw'] | reject('==', blocked_gateway) | list + [ blocked_gateway ] }}"
+        when: site_blocking_openvpn is defined
+      - set_fact:
+          gateways: "{{ groups['cluster_gw'] }}"
+        when: site_blocking_openvpn is not defined
+      - name: Find index in gateway list
+        set_fact:
+          gateway_index: "{{ gateways.index(inventory_hostname) }}"
+      - name: Initialise list of servers and clients
+        set_fact:
+          openvpn_servers: []
+          openvpn_clients: []
+      - name: Populate list of servers
+        set_fact:
+          openvpn_servers: "{{ openvpn_servers + [ item.1 ] }}"
+        when:
+          - item.0|int <= gateway_index|int
+          - gateways[item.0|int + 1] | default(false)
+        with_indexed_items:
+          - "{{ gateways }}"
+      - name: Populate list of clients
+        set_fact:
+          openvpn_clients: "{{ openvpn_clients + [ item.1 ] }}"
+        when: item.0|int >= gateway_index|int
+        with_indexed_items:
+          - "{{ gateways }}"
+      when: inventory_hostname in groups['cluster_gw']
+    - block:
+        - set_fact:
+            openvpn_servers: "{{ groups['cluster_gw'] }}"
+            openvpn_clients: "{{ groups['cluster_gw'] }}"
+      when: inventory_hostname not in groups['cluster_gw']
+  roles:
+  - role: stackhpc.openvpn
+    become: true
+    openvpn_subnet_clients: "{{ ansible_play_hosts }}"
+    openvpn_proto: tcp

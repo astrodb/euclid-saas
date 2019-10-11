@@ -1,0 +1,79 @@
+Metadata-Version: 2.1
+Name: python-magnumclient
+Version: 2.13.0
+Summary: Client library for Magnum API
+Home-page: https://docs.openstack.org/python-magnumclient/latest/
+Author: OpenStack
+Author-email: openstack-dev@lists.openstack.org
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Environment :: OpenStack
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Requires-Dist: pbr (!=2.1.0,>=2.0.0)
+Requires-Dist: Babel (!=2.4.0,>=2.3.4)
+Requires-Dist: six (>=1.10.0)
+Requires-Dist: keystoneauth1 (>=3.4.0)
+Requires-Dist: stevedore (>=1.20.0)
+Requires-Dist: requests (>=2.14.2)
+Requires-Dist: oslo.i18n (>=3.15.3)
+Requires-Dist: oslo.log (>=3.36.0)
+Requires-Dist: oslo.serialization (!=2.19.1,>=2.18.0)
+Requires-Dist: oslo.utils (>=3.33.0)
+Requires-Dist: os-client-config (>=1.28.0)
+Requires-Dist: osc-lib (>=1.8.0)
+Requires-Dist: PrettyTable (<0.8,>=0.7.2)
+Requires-Dist: cryptography (>=2.1)
+Requires-Dist: decorator (>=3.4.0)
+
+========================
+Team and repository tags
+========================
+
+.. image:: http://governance.openstack.org/badges/python-magnumclient.svg
+    :target: http://governance.openstack.org/reference/tags/index.html
+
+.. Change things from this point on
+
+Python bindings to the Magnum API
+=================================
+
+.. image:: https://img.shields.io/pypi/v/python-magnumclient.svg
+    :target: https://pypi.org/project/python-magnumclient/
+    :alt: Latest Version
+
+.. image:: https://img.shields.io/pypi/dm/python-magnumclient.svg
+    :target: https://pypi.org/project/python-magnumclient/
+    :alt: Downloads
+
+This is a client library for Magnum built on the Magnum API. It
+provides a Python API (the ``magnumclient`` module) and a command-line
+tool (``magnum``).
+
+Development takes place via the usual OpenStack processes as outlined
+in the `developer guide
+<https://docs.openstack.org/infra/manual/developers.html>`_.
+
+* License: Apache License, Version 2.0
+* `PyPi`_ - package installation
+* `Online Documentation`_
+* `Launchpad project`_ - release management
+* `Bugs`_ - issue tracking
+* `Source`_
+
+.. _PyPi: https://pypi.org/project/python-magnumclient
+.. _Online Documentation: https://docs.openstack.org/python-magnumclient/latest/
+.. _Launchpad project: https://launchpad.net/python-magnumclient
+.. _Bugs: https://bugs.launchpad.net/python-magnumclient
+.. _Source: https://git.openstack.org/cgit/openstack/python-magnumclient
+
+
+

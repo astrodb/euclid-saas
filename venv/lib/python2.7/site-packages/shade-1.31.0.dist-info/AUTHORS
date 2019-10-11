@@ -1,0 +1,116 @@
+Abhijeet Kasurde <akasurde@redhat.com>
+Adam Gandelman <adamg@ubuntu.com>
+Akihiro Motoki <amotoki@gmail.com>
+Alberto Gireud <agireud@us.ibm.com>
+Alvaro Aleman <alv2412@googlemail.com>
+Andreas Jaeger <aj@suse.com>
+Andrey Shestakov <ashestakov@mirantis.com>
+Antoni Segura Puimedon <antonisp@celebdor.com>
+Arie <abregman@redhat.com>
+Arie Bregman <abregman@redhat.com>
+Atsushi SAKAI <sakaia@jp.fujitsu.com>
+Béla Vancsics <vancsics@inf.u-szeged.hu>
+Caleb Boylan <calebboylan@gmail.com>
+Cedric Brandily <zzelle@gmail.com>
+Christian Groschupp <christian@groschupp.org>
+Christian Zunker <christian.zunker@codecentric.de>
+Chuck Short <chucks@redhat.com>
+Clark Boylan <clark.boylan@gmail.com>
+Clayton O'Neill <clayton@oneill.net>
+Clint Byrum <clint@fewbar.com>
+Daniel Mellado <dmellado@redhat.com>
+Daniel Speichert <daniel@speichert.pl>
+Daniel Wallace <danielwallace@gtmanfred.com>
+David Rabel <rabel@b1-systems.de>
+David Shrewsbury <shrewsbury.dave@gmail.com>
+Davide Guerri <davide.guerri@gmail.com>
+Devananda van der Veen <devananda.vdv@gmail.com>
+Donovan Jones <donovan@catalyst.net.nz>
+Doug Hellmann <doug@doughellmann.com>
+Eric Lafontaine <eric.lafontaine1@gmail.com>
+Feilong Wang <flwang@catalyst.net.nz>
+Ghe Rivero <ghe.rivero@hp.com>
+Gregory Haynes <greg@greghaynes.net>
+Haikel Guemar <hguemar@fedoraproject.org>
+Hideki Saito <saito@fgrep.org>
+Hongbin Lu <hongbin.lu@huawei.com>
+Hoolio Wobbits <hooliowobbits@gmail.com>
+Ian Wienand <iwienand@redhat.com>
+Iswarya_Vakati <v.iswarya@nectechnologies.in>
+JP Sullivan <jonpsull@cisco.com>
+Jakub Jursa <jakub.jursa1@gmail.com>
+James E. Blair <jeblair@linux.vnet.ibm.com>
+James E. Blair <jeblair@redhat.com>
+Jamie Lennox <jamielennox@gmail.com>
+Jens Harbott <j.harbott@x-ion.de>
+Jeremy Stanley <fungi@yuggoth.org>
+Jon Schlueter <jschluet@redhat.com>
+Jordan Pittier <jordan.pittier@scality.com>
+Joshua Harlow <harlowja@yahoo-inc.com>
+Joshua Harlow <jxharlow@godaddy.com>
+Joshua Hesketh <josh@nitrotech.org>
+Julia Kreger <juliaashleykreger@gmail.com>
+Kim Bao Long <longkb@vn.fujitsu.com>
+Kyle Mestery <mestery@mestery.com>
+Lars Kellogg-Stedman <lars@redhat.com>
+Lee Yarwood <lyarwood@redhat.com>
+Mark Goddard <mark@stackhpc.com>
+Markus Zoeller <mzoeller@de.ibm.com>
+Mathieu Bultel <mbultel@redhat.com>
+Matt Fischer <matt@mattfischer.com>
+Matthew Treinish <mtreinish@kortar.org>
+Matthew Wagoner <mwagone@us.ibm.com>
+Mike Perez <thingee@gmail.com>
+Mohammed Naser <mnaser@vexxhost.com>
+Monty Taylor <mordred@inaugust.com>
+Morgan Fainberg <morgan.fainberg@gmail.com>
+Mário Santos <mario.rf.santos@gmail.com>
+Nguyen Hai Truong <truongnh@vn.fujitsu.com>
+Olivier Bourdon <obourdon@opennext.io>
+OpenStack Release Bot <infra-root@openstack.org>
+Paul Belanger <pabelanger@redhat.com>
+Paulo Matias <matias@ufscar.br>
+Pavlo Shchelokovskyy <shchelokovskyy@gmail.com>
+Rarm Nagalingam <rarm.jet@gmail.com>
+Ricardo Carrillo Cruz <ricardo.carrillo.cruz@gmail.com>
+Ricardo Carrillo Cruz <ricardo.carrillo.cruz@hp.com>
+Roberto Polli <robipolli@gmail.com>
+Romain Acciari <romain.acciari@gmail.com>
+Rosario Di Somma <rosario.disomma@dreamhost.com>
+Rosario Di Somma <rosario.disomma@gmail.com>
+Rui Chen <chenrui.momo@gmail.com>
+Ryan Brady <rbrady@redhat.com>
+Sam Yaple <sam+git@yaple.net>
+Sam Yaple <sam@yaple.net>
+SamYaple <sam@yaple.net>
+Samuel de Medeiros Queiroz <samueldmq@gmail.com>
+Sean McGinnis <sean.mcginnis@gmail.com>
+Sorin Sbarnea <ssbarnea@redhat.com>
+Spencer Krum <nibz@spencerkrum.com>
+Stefan Andres <s.andres@syseleven.de>
+Steve Baker <sbaker@redhat.com>
+Steve Leon <kokhang@gmail.com>
+Swapnil Kulkarni (coolsvap) <me@coolsvap.net>
+Sylvain Baubeau <sbaubeau@redhat.com>
+Sławek Kapłoński <slawek@kaplonski.pl>
+Thanh Ha <thanh.ha@linuxfoundation.org>
+Thomas Herve <therve@redhat.com>
+Tim Laszlo <tim.laszlo@gmail.com>
+Timothy Chavez <timothy.chavez@hp.com>
+Tobias Brox <tobias@redpill-linpro.com>
+Tony Breeds <tony@bakeyournoodle.com>
+Toure Dunnon <toure@redhat.com>
+Tristan Cacqueray <tdecacqu@redhat.com>
+Trygve Vea <trygve.vea@gmail.com>
+Valentin Boucher <valentin.boucher@kontron.com>
+Vieri <15050873171@163.com>
+Yolanda Robla <yolanda.robla-mota@hp.com>
+baiwenteng <baiwenteng@inspur.com>
+deepakmourya <deepak.mourya@nectechnologies.in>
+mariojmdavid <mariojmdavid@gmail.com>
+matthew wagoner <zxkuqyb@gmail.com>
+melissaml <ma.lei@99cloud.net>
+qingszhao <zhao.daqing@99cloud.net>
+rajat29 <rajat.sharma@nectechnologies.in>
+tengqm <tengqim@cn.ibm.com>
+wacuuu <jwalecki1996@gmail.com>

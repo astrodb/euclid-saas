@@ -1,0 +1,20 @@
+#!/bin/bash
+openstack server reboot --hard euclid-ral_compute_11
+openstack server reboot --hard euclid-ral_compute_16
+openstack server reboot --hard euclid-ral_compute_19
+openstack server reboot --hard euclid-ral_compute_3 
+openstack server reboot --hard euclid-ral_compute_32
+openstack server reboot --hard euclid-ral_compute_4 
+openstack server reboot --hard euclid-ral_compute_40
+openstack server reboot --hard euclid-ral_compute_47
+openstack server reboot --hard euclid-ral_compute_5 
+openstack server reboot --hard euclid-ral_compute_51
+openstack server reboot --hard euclid-ral_compute_63
+openstack server reboot --hard euclid-ral_compute_75
+openstack server reboot --hard euclid-ral_compute_76
+openstack server reboot --hard euclid-ral_compute_78
+openstack server reboot --hard euclid-ral_compute_79
+openstack server reboot --hard euclid-ral_compute_8 
+openstack server reboot --hard euclid-ral_compute_85
+openstack server reboot --hard euclid-ral_compute_86
+openstack server reboot --hard euclid-ral_compute_89
