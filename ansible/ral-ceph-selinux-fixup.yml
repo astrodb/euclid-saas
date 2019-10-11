@@ -1,0 +1,26 @@
+---
+
+- hosts: cluster_ral
+  tasks:
+    - copy:
+        content: |
+          [ceph_stable]
+          baseurl = http://download.ceph.com/rpm-mimic/el7/$basearch
+          gpgcheck = 1
+          gpgkey = https://download.ceph.com/keys/release.asc
+          name = Ceph Stable repo
+        dest: "/etc/yum.repos.d/ceph_stable.repo"
+        mode: 0644
+      become: true
+
+    - command: yum makecache
+      become: true
+
+    - command: yumdownloader ceph-selinux-13.2.5
+      become: true
+
+    - command: rpm --nodeps -Uvh ceph-selinux-13.2.5-0.el7.x86_64.rpm
+      ignore_errors: true
+      become: true
+
+...

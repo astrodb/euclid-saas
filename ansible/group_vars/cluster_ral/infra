@@ -23,11 +23,13 @@ infra_flavor_login: "m2.small"
 infra_flavor_compute: "c1.xxlarge"
 
 # Number of compute nodes (maximising our quota)
-infra_count_compute: 27
+infra_count_compute: 0
 
 # Cluster-infra Heat Resources to use for RAL OpenStack
 infra_resource_node_base: "Cluster::Instance"
+#infra_resource_node_compute: "Cluster::InstanceWithVolume"
 infra_resource_node_compute: "Cluster::InstanceWithVolume"
+#infra_resource_node_compute: "Cluster::InstanceWithRALVolume"
 infra_resource_node_storage: "Cluster::InstanceWithVolume"
 
 infra_resource_net_base: "Cluster::NodeNet1"

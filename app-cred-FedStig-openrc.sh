@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+export OS_AUTH_TYPE=v3applicationcredential
+export OS_AUTH_URL=https://cumulus.openstack.hpc.cam.ac.uk:5000/v3
+export OS_IDENTITY_API_VERSION=3
+export OS_REGION_NAME="RegionOne"
+export OS_INTERFACE=public
+export OS_APPLICATION_CREDENTIAL_ID=61a01fe8f8c94c22b641db09eaf8bac3
+export OS_APPLICATION_CREDENTIAL_SECRET=TeDF8GC-Tom1jJOpOE_XnHgemnOQqihgFlr5iOghXRvvcShqoZSPPPWx3Qc2rotzn88p4IL1CgFCcmqKc56gAg

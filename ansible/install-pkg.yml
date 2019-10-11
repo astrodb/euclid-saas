@@ -1,0 +1,21 @@
+---
+# Query OpenStack Barbican to retrieve secret keys
+# needed for a cluster deployment
+#- hosts: openstack
+#  roles:
+#    - role: alaska_secrets
+#      secret_name: "alaska.auth.p3-monitor"
+#      secret_var: "alaska_auth_p3_monitor"
+  
+# Apply generic setup configuration that is universally useful
+- hosts: 
+    - cluster_ral
+#    - cluster_batch
+#    - cluster_login
+  become: yes
+  tasks:
+#    - yum:
+#        name: fio
+#        state: present
+    - command: yum-config-manager --disable tier1-sl5-local
+
