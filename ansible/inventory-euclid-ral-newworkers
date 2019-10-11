@@ -1,0 +1,106 @@
+# Ansible Shade uses OpenStack clients running locally
+[openstack]
+localhost ansible_connection=local ansible_python_interpreter=python ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+
+[cluster:children]
+euclid-ral_gw
+euclid-ral_compute
+euclid-ral_proxy
+euclid-ral_ial
+
+[euclid-ral_gw]
+euclid-ral-gw-0 ansible_host=130.246.215.191
+
+[euclid-ral_gw:vars]
+ansible_user=mholliman
+
+[euclid-ral_compute]
+euclid-ral_compute_176 ansible_host=192.168.246.208
+euclid-ral_compute_175 ansible_host=192.168.246.234
+euclid-ral_compute_174 ansible_host=192.168.246.210
+euclid-ral_compute_173 ansible_host=192.168.246.233
+euclid-ral_compute_172 ansible_host=192.168.246.231
+euclid-ral_compute_171 ansible_host=192.168.246.211
+euclid-ral_compute_170 ansible_host=192.168.246.194
+euclid-ral_compute_169 ansible_host=192.168.246.189
+euclid-ral_compute_168 ansible_host=192.168.246.196
+euclid-ral_compute_167 ansible_host=192.168.246.170
+euclid-ral_compute_166 ansible_host=192.168.246.205
+euclid-ral_compute_165 ansible_host=192.168.246.209
+euclid-ral_compute_164 ansible_host=192.168.246.212
+euclid-ral_compute_163 ansible_host=192.168.246.178
+euclid-ral_compute_162 ansible_host=192.168.246.190
+euclid-ral_compute_161 ansible_host=192.168.246.200
+euclid-ral_compute_160 ansible_host=192.168.246.204
+euclid-ral_compute_159 ansible_host=192.168.246.217
+euclid-ral_compute_158 ansible_host=192.168.246.184
+euclid-ral_compute_157 ansible_host=192.168.246.193
+euclid-ral_compute_156 ansible_host=192.168.246.195
+euclid-ral_compute_155 ansible_host=192.168.246.198
+euclid-ral_compute_154 ansible_host=192.168.246.185
+euclid-ral_compute_153 ansible_host=192.168.246.202
+euclid-ral_compute_152 ansible_host=192.168.246.182
+euclid-ral_compute_151 ansible_host=192.168.246.183
+euclid-ral_compute_150 ansible_host=192.168.246.168
+euclid-ral_compute_149 ansible_host=192.168.246.191
+euclid-ral_compute_148 ansible_host=192.168.246.201
+euclid-ral_compute_147 ansible_host=192.168.246.207
+euclid-ral_compute_146 ansible_host=192.168.246.177
+euclid-ral_compute_145 ansible_host=192.168.246.171
+euclid-ral_compute_144 ansible_host=192.168.246.176
+euclid-ral_compute_143 ansible_host=192.168.246.192
+euclid-ral_compute_142 ansible_host=192.168.246.199
+euclid-ral_compute_141 ansible_host=192.168.246.164
+euclid-ral_compute_140 ansible_host=192.168.246.161
+
+[euclid-ral_compute:vars]
+ansible_user=mholliman
+ansible_ssh_common_args='-o ProxyJump=mholliman@130.246.215.191 -o StrictHostKeyChecking=no'
+
+[euclid-ral_proxy]
+euclid-ral-proxy-0 ansible_host=192.168.246.128
+
+[euclid-ral_proxy:vars]
+ansible_user=mholliman
+ansible_ssh_common_args='-o ProxyJump=mholliman@130.246.215.191'
+
+[euclid-ral_ial]
+euclid-ral-ial-0 ansible_host=192.168.246.130
+
+[euclid-ral_ial:vars]
+ansible_user=mholliman
+ansible_ssh_common_args='-o ProxyJump=mholliman@130.246.215.191'
+
+# Specific roles for cluster deployment assignments
+[cluster_ral:children]
+euclid-ral_gw
+euclid-ral_compute
+euclid-ral_proxy
+euclid-ral_ial
+
+[cluster_ceph_client:children]
+euclid-ral_compute
+euclid-ral_ial
+
+[cluster_gw:children]
+euclid-ral_gw
+
+[cluster_batch:children]
+euclid-ral_compute
+
+[cluster_cvmfs_proxy:children]
+euclid-ral_proxy
+
+[cluster_ceph_mon:children]
+euclid-ral_proxy
+
+[cluster_ceph_mds:children]
+euclid-ral_proxy
+
+[cluster_ceph_osd:children]
+euclid-ral_compute
+
+[cluster_ial:children]
+euclid-ral_ial
+
+
