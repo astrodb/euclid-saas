@@ -187,6 +187,15 @@ setfattr -n ceph.dir.layout.pool -v euclid_ral ral
 setfattr -n ceph.dir.layout.pool -v euclid_sausage sausage
 ```
 
+- Configure MDS subtree pinning.
+  Following the [https://docs.ceph.com/docs/mimic/cephfs/multimds/#manually-pinning-directory-trees-to-a-particular-rank](process described here).
+```
+cd /ceph
+setfattr -n ceph.dir.pin -v 0 /ceph/imp
+setfattr -n ceph.dir.pin -v 1 /ceph/cam
+setfattr -n ceph.dir.pin -v 2 /ceph/ral
+```
+
 ### Adding Users to Euclid
 
 Euclid platform users are defined in `ansible/group_vars/all/users`
