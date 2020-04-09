@@ -54,5 +54,25 @@ euclid_users:
     uid: 15239
     ssh_key:
       - "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAIEAuFxxq0w1gPENOxj6Uj4PhzomdVfJyBvWP9z8bWTYarErvqLQIZpUeBFW8sM+k/nnugUhYln59nJHsZk7GhTdicZJ4YxJF6mM3NMqisjYfuUdQXchTcKyy0yCdXv/P2xygvx0vBrIWROMYNLaTt/TdBeZQVC/JbWcJchrUSbpqec= andrew.mcnab@cern.ch"
-
+  - username: "anurag"
+    groups: [ "{{ iris_group_name }}" ]
+    name: "Anurag Deshpande <anurag.deshpande13@gmail.com>"
+    home: "{{ euclid_homedir }}/anurag"
+    uid: 15240
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCztPmwO65uqV01+mtJECHuFbR6LFoE/ECI9DUuglORI2RvkfXzzt7DrasPczKcfeekh1Xkj/kmRfVKmcImxOetDndgLbIGYRRrXzg97CFOFWs9iZs806jlzUooMueCACRVJ6Z0Oisi8YRuPBQMQ6IPEL2dNSx/jrrDR3Di9AOSDD1imTjpcFFsZ/Loc0oAoRLxfPaW5VpZ9zbzPLRBJeHAxJOXb6/8dpiVOhcVFvqjRjAv5mDl/soMKi055SPBO2J81JL1IP1tnvFFO/AT3uedveGwVtqrfArp4ARIMUb8Px1OO6npAqQI+hZYIOXiCwGB9rHritRd8a6bBaGL/lS0zeAygMSNsBV4DmtVWAfpSfLKWGBLRmMuFw2r5g49P2flcOzNOFZcKPsSJHCfc2iNgsKUEE2OeAWWnjsbdXlYUtSwV5xpkftJqYZlEr3D54Ne43UUd3nGpm9ilmTFZU90LWCxvGfvBJ6eE97H26e2WmndxI3rdhzZEzdvU6WMIO8rNgDIwKueRAx8hzZjcZYqQURHu+9KkTweOy759g34Kzz+KAC04bUo5pXuyGz/XFb4uzqiYclao3g4n0uJ6ejYvoxz/N1am1myPOuT3wK+THLTi1cIZcQeexa/nPm4kCmLX/Hd8l0CwlrW74sxrv6mrT4T2OGD0CnyrEd9MYwC/Q== anurag.deshpande13@gmail.com"
+  - username: "tvsananth"
+    groups: [ "{{ iris_group_name }}" ]
+    name: "Ananth Tenneti <tvsananth@gmail.com>"
+    home: "{{ euclid_homedir }}/tvsananth"
+    uid: 15241
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDuXC0e0+yDyiBXgZsK3qybCdcTDS2nFGnktA/r38pm8igM8BdzOqhUKgf2NIC1+6bsyrc/KJmwmBJOgwXiLo6o+L4ZQSka+syLKfjBMyihguMp1/tYQviwYwgZIez9je7E0uLutZMlgO+9jEqB74AfTPFvvljcQHq6HdoRYdWchEjuDY/2tbNxbERYz/hgSYUVsvMxjWPrgypO6YdDmWhnE8JhjfchkWpQ9zMVNcl1u3nfOZOsCw8OBqan2gLvBlx7YPIaknVW2CEoLmVVhwtQzpIfBhwFLay2nwyHD0BTf2emoboxKPP4c1u83bwXiFeQE7wutY9+Mr8AgmpLmvwx ucasten@login12.myriad.ucl.ac.uk"
+  - username: "ptaylor"
+    groups: [ "{{ iris_group_name }}" ]
+    name: "Peter Taylor <peterllewelyntaylor@gmail.com>"
+    home: "{{ euclid_homedir }}/ptaylor"
+    uid: 15242
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCoDVVVPXgqRIK/L3vTF73zjOuqEzOO53XsaftiYuw4O50/nAnvBjdy0UiddWjPR1E7VcMuGNEDpWMF9uk+C6Mz95dUIS5wWiH2tZVksW9P6X9J/WKyIEfTXBbk/o4hQRvraMOwe+etFmTQGE5UkdXrdSOA/mT8Eo0S9pj4h7i/0Q0ePkanTp+UqkVLcKhRn62QxWlpqOBiyAbSG72n/4NOLgUBV9++ScrkUzB3Yvv3pDT5zwpZ/qtAu372xYaVavpU0AS1RPP7IZJi/VQAwcablGiHSdO3IytFvZdysIV27NvAbRQ279ZKjc/doEEqnGRCIhqWjKMaJZJ3/XYFcNxF petaylor@MT-205219"   
 ...
