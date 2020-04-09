@@ -1,0 +1,246 @@
+# Ansible Shade uses OpenStack clients running locally
+[openstack]
+localhost ansible_connection=local ansible_python_interpreter=python ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+
+[cluster:children]
+euclid-ral_gw
+euclid-ral_compute
+euclid-ral_proxy
+euclid-ral_ial
+
+[euclid-ral_gw]
+euclid-ral-gw-0 ansible_host=130.246.215.191
+
+[euclid-ral_gw:vars]
+ansible_user=mholliman
+
+[euclid-ral_compute]
+euclid-ral_compute_176 ansible_host=192.168.246.208
+euclid-ral_compute_175 ansible_host=192.168.246.234
+euclid-ral_compute_174 ansible_host=192.168.246.210
+euclid-ral_compute_173 ansible_host=192.168.246.233
+euclid-ral_compute_172 ansible_host=192.168.246.231
+euclid-ral_compute_171 ansible_host=192.168.246.211
+euclid-ral_compute_170 ansible_host=192.168.246.194
+euclid-ral_compute_169 ansible_host=192.168.246.189
+euclid-ral_compute_168 ansible_host=192.168.246.196
+euclid-ral_compute_167 ansible_host=192.168.246.170
+euclid-ral_compute_166 ansible_host=192.168.246.205
+euclid-ral_compute_165 ansible_host=192.168.246.209
+euclid-ral_compute_164 ansible_host=192.168.246.212
+euclid-ral_compute_163 ansible_host=192.168.246.178
+euclid-ral_compute_162 ansible_host=192.168.246.190
+euclid-ral_compute_161 ansible_host=192.168.246.200
+euclid-ral_compute_160 ansible_host=192.168.246.204
+euclid-ral_compute_159 ansible_host=192.168.246.217
+euclid-ral_compute_158 ansible_host=192.168.246.184
+euclid-ral_compute_157 ansible_host=192.168.246.193
+euclid-ral_compute_156 ansible_host=192.168.246.195
+euclid-ral_compute_155 ansible_host=192.168.246.198
+euclid-ral_compute_154 ansible_host=192.168.246.185
+euclid-ral_compute_153 ansible_host=192.168.246.202
+euclid-ral_compute_152 ansible_host=192.168.246.182
+euclid-ral_compute_151 ansible_host=192.168.246.183
+euclid-ral_compute_150 ansible_host=192.168.246.168
+euclid-ral_compute_149 ansible_host=192.168.246.191
+euclid-ral_compute_148 ansible_host=192.168.246.201
+euclid-ral_compute_147 ansible_host=192.168.246.207
+euclid-ral_compute_146 ansible_host=192.168.246.177
+euclid-ral_compute_145 ansible_host=192.168.246.171
+euclid-ral_compute_144 ansible_host=192.168.246.176
+euclid-ral_compute_143 ansible_host=192.168.246.192
+euclid-ral_compute_142 ansible_host=192.168.246.199
+euclid-ral_compute_141 ansible_host=192.168.246.164
+euclid-ral_compute_140 ansible_host=192.168.246.161
+euclid-ral_compute_139 ansible_host=192.168.246.180
+euclid-ral_compute_138 ansible_host=192.168.246.166
+euclid-ral_compute_137 ansible_host=192.168.246.174
+euclid-ral_compute_136 ansible_host=192.168.246.197
+euclid-ral_compute_135 ansible_host=192.168.246.160
+euclid-ral_compute_134 ansible_host=192.168.246.173
+euclid-ral_compute_133 ansible_host=192.168.246.157
+euclid-ral_compute_132 ansible_host=192.168.246.167
+euclid-ral_compute_131 ansible_host=192.168.246.172
+euclid-ral_compute_130 ansible_host=192.168.246.163
+euclid-ral_compute_129 ansible_host=192.168.246.169
+euclid-ral_compute_128 ansible_host=192.168.246.186
+euclid-ral_compute_127 ansible_host=192.168.246.156
+euclid-ral_compute_126 ansible_host=192.168.246.187
+euclid-ral_compute_125 ansible_host=192.168.246.188
+euclid-ral_compute_124 ansible_host=192.168.246.179
+euclid-ral_compute_123 ansible_host=192.168.246.143
+euclid-ral_compute_122 ansible_host=192.168.246.175
+euclid-ral_compute_121 ansible_host=192.168.246.159
+euclid-ral_compute_120 ansible_host=192.168.246.141
+euclid-ral_compute_119 ansible_host=192.168.246.165
+euclid-ral_compute_118 ansible_host=192.168.246.142
+euclid-ral_compute_117 ansible_host=192.168.246.131
+euclid-ral_compute_116 ansible_host=192.168.246.153
+euclid-ral_compute_115 ansible_host=192.168.246.129
+euclid-ral_compute_114 ansible_host=192.168.246.148
+euclid-ral_compute_113 ansible_host=192.168.246.135
+euclid-ral_compute_112 ansible_host=192.168.246.154
+euclid-ral_compute_111 ansible_host=192.168.246.138
+euclid-ral_compute_110 ansible_host=192.168.246.146
+euclid-ral_compute_109 ansible_host=192.168.246.140
+euclid-ral_compute_108 ansible_host=192.168.246.122
+euclid-ral_compute_107 ansible_host=192.168.246.151
+euclid-ral_compute_106 ansible_host=192.168.246.134
+euclid-ral_compute_105 ansible_host=192.168.246.123
+euclid-ral_compute_104 ansible_host=192.168.246.155
+euclid-ral_compute_103 ansible_host=192.168.246.152
+euclid-ral_compute_102 ansible_host=192.168.246.144
+euclid-ral_compute_101 ansible_host=192.168.246.139
+euclid-ral_compute_100 ansible_host=192.168.246.158
+euclid-ral_compute_99  ansible_host=192.168.246.136
+euclid-ral_compute_98  ansible_host=192.168.246.162
+euclid-ral_compute_97  ansible_host=192.168.246.149
+euclid-ral_compute_96  ansible_host=192.168.246.125
+euclid-ral_compute_95  ansible_host=192.168.246.113
+euclid-ral_compute_94  ansible_host=192.168.246.147
+euclid-ral_compute_93  ansible_host=192.168.246.150
+euclid-ral_compute_92  ansible_host=192.168.246.121
+euclid-ral_compute_91  ansible_host=192.168.246.137
+euclid-ral_compute_90  ansible_host=192.168.246.133
+euclid-ral_compute_89  ansible_host=192.168.246.112 
+euclid-ral_compute_88  ansible_host=192.168.246.145 
+euclid-ral_compute_87  ansible_host=192.168.246.120 
+euclid-ral_compute_86  ansible_host=192.168.246.132 
+euclid-ral_compute_85  ansible_host=192.168.246.127 
+euclid-ral_compute_84  ansible_host=192.168.246.116 
+euclid-ral_compute_83  ansible_host=192.168.246.118 
+euclid-ral_compute_82  ansible_host=192.168.246.124 
+euclid-ral_compute_81  ansible_host=192.168.246.95  
+euclid-ral_compute_80  ansible_host=192.168.246.99  
+euclid-ral_compute_79  ansible_host=192.168.246.100 
+euclid-ral_compute_78  ansible_host=192.168.246.126 
+euclid-ral_compute_77  ansible_host=192.168.246.96  
+euclid-ral_compute_76  ansible_host=192.168.246.114 
+euclid-ral_compute_75  ansible_host=192.168.246.117 
+euclid-ral_compute_74  ansible_host=192.168.246.115 
+euclid-ral_compute_73  ansible_host=192.168.246.110 
+euclid-ral_compute_72  ansible_host=192.168.246.105 
+euclid-ral_compute_71  ansible_host=192.168.246.104 
+euclid-ral_compute_70  ansible_host=192.168.246.106 
+euclid-ral_compute_69  ansible_host=192.168.246.103 
+euclid-ral_compute_68  ansible_host=192.168.246.102 
+euclid-ral_compute_67  ansible_host=192.168.246.119 
+euclid-ral_compute_66  ansible_host=192.168.246.89  
+euclid-ral_compute_65  ansible_host=192.168.246.81  
+euclid-ral_compute_64  ansible_host=192.168.246.91  
+euclid-ral_compute_63  ansible_host=192.168.246.97  
+euclid-ral_compute_62  ansible_host=192.168.246.108 
+euclid-ral_compute_61  ansible_host=192.168.246.107 
+euclid-ral_compute_60  ansible_host=192.168.246.92  
+euclid-ral_compute_59  ansible_host=192.168.246.101 
+euclid-ral_compute_58  ansible_host=192.168.246.88  
+euclid-ral_compute_57  ansible_host=192.168.246.93  
+euclid-ral_compute_56  ansible_host=192.168.246.72  
+euclid-ral_compute_55  ansible_host=192.168.246.67  
+euclid-ral_compute_54  ansible_host=192.168.246.90  
+euclid-ral_compute_53  ansible_host=192.168.246.86  
+euclid-ral_compute_52  ansible_host=192.168.246.85  
+euclid-ral_compute_51  ansible_host=192.168.246.82  
+euclid-ral_compute_50  ansible_host=192.168.246.87  
+euclid-ral_compute_49  ansible_host=192.168.246.109 
+euclid-ral_compute_48  ansible_host=192.168.246.65  
+euclid-ral_compute_47  ansible_host=192.168.246.69  
+euclid-ral_compute_46  ansible_host=192.168.246.56  
+euclid-ral_compute_45  ansible_host=192.168.246.70  
+euclid-ral_compute_44  ansible_host=192.168.246.98  
+euclid-ral_compute_43  ansible_host=192.168.246.60  
+euclid-ral_compute_42  ansible_host=192.168.246.80  
+euclid-ral_compute_41  ansible_host=192.168.246.84  
+euclid-ral_compute_40  ansible_host=192.168.246.34  
+euclid-ral_compute_39  ansible_host=192.168.246.74  
+euclid-ral_compute_38  ansible_host=192.168.246.75  
+euclid-ral_compute_37  ansible_host=192.168.246.94  
+euclid-ral_compute_36  ansible_host=192.168.246.77  
+euclid-ral_compute_35  ansible_host=192.168.246.18  
+euclid-ral_compute_34  ansible_host=192.168.246.83  
+euclid-ral_compute_33  ansible_host=192.168.246.76  
+euclid-ral_compute_32  ansible_host=192.168.246.68  
+euclid-ral_compute_31  ansible_host=192.168.246.66  
+euclid-ral_compute_30  ansible_host=192.168.246.73  
+euclid-ral_compute_29  ansible_host=192.168.246.26  
+euclid-ral_compute_28  ansible_host=192.168.246.64  
+euclid-ral_compute_27  ansible_host=192.168.246.71  
+euclid-ral_compute_26  ansible_host=192.168.246.78  
+euclid-ral_compute_25  ansible_host=192.168.246.48  
+euclid-ral_compute_24  ansible_host=192.168.246.59  
+euclid-ral_compute_23  ansible_host=192.168.246.27  
+euclid-ral_compute_22  ansible_host=192.168.246.55  
+euclid-ral_compute_21  ansible_host=192.168.246.79  
+euclid-ral_compute_20  ansible_host=192.168.246.54  
+euclid-ral_compute_19  ansible_host=192.168.246.61  
+euclid-ral_compute_18  ansible_host=192.168.246.50  
+euclid-ral_compute_17  ansible_host=192.168.246.63  
+euclid-ral_compute_16  ansible_host=192.168.246.44  
+euclid-ral_compute_15  ansible_host=192.168.246.32  
+euclid-ral_compute_14  ansible_host=192.168.246.58  
+euclid-ral_compute_13  ansible_host=192.168.246.41  
+euclid-ral_compute_12  ansible_host=192.168.246.12  
+euclid-ral_compute_11  ansible_host=192.168.246.25  
+euclid-ral_compute_10  ansible_host=192.168.246.37  
+euclid-ral_compute_9   ansible_host=192.168.246.62  
+euclid-ral_compute_8   ansible_host=192.168.246.15  
+euclid-ral_compute_7   ansible_host=192.168.246.38  
+euclid-ral_compute_6   ansible_host=192.168.246.40  
+euclid-ral_compute_5   ansible_host=192.168.246.43  
+euclid-ral_compute_4   ansible_host=192.168.246.28  
+euclid-ral_compute_3   ansible_host=192.168.246.46  
+euclid-ral_compute_2   ansible_host=192.168.246.53  
+euclid-ral_compute_1   ansible_host=192.168.246.23  
+euclid-ral_compute_0   ansible_host=192.168.246.29  
+
+[euclid-ral_compute:vars]
+ansible_user=mholliman
+ansible_ssh_common_args='-o ProxyJump=mholliman@130.246.215.191 -o StrictHostKeyChecking=no'
+
+[euclid-ral_proxy]
+euclid-ral-proxy-0 ansible_host=192.168.246.128
+
+[euclid-ral_proxy:vars]
+ansible_user=mholliman
+ansible_ssh_common_args='-o ProxyJump=mholliman@130.246.215.191'
+
+[euclid-ral_ial]
+euclid-ral-ial-0 ansible_host=192.168.246.130
+
+[euclid-ral_ial:vars]
+ansible_user=mholliman
+ansible_ssh_common_args='-o ProxyJump=mholliman@130.246.215.191'
+
+# Specific roles for cluster deployment assignments
+[cluster_ral:children]
+euclid-ral_gw
+euclid-ral_compute
+euclid-ral_proxy
+euclid-ral_ial
+
+[cluster_ceph_client:children]
+euclid-ral_compute
+euclid-ral_ial
+
+[cluster_gw:children]
+euclid-ral_gw
+
+[cluster_batch:children]
+euclid-ral_compute
+
+[cluster_cvmfs_proxy:children]
+euclid-ral_proxy
+
+[cluster_ceph_mon:children]
+euclid-ral_proxy
+
+[cluster_ceph_mds:children]
+euclid-ral_proxy
+
+[cluster_ceph_osd:children]
+euclid-ral_compute
+
+[cluster_ial:children]
+euclid-ral_ial
+
+

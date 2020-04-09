@@ -1,0 +1,106 @@
+# Ansible Shade uses OpenStack clients running locally
+[openstack]
+localhost ansible_connection=local ansible_python_interpreter=python
+
+
+[cluster:children]
+euclid-cam_gw
+euclid-cam_compute
+euclid-cam_proxy
+euclid-cam_ial
+
+[euclid-cam_gw]
+euclid-cam-gw-0 ansible_host=128.232.224.78
+
+[euclid-cam_gw:vars]
+ansible_user=centos
+
+[euclid-cam_compute]
+euclid-cam-compute-0 ansible_host=10.42.0.12
+euclid-cam-compute-1 ansible_host=10.42.0.55
+euclid-cam-compute-2 ansible_host=10.42.0.30
+euclid-cam-compute-3 ansible_host=10.42.0.31
+euclid-cam-compute-4 ansible_host=10.42.0.16
+euclid-cam-compute-5 ansible_host=10.42.0.32
+euclid-cam-compute-6 ansible_host=10.42.0.35
+euclid-cam-compute-7 ansible_host=10.42.0.20
+euclid-cam-compute-8 ansible_host=10.42.0.19
+euclid-cam-compute-9 ansible_host=10.42.0.28
+euclid-cam-compute-10 ansible_host=10.42.0.33
+euclid-cam-compute-11 ansible_host=10.42.0.9
+euclid-cam-compute-12 ansible_host=10.42.0.25
+euclid-cam-compute-13 ansible_host=10.42.0.38
+euclid-cam-compute-14 ansible_host=10.42.0.34
+euclid-cam-compute-15 ansible_host=10.42.0.37
+euclid-cam-compute-16 ansible_host=10.42.0.23
+euclid-cam-compute-17 ansible_host=10.42.0.6
+euclid-cam-compute-18 ansible_host=10.42.0.27
+euclid-cam-compute-19 ansible_host=10.42.0.21
+euclid-cam-compute-20 ansible_host=10.42.0.45
+euclid-cam-compute-21 ansible_host=10.42.0.49
+euclid-cam-compute-22 ansible_host=10.42.0.13
+euclid-cam-compute-23 ansible_host=10.42.0.11
+euclid-cam-compute-24 ansible_host=10.42.0.22
+euclid-cam-compute-25 ansible_host=10.42.0.24
+euclid-cam-compute-26 ansible_host=10.42.0.36
+euclid-cam-compute-27 ansible_host=10.42.0.40
+euclid-cam-compute-28 ansible_host=10.42.0.15
+euclid-cam-compute-29 ansible_host=10.42.0.18
+euclid-cam-compute-30 ansible_host=10.42.0.17
+euclid-cam-compute-31 ansible_host=10.42.0.14
+euclid-cam-compute-32 ansible_host=10.42.0.26
+euclid-cam-compute-33 ansible_host=10.42.0.60
+euclid-cam-compute-34 ansible_host=10.42.0.10
+euclid-cam-compute-35 ansible_host=10.42.0.8
+
+[euclid-cam_compute:vars]
+ansible_user=centos
+ansible_ssh_common_args='-o ProxyJump=centos@128.232.224.78'
+
+[euclid-cam_proxy]
+euclid-cam-proxy-0 ansible_host=10.42.0.4
+
+[euclid-cam_proxy:vars]
+ansible_user=centos
+ansible_ssh_common_args='-o ProxyJump=centos@128.232.224.78'
+
+[euclid-cam_ial]
+euclid-cam-ial-0 ansible_host=10.42.0.7
+
+[euclid-cam_ial:vars]
+ansible_user=centos
+ansible_ssh_common_args='-o ProxyJump=centos@128.232.224.78'
+
+# Specific roles for cluster deployment assignments
+[cluster_cam:children]
+euclid-cam_gw
+euclid-cam_compute
+euclid-cam_proxy
+euclid-cam_ial
+
+[cluster_ceph_client:children]
+euclid-cam_compute
+euclid-cam_ial
+
+[cluster_gw:children]
+euclid-cam_gw
+
+[cluster_batch:children]
+euclid-cam_compute
+
+[cluster_cvmfs_proxy:children]
+euclid-cam_proxy
+
+[cluster_ceph_mon:children]
+euclid-cam_proxy
+
+[cluster_ceph_mds:children]
+euclid-cam_proxy
+
+[cluster_ceph_osd:children]
+euclid-cam_compute
+
+[cluster_ial:children]
+euclid-cam_ial
+
+
