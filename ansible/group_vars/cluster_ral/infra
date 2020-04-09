@@ -12,7 +12,7 @@ infra_net:
       - "intranet"
       - "allow-openvpn"
       - "allow-cam"
-      - "allow-sausage"
+      - "allow-imp"
       - "allow-edi"
 
 # Custom availability zone appears to be necessary for RAL deployments using volumes
