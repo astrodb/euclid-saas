@@ -1,0 +1,26 @@
+---
+
+# LVM configuration (for Ceph OSDs)
+lvm_groups: 
+  - vgname: ceph
+    disks:
+      - "{{ compute_ephemeral_dev }}"
+    create: true
+    lvnames:
+      - lvname: osd
+        # Define size of lvol
+        # 100%FREE, 10g, 1024 (megabytes by default)
+        size: 100%VG
+        # Defines if lvol should exist or be removed
+        # true or false
+        create: true
+        # Defines filesystem to format lvol as
+        #filesystem: swap
+        # Defines if filesystem should be mounted
+        mount: false
+
+# Defines if LVM will be managed by role
+# default is false to ensure nothing is changed by accident.
+manage_lvm: true
+
+...

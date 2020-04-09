@@ -1,0 +1,7 @@
+---
+# Connect to Imperial University NTP services
+infra_ntp_servers:
+  - 146.179.236.2
+  - 146.179.236.3
+
+...

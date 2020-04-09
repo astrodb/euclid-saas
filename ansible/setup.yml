@@ -75,8 +75,12 @@
   when: infra_name == "edi"
 - import_playbook: "setup-ral.yml"
   when: infra_name == "ral"
+- import_playbook: "setup-ral-swg.yml"
+  when: infra_name == "ral-swg"
 - import_playbook: "setup-cam.yml"
   when: infra_name == "cam"
+- import_playbook: "setup-imp.yml"
+  when: infra_name == "imp"
 - import_playbook: "setup-sausage.yml"
   when: infra_name == "sausage"
 

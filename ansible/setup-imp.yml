@@ -1,0 +1,52 @@
+---
+
+# Site configuration specific to Cambridge / Cumulus infrastructure
+
+- hosts:
+    - euclid-imp_compute
+    - euclid-imp_proxy
+  become: yes
+  tasks:
+    - name: Check if /mnt is mounted
+      set_fact:
+        mnt_mounted: "{{ ansible_mounts | selectattr('mount', 'eq', '/mnt') | list | length | bool }}"
+
+    - name: Ensure vdb is not mounted on /mnt
+      mount:
+        src: "{{ compute_ephemeral_dev }}"
+        path: "/mnt"
+        state: absent
+      when: mnt_mounted
+
+- hosts:
+    - euclid-imp_proxy
+  vars:
+    proxy_cinder_dev: "/dev/vdb"
+  become: yes
+  tasks:
+    - name: Ensure serve dir exists
+      file:
+        path: "/srv"
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Check if serve disk is mounted
+      set_fact:
+        serve_disk_mounted: "{{ ansible_mounts | selectattr('mount', 'eq', '/srv') | list | length | bool }}"
+
+    - name: Ensure serve disk is formatted
+      filesystem:
+        dev: "{{ proxy_cinder_dev }}"
+        fstype: "ext4"
+      when: 
+        - not serve_disk_mounted 
+
+    - name: Ensure serve disk is mounted
+      mount:
+        fstype: "ext4"
+        path: "/srv"
+        src: "{{ proxy_cinder_dev }}"
+        state: mounted
+...

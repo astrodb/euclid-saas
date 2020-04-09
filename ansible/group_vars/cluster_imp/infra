@@ -1,0 +1,47 @@
+---
+infra_name: "imp"
+
+# Site-specific network configuration.
+infra_net:
+  - net: "euclid_net"
+    subnet: "euclid_sub"
+    floating_net: "provider"
+    security_groups:
+      - "default"
+      - "allow-cam"
+      - "allow-openvpn"
+      - "allow-ral"
+      - "allow-edi"
+      - "intranet"
+
+# These flavors are defined with ephemeral secondary disks
+infra_flavor_base: "euclid.medium"
+infra_flavor_login: "euclid.medium"
+infra_flavor_compute: "euclid.medium"
+
+infra_count_compute: 58
+
+# Cluster-infra Heat Resources to use for Imperial Cloud
+# Using Ephemeral disks on Imperial Ceph
+infra_resource_node_base: "Cluster::Instance"
+infra_resource_node_compute: "Cluster::Instance"
+infra_resource_node_storage: "Cluster::Instance"
+
+infra_resource_net_base: "Cluster::NodeNet1"
+infra_resource_net_external: "Cluster::NodeNet1WithFIP"
+infra_resource_net_external_fips:
+  - uuid: "43a62cf3-d9af-4127-8b7c-a2192d705d61"
+    ip: "146.179.236.30"
+infra_resource_net_compute: "{{ infra_resource_net_base }}"
+
+infra_image_base: "CentOS-7-x86_64-GenericCloud-1907"
+infra_image_login: "{{ infra_image_base }}"
+infra_image_compute: "{{ infra_image_base }}"
+
+infra_user_base: "centos"
+infra_user_login: "{{ infra_user_base }}"
+infra_user_compute: "{{ infra_user_base }}"
+
+# Workaround: the device name for ephemeral storage changed in the
+# course of development of this deployment.
+compute_ephemeral_dev: "/dev/vdb"

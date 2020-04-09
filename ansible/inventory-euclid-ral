@@ -13,9 +13,10 @@ euclid-ral-gw-0 ansible_host=130.246.215.191
 
 [euclid-ral_gw:vars]
 ansible_user=mholliman
+#ansible_ssh_common_args='-o ProxyJump=mholliman@130.246.215.152 -o StrictHostKeyChecking=no -o ControlMaster=auto -o ControlPersist=30m'
+ansible_ssh_common_args='-o ProxyJump=mholliman@130.246.215.225 -o StrictHostKeyChecking=no -o ControlMaster=auto -o ControlPersist=30m'
 
 [euclid-ral_compute]
-euclid-ral_compute_176 ansible_host=192.168.246.208
 euclid-ral_compute_175 ansible_host=192.168.246.234
 euclid-ral_compute_174 ansible_host=192.168.246.210
 euclid-ral_compute_173 ansible_host=192.168.246.233
@@ -195,21 +196,25 @@ euclid-ral_compute_0   ansible_host=192.168.246.29
 
 [euclid-ral_compute:vars]
 ansible_user=mholliman
-ansible_ssh_common_args='-o ProxyJump=mholliman@130.246.215.191 -o StrictHostKeyChecking=no'
+#ansible_ssh_common_args='-o ProxyJump=mholliman@130.246.215.191 -o StrictHostKeyChecking=no'
+ansible_ssh_common_args='-o ProxyJump=mholliman@130.246.215.225 -o StrictHostKeyChecking=no -o ControlMaster=auto -o ControlPersist=30m -o ConnectTimeout=99 -o ServerAliveCountMax=5'
+#ansible_ssh_common_args='-o StrictHostKeyChecking=no -o ControlMaster=auto -o ControlPersist=30m'
 
 [euclid-ral_proxy]
 euclid-ral-proxy-0 ansible_host=192.168.246.128
 
 [euclid-ral_proxy:vars]
 ansible_user=mholliman
-ansible_ssh_common_args='-o ProxyJump=mholliman@130.246.215.191'
+#ansible_ssh_common_args='-o ProxyJump=mholliman@130.246.215.191'
+ansible_ssh_common_args='-o ProxyJump=mholliman@130.246.215.225'
 
 [euclid-ral_ial]
 euclid-ral-ial-0 ansible_host=192.168.246.130
 
 [euclid-ral_ial:vars]
 ansible_user=mholliman
-ansible_ssh_common_args='-o ProxyJump=mholliman@130.246.215.191'
+#ansible_ssh_common_args='-o ProxyJump=mholliman@130.246.215.191'
+ansible_ssh_common_args='-o ProxyJump=mholliman@130.246.215.225'
 
 # Specific roles for cluster deployment assignments
 [cluster_ral:children]
