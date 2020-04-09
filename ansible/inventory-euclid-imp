@@ -1,0 +1,128 @@
+# Ansible Shade uses OpenStack clients running locally
+[openstack]
+localhost ansible_connection=local ansible_python_interpreter=python
+
+
+[cluster:children]
+euclid-imp_gw
+euclid-imp_compute
+euclid-imp_proxy
+euclid-imp_ial
+
+[euclid-imp_gw]
+euclid-imp-gw-0 ansible_host=146.179.237.114
+
+[euclid-imp_gw:vars]
+ansible_user=centos
+
+[euclid-imp_compute]
+euclid-imp-compute-0 ansible_host=172.16.1.29
+euclid-imp-compute-1 ansible_host=172.16.1.68
+euclid-imp-compute-2 ansible_host=172.16.1.35
+euclid-imp-compute-3 ansible_host=172.16.1.28
+euclid-imp-compute-4 ansible_host=172.16.1.174
+euclid-imp-compute-5 ansible_host=172.16.1.36
+euclid-imp-compute-6 ansible_host=172.16.1.6
+euclid-imp-compute-7 ansible_host=172.16.1.212
+euclid-imp-compute-8 ansible_host=172.16.1.108
+euclid-imp-compute-9 ansible_host=172.16.1.250
+euclid-imp-compute-10 ansible_host=172.16.1.194
+euclid-imp-compute-11 ansible_host=172.16.1.155
+euclid-imp-compute-12 ansible_host=172.16.1.9
+euclid-imp-compute-13 ansible_host=172.16.1.164
+euclid-imp-compute-14 ansible_host=172.16.1.132
+euclid-imp-compute-15 ansible_host=172.16.1.105
+euclid-imp-compute-16 ansible_host=172.16.1.130
+euclid-imp-compute-17 ansible_host=172.16.1.225
+euclid-imp-compute-18 ansible_host=172.16.1.44
+euclid-imp-compute-19 ansible_host=172.16.1.189
+euclid-imp-compute-20 ansible_host=172.16.1.252
+euclid-imp-compute-21 ansible_host=172.16.1.12
+euclid-imp-compute-22 ansible_host=172.16.1.103
+euclid-imp-compute-23 ansible_host=172.16.1.47
+euclid-imp-compute-24 ansible_host=172.16.1.238
+euclid-imp-compute-25 ansible_host=172.16.1.30
+euclid-imp-compute-26 ansible_host=172.16.1.55
+euclid-imp-compute-27 ansible_host=172.16.1.175
+euclid-imp-compute-28 ansible_host=172.16.1.188
+euclid-imp-compute-29 ansible_host=172.16.1.235
+euclid-imp-compute-30 ansible_host=172.16.1.139
+euclid-imp-compute-31 ansible_host=172.16.1.5
+euclid-imp-compute-32 ansible_host=172.16.1.127
+euclid-imp-compute-33 ansible_host=172.16.1.211
+euclid-imp-compute-34 ansible_host=172.16.1.148
+euclid-imp-compute-35 ansible_host=172.16.1.241
+euclid-imp-compute-36 ansible_host=172.16.1.40
+euclid-imp-compute-37 ansible_host=172.16.1.59
+euclid-imp-compute-38 ansible_host=172.16.1.121
+euclid-imp-compute-39 ansible_host=172.16.1.129
+euclid-imp-compute-40 ansible_host=172.16.1.38
+euclid-imp-compute-41 ansible_host=172.16.1.176
+euclid-imp-compute-42 ansible_host=172.16.1.71
+euclid-imp-compute-43 ansible_host=172.16.1.208
+euclid-imp-compute-44 ansible_host=172.16.1.138
+euclid-imp-compute-45 ansible_host=172.16.1.102
+euclid-imp-compute-46 ansible_host=172.16.1.141
+euclid-imp-compute-47 ansible_host=172.16.1.20
+euclid-imp-compute-48 ansible_host=172.16.1.230
+euclid-imp-compute-49 ansible_host=172.16.1.8
+euclid-imp-compute-50 ansible_host=172.16.1.10
+euclid-imp-compute-51 ansible_host=172.16.1.113
+euclid-imp-compute-52 ansible_host=172.16.1.109
+euclid-imp-compute-53 ansible_host=172.16.1.42
+euclid-imp-compute-54 ansible_host=172.16.1.18
+euclid-imp-compute-55 ansible_host=172.16.1.32
+euclid-imp-compute-56 ansible_host=172.16.1.245
+euclid-imp-compute-57 ansible_host=172.16.1.213
+
+[euclid-imp_compute:vars]
+ansible_user=centos
+ansible_ssh_common_args='-o ProxyJump=centos@146.179.237.114'
+
+[euclid-imp_proxy]
+euclid-imp-proxy-0 ansible_host=172.16.1.219
+
+[euclid-imp_proxy:vars]
+ansible_user=centos
+ansible_ssh_common_args='-o ProxyJump=centos@146.179.237.114'
+
+[euclid-imp_ial]
+euclid-imp-ial-0 ansible_host=172.16.1.3
+
+[euclid-imp_ial:vars]
+ansible_user=centos
+ansible_ssh_common_args='-o ProxyJump=centos@146.179.237.114'
+
+# Specific roles for cluster deployment assignments
+[cluster_imp:children]
+euclid-imp_gw
+euclid-imp_compute
+euclid-imp_proxy
+euclid-imp_ial
+
+[cluster_ceph_client:children]
+euclid-imp_compute
+euclid-imp_ial
+
+[cluster_gw:children]
+euclid-imp_gw
+
+[cluster_batch:children]
+euclid-imp_compute
+
+[cluster_cvmfs_proxy:children]
+euclid-imp_proxy
+
+[cluster_ceph_mon:children]
+euclid-imp_proxy
+
+[cluster_ceph_mds:children]
+euclid-imp_proxy
+
+[cluster_ceph_osd:children]
+euclid-imp_compute
+
+[cluster_ial:children]
+euclid-imp_ial
+
+
