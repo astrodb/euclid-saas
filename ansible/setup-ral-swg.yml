@@ -1,0 +1,76 @@
+---
+
+# Site configuration specific to RAL SWG OpenStack infrastructure.
+
+- hosts:
+    - cluster_ral
+  become: yes
+  tasks:
+
+    # Seems the Scientific Linux port has some RH package state lingering about it.
+    # This is the default image in use at RAL.
+    - name: Fixup ScientificLinux incorrect releasever package
+      ini_file:
+        path: /etc/yum.conf
+        section: main
+        option: "distroverpkg"
+        value: "sl-release"
+      when: ansible_distribution == "Scientific"
+
+    # In the images used in RAL, a GID wanted by Munge (201) is already
+    # claimed by NAGIOS.
+    - name: Purge site NAGIOS plugins and POSIX groups
+      block:
+        - yum:
+            name:
+              - nagios-plugins-load
+              - nagios-plugins-swap
+              - nagios-plugins
+              - nagios-plugins-perl
+              - nagios-plugins-ntp
+              - nagios-plugins-procs
+              - nagios-common
+              - nagios-plugins-disk
+              - nagios-plugins-ping
+              - nagios-plugins-log
+              - nagios-plugins-icmp
+              - nagios-plugins-nrpe
+              - tier1-nagios-plugins
+            state: absent
+        - user:
+            name: nagios
+            state: absent 
+        - group:
+            name: nagios
+            state: absent 
+
+- hosts:
+    - euclid-ral_proxy
+  become: yes
+  tasks:
+    - name: Ensure serve dir exists
+      file:
+        path: "/srv"
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Check if serve disk is mounted
+      set_fact:
+        serve_disk_mounted: "{{ ansible_mounts | selectattr('mount', 'eq', '/srv') | list | length | bool }}"
+
+   # - name: Ensure serve disk is formatted
+   #   filesystem:
+   #     dev: "/dev/vdb"
+   #     fstype: "ext4"
+   #   when: 
+   #     - not serve_disk_mounted 
+
+   # - name: Ensure serve disk is mounted
+   #   mount:
+   #     fstype: "ext4"
+   #     path: "/srv"
+   #     src: "/dev/vdb"
+   #     state: mounted
+...

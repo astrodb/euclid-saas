@@ -10,14 +10,14 @@ openhpc_slurm_partitions:
         name: "compute"
         num_nodes: "{{ groups['euclid-cam_compute'] | length }}"
         ram_mb: "{{ hostvars['euclid-cam-compute-0']['ansible_memtotal_mb'] }}"
-#  - name: "ral"
-#    default: no
-#    maxtime: "80:00:00"
-#    groups:
-#      - cluster_name: "euclid-ral"
-#        name: "compute"
-#        num_nodes: "{{ groups['euclid-ral_compute'] | length }}"
-#        ram_mb: "{{ hostvars['euclid-ral-compute-0']['ansible_memtotal_mb'] }}"
+  - name: "ral"
+    default: no
+    maxtime: "80:00:00"
+    groups:
+      - cluster_name: "euclid-ral"
+        name: "compute"
+        num_nodes: "{{ groups['euclid-ral_compute'] | length }}"
+        ram_mb: "{{ hostvars['euclid-ral-compute-0']['ansible_memtotal_mb'] }}"
 #  - name: "sausage"
 #    default: no
 #    maxtime: "80:00:00"
