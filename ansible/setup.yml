@@ -12,7 +12,9 @@
 # a ProxyJump intermediary.
 # Increase the number of connections permitted in the startup state
 # from the default of 10 to 50.
-- hosts: cluster_gw
+- hosts:
+    - cluster_gw
+    - cluster_ial
   become: yes
   tasks:
     - name: Increase gw connection concurrency for ProxyJump
@@ -22,6 +24,22 @@
         state: present
         regexp: "^[# ]*MaxStartups +[0-9]+:[0-9]+:[0-9]+"
         line: "MaxStartups 50:30:100"
+      notify: Restart sshd
+    - name: Prevent DNS lookups for incoming connections
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        create: no
+        state: present
+        regexp: "^[# ]*UseDNS"
+        line: "UseDNS no"
+      notify: Restart sshd
+    - name: Raise the permitted number of concurrent SSH sessions
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        create: no
+        state: present
+        regexp: "^[# ]*MaxSessions"
+        line: "MaxSessions 50"
       notify: Restart sshd
   handlers:
     - name: Restart sshd
