@@ -14,6 +14,23 @@
 # from the default of 10 to 50.
 - hosts: cluster_gw
   become: yes
+  vars:
+    # Provide increased memory resource for TCP buffers
+    gw_tcp_params:
+      - key: net.core.rmem_max
+        val: 8388608
+      - key: net.core.wmem_max
+        val: 8388608
+      - key: net.core.rmem_default
+        val: 65536
+      - key: net.core.wmem_default
+        val: 65536
+      - key: net.ipv4.tcp_rmem
+        val: '4096 87380 8388608'
+      - key: net.ipv4.tcp_wmem
+        val: '4096 65536 8388608'
+      - key: net.ipv4.tcp_mem
+        val: '8388608 8388608 8388608'
   tasks:
     - name: Increase gw connection concurrency for ProxyJump
       lineinfile:
@@ -23,6 +40,14 @@
         regexp: "^[# ]*MaxStartups +[0-9]+:[0-9]+:[0-9]+"
         line: "MaxStartups 50:30:100"
       notify: Restart sshd
+
+    - name: TCP memory buffer tuning
+      sysctl:
+        name: "{{ item.key }}"
+        value: "{{ item.val }}"
+        state: present
+      with_items: "{{ gw_tcp_params }}"
+
   handlers:
     - name: Restart sshd
       systemd:
